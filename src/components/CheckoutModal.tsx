@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, CreditCard, Receipt, FileText, CheckCircle, Award, Printer, ShoppingBag, Mic, Volume2, Compass, MapPin, Sparkles, Check } from 'lucide-react';
+import { X, CreditCard, Receipt, FileText, CheckCircle, Award, Printer, ShoppingBag, Mic, Volume2, Compass, MapPin, Sparkles, Check, Star } from 'lucide-react';
 import { CartItem, StoreSettings, Customer, Order } from '../types';
 import { formatMoney } from '../data/catalog';
 
@@ -28,6 +28,13 @@ export default function CheckoutModal({
   const [city, setCity] = useState('');
   const [county, setCounty] = useState(deliveryLocation);
   const [payment, setPayment] = useState('mpesa');
+
+  // Feedback/Experience Rating states
+  const [rating, setRating] = useState<number>(0);
+  const [hoverRating, setHoverRating] = useState<number>(0);
+  const [feedbackComment, setFeedbackComment] = useState<string>('');
+  const [feedbackSubmitted, setFeedbackSubmitted] = useState<boolean>(false);
+  const [showFeedbackModal, setShowFeedbackModal] = useState<boolean>(true);
 
   // New States: Special Instructions Delivery Notes
   const [notes, setNotes] = useState('');
@@ -481,6 +488,110 @@ export default function CheckoutModal({
 
     return (
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 overflow-y-auto">
+        {showFeedbackModal && (
+          <div className="fixed inset-0 bg-black/65 flex items-center justify-center p-4 z-[100] animate-fade-in">
+            <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl w-full max-w-md border border-gray-250 dark:border-gray-800 p-6 flex flex-col items-center text-center space-y-5 animate-scale-up border-r-4 border-r-[#782045]">
+              <div className="w-12 h-12 rounded-full bg-amber-50 dark:bg-amber-950/40 text-amber-500 flex items-center justify-center shadow-inner">
+                <Star className="w-6 h-6 fill-amber-400 text-amber-500 animate-pulse" />
+              </div>
+
+              <div className="space-y-1.5">
+                <h3 className="text-lg font-black text-[#782045] dark:text-pink-300">Rate Your Experience</h3>
+                <p className="text-xs text-gray-500 dark:text-gray-400 font-bold px-2">
+                  Asante for choosing Kipchimatt! How was your overall shopping experience today?
+                </p>
+              </div>
+
+              {!feedbackSubmitted ? (
+                <>
+                  {/* 1-5 Star interactive selector */}
+                  <div className="flex gap-2 py-1">
+                    {[1, 2, 3, 4, 5].map((star) => {
+                      const active = star <= (hoverRating || rating);
+                      return (
+                        <button
+                          key={star}
+                          type="button"
+                          onClick={() => setRating(star)}
+                          onMouseEnter={() => setHoverRating(star)}
+                          onMouseLeave={() => setHoverRating(0)}
+                          className="p-1 cursor-pointer hover:scale-125 transition-transform"
+                        >
+                          <Star 
+                            className={`w-8 h-8 transition-colors ${
+                              active 
+                                ? 'fill-amber-400 text-amber-500' 
+                                : 'text-gray-300 dark:text-gray-700'
+                            }`} 
+                          />
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Optional rating descriptions */}
+                  {rating > 0 && (
+                    <span className="text-xs font-black text-[#782045] bg-[#782045]/5 dark:text-pink-300 dark:bg-[#782045]/15 px-3 py-1 rounded-full uppercase tracking-wider">
+                      {rating === 1 && '😢 Poor'}
+                      {rating === 2 && '😕 Below Average'}
+                      {rating === 3 && '😐 Average / Okay'}
+                      {rating === 4 && '🙂 Good'}
+                      {rating === 5 && '😍 Exceptional! Perfect'}
+                    </span>
+                  )}
+
+                  {/* Comments text area */}
+                  <div className="w-full space-y-1 text-left">
+                    <label className="text-[10px] font-black text-gray-400 uppercase tracking-wider">Comments (Optional)</label>
+                    <textarea
+                      value={feedbackComment}
+                      onChange={(e) => setFeedbackComment(e.target.value)}
+                      placeholder="Tell us what we did great, or how we can improve..."
+                      rows={3}
+                      className="w-full p-3 text-xs bg-gray-50 dark:bg-gray-850 dark:text-white border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-1 focus:ring-[#782045] focus:outline-none font-semibold resize-none"
+                    />
+                  </div>
+
+                  <div className="flex gap-3.5 w-full pt-1">
+                    <button
+                      onClick={() => setShowFeedbackModal(false)}
+                      className="flex-1 border border-gray-200 text-gray-550 dark:text-gray-450 hover:bg-gray-50 dark:hover:bg-gray-800 font-extrabold text-xs py-2.5 rounded-full cursor-pointer transition-colors"
+                    >
+                      Skip
+                    </button>
+                    <button
+                      onClick={() => {
+                        if (rating === 0) {
+                          alert('Please select a star rating first!');
+                          return;
+                        }
+                        setFeedbackSubmitted(true);
+                        setTimeout(() => {
+                          setShowFeedbackModal(false);
+                        }, 1800);
+                      }}
+                      className="flex-1 bg-[#782045] hover:bg-[#4a1028] text-white font-extrabold text-xs py-2.5 rounded-full shadow-lg cursor-pointer transition-colors"
+                    >
+                      Submit Feedback
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className="py-6 flex flex-col items-center space-y-3">
+                  <div className="w-12 h-12 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 flex items-center justify-center">
+                    <Check className="w-6 h-6 stroke-[3]" />
+                  </div>
+                  <div className="space-y-1">
+                    <h4 className="text-sm font-extrabold text-emerald-600">Feedback Submitted!</h4>
+                    <p className="text-[10px] text-gray-500 font-bold">
+                      Asante sana! Your rating and comments have been recorded.
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
         <div className="bg-white rounded-3xl shadow-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto animate-scale-up border border-gray-150 p-6 flex flex-col items-center text-center space-y-6">
           <div className="w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shadow-inner animate-bounce mt-4">
             <CheckCircle className="w-10 h-10" />

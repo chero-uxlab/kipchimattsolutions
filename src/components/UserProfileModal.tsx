@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   X, User, Award, MapPin, Phone, Mail, Search, 
   CheckCircle, Truck, Package, ShoppingBag, AlertCircle, Sparkles, HelpCircle
@@ -28,6 +28,51 @@ export default function UserProfileModal({
   const [searchError, setSearchError] = useState('');
   const [selectedTrackOrder, setSelectedTrackOrder] = useState<Order | null>(null);
   const [showRedeemTooltip, setShowRedeemTooltip] = useState(false);
+  const [deliveryProgress, setDeliveryProgress] = useState(25);
+
+  useEffect(() => {
+    if (!selectedTrackOrder) return;
+    
+    if (selectedTrackOrder.status === 'pending') {
+      setDeliveryProgress(5);
+      return;
+    }
+    if (selectedTrackOrder.status === 'completed') {
+      setDeliveryProgress(100);
+      return;
+    }
+    
+    // If en-route (processing), animate continuously from 10% to 90%
+    setDeliveryProgress(10);
+    const interval = setInterval(() => {
+      setDeliveryProgress(prev => {
+        if (prev >= 92) return 10;
+        return prev + 2;
+      });
+    }, 300);
+    
+    return () => clearInterval(interval);
+  }, [selectedTrackOrder?.id, selectedTrackOrder?.status]);
+
+  const getDestinationCoordinates = (city: string) => {
+    const c = city.trim().toLowerCase();
+    if (c.includes('mombasa')) return { lat: -4.0435, lng: 39.6682 };
+    if (c.includes('kisumu')) return { lat: -0.0917, lng: 34.7680 };
+    if (c.includes('eldoret')) return { lat: 0.5143, lng: 35.2698 };
+    if (c.includes('nakuru')) return { lat: -0.3031, lng: 36.0800 };
+    return { lat: -1.2921, lng: 36.8219 };
+  };
+
+  const startLat = -1.2863;
+  const startLng = 36.8172;
+  const dest = selectedTrackOrder ? getDestinationCoordinates(selectedTrackOrder.customer.city) : { lat: -1.2921, lng: 36.8219 };
+  const currentLat = startLat + (dest.lat - startLat) * (deliveryProgress / 100);
+  const currentLng = startLng + (dest.lng - startLng) * (deliveryProgress / 100);
+
+  // visual percentage positions for truck
+  const riderLeft = 12 + (78 - 12) * (deliveryProgress / 100);
+  const riderBounce = Math.sin((deliveryProgress / 100) * Math.PI * 3) * 10;
+  const riderBottom = 28 + (64 - 28) * (deliveryProgress / 100) + riderBounce;
 
   if (!isOpen) return null;
 
@@ -485,17 +530,17 @@ export default function UserProfileModal({
                       {/* Dynamic Rider Location Marker */}
                       {selectedTrackOrder.status !== 'completed' ? (
                         <div 
-                          className="absolute flex flex-col items-center transition-all duration-1000 z-10"
+                          className="absolute flex flex-col items-center transition-all duration-300 z-10"
                           style={{
-                            left: selectedTrackOrder.status === 'pending' ? '45px' : '260px',
-                            bottom: selectedTrackOrder.status === 'pending' ? '60px' : '45px'
+                            left: `${riderLeft}%`,
+                            bottom: `${riderBottom}%`
                           }}
                         >
                           <div className="bg-amber-500 text-white p-1.5 rounded-full shadow-lg border border-white animate-pulse">
                             <Truck className="w-4 h-4" />
                           </div>
                           <span className="text-[8px] bg-amber-600 text-white px-1.5 py-0.5 rounded-full font-extrabold mt-1 tracking-wide uppercase">
-                            {selectedTrackOrder.status === 'pending' ? 'Disbursing' : 'Rider En-Route'}
+                            {selectedTrackOrder.status === 'pending' ? 'Disbursing' : `En-Route (${Math.round(deliveryProgress)}%)`}
                           </span>
                         </div>
                       ) : (
@@ -522,20 +567,21 @@ export default function UserProfileModal({
                       </div>
                       
                       <div className="space-y-1 pt-2 sm:pt-0 border-t sm:border-t-0 sm:border-l border-gray-150 dark:border-gray-800 sm:pl-3">
-                        <span className="text-[9px] text-gray-400 font-bold uppercase tracking-wider block">Delivery Destination Coordinates</span>
-                        <div className="font-extrabold text-gray-750 dark:text-gray-300 flex items-center gap-1.5">
-                          <span className="inline-block w-2 h-2 rounded-full bg-emerald-600" />
-                          <span>
-                            {selectedTrackOrder.customer.city.trim().toLowerCase().includes('mombasa') 
-                              ? '4.0435° S, 39.6682° E' 
-                              : selectedTrackOrder.customer.city.trim().toLowerCase().includes('kisumu') 
-                              ? '0.0917° S, 34.7680° E' 
-                              : selectedTrackOrder.customer.city.trim().toLowerCase().includes('eldoret') 
-                              ? '0.5143° N, 35.2698° E' 
-                              : selectedTrackOrder.customer.city.trim().toLowerCase().includes('nakuru') 
-                              ? '0.3031° S, 36.0800° E' 
-                              : '1.2921° S, 36.8219° E'}
-                          </span>
+                        <span className="text-[9px] text-gray-400 font-bold uppercase tracking-wider block flex items-center gap-1">
+                          <span>Delivery Destination Coordinates</span>
+                          {selectedTrackOrder.status === 'processing' && (
+                            <span className="inline-block w-1.5 h-1.5 rounded-full bg-amber-500 animate-ping" />
+                          )}
+                        </span>
+                        <div className="font-extrabold text-gray-750 dark:text-gray-300 flex flex-col gap-1">
+                          <div className="flex items-center gap-1.5 text-[10px] text-[#782045] dark:text-pink-300 bg-[#782045]/5 dark:bg-[#782045]/10 px-2 py-1 rounded">
+                            <span className="font-black text-[8px] uppercase">Rider Live:</span>
+                            <span className="font-mono">{Math.abs(currentLat).toFixed(4)}° S, {Math.abs(currentLng).toFixed(4)}° E</span>
+                          </div>
+                          <div className="flex items-center gap-1.5 mt-0.5 text-gray-500 dark:text-gray-450 text-[10px]">
+                            <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-600" />
+                            <span>Destination: {Math.abs(dest.lat).toFixed(4)}° S, {Math.abs(dest.lng).toFixed(4)}° E</span>
+                          </div>
                         </div>
                         <span className="text-[9px] text-gray-400 font-semibold block truncate">
                           {selectedTrackOrder.customer.address}, {selectedTrackOrder.customer.city}

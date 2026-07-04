@@ -715,6 +715,7 @@ export default function App() {
             onToggleCompare={handleToggleCompare}
             orders={orders}
             currentCustomer={currentCustomer}
+            cart={cart}
           />
 
           {/* Beautiful Supermarket Shopper Footer */}

@@ -5,7 +5,7 @@ import {
   Heart, ShoppingCart, Check, Star, AlertCircle, Sparkle,
   HeartPulse, Shirt, Trophy, BookOpen
 } from 'lucide-react';
-import { Product, StoreSettings, Order, Customer } from '../types';
+import { Product, StoreSettings, Order, Customer, CartItem } from '../types';
 import { categoryMeta, formatMoney, calcDiscount } from '../data/catalog';
 
 interface StorefrontProps {
@@ -23,6 +23,7 @@ interface StorefrontProps {
   onToggleCompare: (product: Product) => void;
   orders?: Order[];
   currentCustomer?: Customer | null;
+  cart: CartItem[];
 }
 
 export default function Storefront({
@@ -39,7 +40,8 @@ export default function Storefront({
   comparedProductIds,
   onToggleCompare,
   orders = [],
-  currentCustomer = null
+  currentCustomer = null,
+  cart
 }: StorefrontProps) {
   
   // Carousel DOM refs
@@ -184,6 +186,56 @@ export default function Storefront({
   };
 
   const recommendationData = getRecommendedProducts();
+
+  const getFrequentlyBoughtTogether = () => {
+    if (cart.length === 0) return [];
+
+    const cartProductIds = new Set(cart.map(item => item.id));
+    const coOccurrences: Record<number, number> = {};
+
+    orders.forEach(order => {
+      const hasCartProduct = order.items.some(item => cartProductIds.has(item.id));
+      if (hasCartProduct) {
+        order.items.forEach(item => {
+          if (!cartProductIds.has(item.id)) {
+            coOccurrences[item.id] = (coOccurrences[item.id] || 0) + item.qty;
+          }
+        });
+      }
+    });
+
+    let recommended = Object.entries(coOccurrences)
+      .map(([idStr, score]) => {
+        const id = Number(idStr);
+        const product = products.find(p => p.id === id);
+        return { product, score };
+      })
+      .filter((item): item is { product: Product; score: number } => !!item.product && item.product.stock > 0)
+      .sort((a, b) => b.score - a.score)
+      .map(item => item.product);
+
+    if (recommended.length < 3) {
+      const cartCategories = new Set(
+        cart.map(item => {
+          const prod = products.find(p => p.id === item.id);
+          return prod ? prod.category : '';
+        }).filter(Boolean)
+      );
+      const complementary = products.filter(p => 
+        !cartProductIds.has(p.id) && 
+        p.stock > 0 &&
+        (cartCategories.has(p.category) || p.rating >= 4.7)
+      );
+      const existingIds = new Set(recommended.map(p => p.id));
+      complementary.forEach(p => {
+        if (!existingIds.has(p.id)) {
+          recommended.push(p);
+        }
+      });
+    }
+
+    return recommended.slice(0, 3);
+  };
 
   const handleAddToCartClick = (p: Product) => {
     onAddToCart(p);
@@ -606,6 +658,88 @@ export default function Storefront({
                 ))}
               </div>
             </section>
+
+            {/* Frequently Bought Together Add-ons */}
+            {cart.length > 0 && getFrequentlyBoughtTogether().length > 0 && (
+              <section className="py-6 bg-[#782045]/5 dark:bg-pink-950/10 rounded-3xl p-5 border border-[#782045]/15 dark:border-pink-800/20 mb-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                  <div>
+                    <h2 className="text-sm font-black text-[#782045] dark:text-pink-300 flex items-center gap-2">
+                      <Sparkles className="w-5 h-5 text-amber-500 fill-amber-500 animate-pulse" />
+                      <span>Frequently Bought Together Add-ons</span>
+                    </h2>
+                    <p className="text-[11px] text-gray-500 dark:text-gray-400 font-bold">
+                      Based on items currently in your cart, customers also buy these items together:
+                    </p>
+                  </div>
+                  <span className="text-[9px] bg-[#782045] text-white font-black uppercase px-2.5 py-1 rounded-full tracking-wider self-start sm:self-auto shadow-sm">
+                    Kikapu Smart Suggest
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {getFrequentlyBoughtTogether().map(p => {
+                    const isOutOfStock = p.stock <= 0;
+                    return (
+                      <div 
+                        key={p.id} 
+                        className="bg-white dark:bg-gray-900 border border-gray-150 dark:border-gray-850 rounded-xl p-3 flex items-center gap-3.5 hover:shadow-lg transition-all"
+                      >
+                        <div 
+                          onClick={() => onProductClick(p)}
+                          className="w-14 h-14 bg-gray-50 dark:bg-gray-850 rounded-lg overflow-hidden flex-shrink-0 cursor-pointer"
+                        >
+                          <img 
+                            src={p.image} 
+                            alt={p.name} 
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).src = 'https://via.placeholder.com/400?text=Grocery';
+                            }}
+                          />
+                        </div>
+
+                        <div className="flex-1 min-w-0">
+                          <h4 
+                            onClick={() => onProductClick(p)}
+                            className="font-bold text-gray-800 dark:text-white text-xs line-clamp-1 hover:text-[#782045] dark:hover:text-pink-300 cursor-pointer"
+                          >
+                            {p.name}
+                          </h4>
+                          <span className="text-[10px] text-gray-400 font-bold block">{p.brand}</span>
+                          <span className="text-xs font-black text-[#782045] dark:text-pink-400 mt-0.5 block">
+                            {formatMoney(p.price)}
+                          </span>
+                        </div>
+
+                        <button
+                          onClick={() => handleAddToCartClick(p)}
+                          disabled={isOutOfStock}
+                          className={`px-3 py-1.5 rounded-lg font-black text-[10px] flex items-center gap-1 cursor-pointer transition-all ${
+                            isOutOfStock 
+                              ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                              : addedProductId === p.id
+                              ? 'bg-emerald-600 text-white'
+                              : 'bg-amber-500 text-gray-950 hover:bg-amber-400 hover:scale-105'
+                          }`}
+                        >
+                          {addedProductId === p.id ? (
+                            <>
+                              <Check className="w-3 h-3" />
+                              <span>Added</span>
+                            </>
+                          ) : (
+                            <>
+                              <span>+ Add</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              </section>
+            )}
 
             {/* Kikapu Chapchap Deals Carousel */}
             {deals.length > 0 && (
