@@ -22,7 +22,15 @@ interface AdminPortalProps {
   isLoggedIn: boolean;
   onLogin: () => void;
   onLogout: () => void;
-  onShowToast: (msg: string, type?: 'success' | 'error') => void;
+  onShowToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
+  adminAlerts?: Array<{
+    id: string;
+    productName: string;
+    stock: number;
+    timestamp: string;
+    sentTo: string;
+  }>;
+  onTriggerLowStockEmail?: (productName: string, stock: number) => void;
 }
 
 type AdminPage = 'dashboard' | 'products' | 'orders' | 'customers' | 'reports' | 'settings' | 'analytics';
@@ -37,7 +45,9 @@ export default function AdminPortal({
   isLoggedIn,
   onLogin,
   onLogout,
-  onShowToast
+  onShowToast,
+  adminAlerts = [],
+  onTriggerLowStockEmail
 }: AdminPortalProps) {
   // Navigation
   const [activePage, setActivePage] = useState<AdminPage>('dashboard');
@@ -75,6 +85,8 @@ export default function AdminPortal({
   const [setFee, setSetFee] = useState(settings.deliveryFee);
   const [setLowStock, setSetLowStock] = useState(settings.lowStockThreshold);
   const [setSeasonalTheme, setSetSeasonalTheme] = useState(settings.seasonalThemeEnabled ?? true);
+  const [setLowStockEmailEnabled, setSetLowStockEmailEnabled] = useState(settings.lowStockEmailEnabled ?? false);
+  const [setAdminEmailForNotifications, setSetAdminEmailForNotifications] = useState(settings.adminEmailForNotifications ?? 'admin@kipchimatt.co.ke');
 
   // --- Login Handler ---
   const handleLoginSubmit = (e: React.FormEvent) => {
@@ -221,7 +233,9 @@ export default function AdminPortal({
       freeDeliveryThreshold: Number(setFreeThreshold),
       deliveryFee: Number(setFee),
       lowStockThreshold: Number(setLowStock),
-      seasonalThemeEnabled: setSeasonalTheme
+      seasonalThemeEnabled: setSeasonalTheme,
+      lowStockEmailEnabled: setLowStockEmailEnabled,
+      adminEmailForNotifications: setAdminEmailForNotifications.trim()
     };
     onSettingsChange(payload);
     onShowToast('Store settings updated. All storefront layers updated.', 'success');
@@ -1348,7 +1362,8 @@ export default function AdminPortal({
 
         {/* --- PAGE: CONFIGURATION SETTINGS --- */}
         {activePage === 'settings' && (
-          <div className="bg-white border border-gray-150 rounded-xl p-6 shadow-sm max-w-2xl">
+          <div className="space-y-6">
+            <div className="bg-white border border-gray-150 rounded-xl p-6 shadow-sm max-w-2xl">
             <h3 className="font-extrabold text-gray-800 text-sm border-b border-gray-100 pb-2 mb-6">
               Store Parameters & Shipping Fees
             </h3>
@@ -1441,6 +1456,38 @@ export default function AdminPortal({
                 </label>
               </div>
 
+              <div className="bg-[#782045]/5 p-4 rounded-xl border border-[#782045]/15 space-y-4 mt-2">
+                <label className="flex items-center gap-3 cursor-pointer select-none">
+                  <input 
+                    type="checkbox"
+                    checked={setLowStockEmailEnabled}
+                    onChange={(e) => setSetLowStockEmailEnabled(e.target.checked)}
+                    className="rounded border-gray-300 text-[#782045] focus:ring-[#782045] w-4.5 h-4.5 cursor-pointer"
+                  />
+                  <div>
+                    <span className="block font-bold text-gray-800 text-xs">Enable Low-Stock Email Alerts (Threshold: &lt; 3 Units)</span>
+                    <span className="block text-[10px] text-gray-500 font-medium">
+                      Enable instant simulated email notification alerts whenever any product stock level falls below 3 units after an order is processed.
+                    </span>
+                  </div>
+                </label>
+
+                {setLowStockEmailEnabled && (
+                  <div className="pt-3 border-t border-[#782045]/10">
+                    <label className="block font-bold text-gray-700 uppercase tracking-wide mb-1.5">Admin Notification Email</label>
+                    <input 
+                      type="email" 
+                      required={setLowStockEmailEnabled}
+                      value={setAdminEmailForNotifications}
+                      onChange={(e) => setSetAdminEmailForNotifications(e.target.value)}
+                      placeholder="e.g. admin@kipchimatt.co.ke"
+                      className="w-full max-w-md px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-[#782045] bg-white font-semibold text-gray-750"
+                    />
+                    <p className="text-[10px] text-gray-400 mt-1">This is where automated low-stock notices will be dispatched.</p>
+                  </div>
+                )}
+              </div>
+
               <button 
                 type="submit"
                 className="bg-[#782045] hover:bg-[#4a1028] text-white font-bold py-2.5 px-6 rounded-lg flex items-center gap-2 cursor-pointer shadow-sm transition-colors mt-6 text-xs"
@@ -1449,6 +1496,50 @@ export default function AdminPortal({
                 <span>Save Store Configurations</span>
               </button>
             </form>
+          </div>
+
+          {/* Live Admin Email Notifications Log (Subtle and clean) */}
+          <div className="bg-white border border-gray-150 rounded-xl p-6 shadow-sm max-w-2xl mt-6">
+            <h3 className="font-extrabold text-gray-800 text-xs border-b border-gray-100 pb-2 mb-4 flex items-center gap-2 uppercase tracking-wider">
+              <ShieldCheck className="w-4.5 h-4.5 text-emerald-600" />
+              <span>Admin Email Notifications Log</span>
+            </h3>
+            <p className="text-gray-500 text-xs mb-4 leading-relaxed font-semibold">
+              History of automated low-stock notice dispatches. Alerts are automatically triggered and simulated to the designated recipient whenever a product stock level drops below 3 units.
+            </p>
+            
+            {adminAlerts.length === 0 ? (
+              <div className="text-center py-8 bg-gray-50 rounded-xl border border-dashed border-gray-200 text-gray-400 font-bold text-xs">
+                No email alerts dispatched yet. All inventory levels are stable.
+              </div>
+            ) : (
+              <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
+                {adminAlerts.map(alert => (
+                  <div key={alert.id} className="p-3 bg-gray-50 rounded-lg border border-gray-150 flex items-start justify-between gap-4 text-xs font-semibold">
+                    <div>
+                      <div className="text-gray-800 font-bold">
+                        Low Stock Alert: <span className="text-[#782045] font-black">"{alert.productName}"</span>
+                      </div>
+                      <div className="text-gray-500 text-[10px] mt-0.5">
+                        Recipient Email: <span className="text-gray-700 font-extrabold">{alert.sentTo}</span>
+                      </div>
+                      <div className="text-[9px] text-gray-400 mt-1 font-semibold">
+                        {new Date(alert.timestamp).toLocaleString()}
+                      </div>
+                    </div>
+                    <div className="text-right flex flex-col items-end shrink-0">
+                      <span className="bg-red-50 text-red-600 text-[10px] font-black px-2.5 py-0.5 rounded border border-red-100">
+                        Current Stock: {alert.stock}
+                      </span>
+                      <span className="text-[9px] text-emerald-600 font-extrabold flex items-center gap-1 mt-2 uppercase tracking-wider">
+                        <CheckCheck className="w-3.5 h-3.5" /> Dispatched
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
           </div>
         )}
 

@@ -276,6 +276,35 @@ export default function App() {
     return saved ? JSON.parse(saved) : null;
   });
 
+  // --- Admin Low Stock Alerts Log ---
+  const [adminAlerts, setAdminAlerts] = useState<Array<{
+    id: string;
+    productName: string;
+    stock: number;
+    timestamp: string;
+    sentTo: string;
+  }>>(() => {
+    const saved = localStorage.getItem('kipchimatt_admin_alerts');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('kipchimatt_admin_alerts', JSON.stringify(adminAlerts));
+  }, [adminAlerts]);
+
+  const handleTriggerLowStockEmail = (productName: string, stock: number) => {
+    const emailTo = settings.adminEmailForNotifications || settings.storeEmail || 'admin@kipchimatt.co.ke';
+    const newAlert = {
+      id: uid(),
+      productName,
+      stock,
+      timestamp: new Date().toISOString(),
+      sentTo: emailTo
+    };
+    setAdminAlerts(prev => [newAlert, ...prev]);
+    showToast(`[Admin Email Alert] Low stock notice sent for "${productName}" (Stock: ${stock})`, 'info');
+  };
+
   // --- Toasts Notifications Stack ---
   const [toasts, setToasts] = useState<ToastMsg[]>([]);
 
@@ -534,7 +563,11 @@ export default function App() {
       return prev.map(p => {
         const cartMatch = cart.find(c => c.id === p.id);
         if (cartMatch) {
-          return { ...p, stock: Math.max(0, p.stock - cartMatch.qty) };
+          const nextStock = Math.max(0, p.stock - cartMatch.qty);
+          if (settings.lowStockEmailEnabled && nextStock < 3 && p.stock >= 3) {
+            handleTriggerLowStockEmail(p.name, nextStock);
+          }
+          return { ...p, stock: nextStock };
         }
         return p;
       });
@@ -593,9 +626,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col antialiased">
-      
-      {/* Seasonal Festive Particles Overlay */}
-      <SeasonalParticles enabled={!!settings.seasonalThemeEnabled} />
       
       {/* Dynamic Connectivity Offline Alert Bar / State Recovery Banner */}
       {showOnlineStatusMsg && (
@@ -683,6 +713,8 @@ export default function App() {
             activeSearch={activeSearch}
             comparedProductIds={comparedProducts.map(p => p.id)}
             onToggleCompare={handleToggleCompare}
+            orders={orders}
+            currentCustomer={currentCustomer}
           />
 
           {/* Beautiful Supermarket Shopper Footer */}
@@ -831,6 +863,8 @@ export default function App() {
             setCurrentView('shop');
           }}
           onShowToast={showToast}
+          adminAlerts={adminAlerts}
+          onTriggerLowStockEmail={handleTriggerLowStockEmail}
         />
       )}
 
@@ -971,109 +1005,110 @@ export default function App() {
         onLogoutCustomer={handleLogoutCustomer}
       />
 
-      {/* Floating Scroll to Top Arrow */}
-      {scrollY > 300 && (
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-24 right-6 z-[100] bg-[#782045] hover:bg-[#4a1028] text-white p-3.5 rounded-full shadow-2xl cursor-pointer hover:scale-110 transition-all border border-white/20 flex items-center justify-center animate-bounce"
-          title="Go to Top"
-        >
-          <ArrowUp className="w-5 h-5" />
-        </button>
-      )}
+      {/* Integrated Aligned Accessibility & Navigation Controls */}
+      <div className="fixed bottom-6 right-6 z-[100] flex items-center gap-2.5">
+        {scrollY > 300 && (
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="bg-[#782045] hover:bg-[#4a1028] text-white p-3.5 rounded-full shadow-2xl cursor-pointer hover:scale-110 transition-all border border-white/20 flex items-center justify-center"
+            title="Go to Top"
+          >
+            <ArrowUp className="w-5 h-5" />
+          </button>
+        )}
 
-      {/* Floating Accessibility Toolbar and Menu Popover */}
-      <div className="fixed bottom-6 left-6 z-[100]">
-        <button
-          onClick={() => setAccessibilityOpen(prev => !prev)}
-          className="bg-[#782045] hover:bg-[#4a1028] text-white p-3.5 rounded-full shadow-2xl cursor-pointer hover:scale-110 transition-all border border-white/20 flex items-center justify-center"
-          title="Accessibility Options"
-        >
-          <Settings className={`w-5 h-5 ${accessibilityOpen ? 'animate-spin' : ''}`} />
-        </button>
+        <div className="relative">
+          <button
+            onClick={() => setAccessibilityOpen(prev => !prev)}
+            className="bg-[#782045] hover:bg-[#4a1028] text-white p-3.5 rounded-full shadow-2xl cursor-pointer hover:scale-110 transition-all border border-white/20 flex items-center justify-center"
+            title="Accessibility Options"
+          >
+            <Settings className={`w-5 h-5 ${accessibilityOpen ? 'animate-spin' : ''}`} />
+          </button>
 
-        {accessibilityOpen && (
-          <div className="absolute bottom-16 left-0 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-5 rounded-2xl shadow-2xl w-72 space-y-4 animate-scale-up text-gray-800 dark:text-gray-100 border-l-4 border-l-[#782045]">
-            <div className="flex justify-between items-center border-b border-gray-100 dark:border-gray-800 pb-2.5">
-              <h3 className="font-extrabold text-sm flex items-center gap-2">
-                <Eye className="w-4.5 h-4.5 text-[#782045]" />
-                <span>Accessibility Hub</span>
-              </h3>
-              <button 
-                onClick={() => setAccessibilityOpen(false)}
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 cursor-pointer"
+          {accessibilityOpen && (
+            <div className="absolute bottom-16 right-0 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-5 rounded-2xl shadow-2xl w-72 space-y-4 animate-scale-up text-gray-800 dark:text-gray-100 border-r-4 border-r-[#782045]">
+              <div className="flex justify-between items-center border-b border-gray-100 dark:border-gray-800 pb-2.5">
+                <h3 className="font-extrabold text-sm flex items-center gap-2 text-gray-800 dark:text-white">
+                  <Eye className="w-4.5 h-4.5 text-[#782045]" />
+                  <span>Accessibility Hub</span>
+                </h3>
+                <button 
+                  onClick={() => setAccessibilityOpen(false)}
+                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Font Resize Slider */}
+              <div className="space-y-1.5">
+                <div className="flex justify-between text-xs font-bold text-gray-500">
+                  <span>Font Scaling</span>
+                  <span className="text-[#782045] font-extrabold">{Math.round(fontSizeScale * 100)}%</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button 
+                    onClick={() => setFontSizeScale(Math.max(0.85, fontSizeScale - 0.15))}
+                    className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-xs font-bold hover:bg-gray-200"
+                  >
+                    A-
+                  </button>
+                  <input 
+                    type="range"
+                    min="0.85"
+                    max="1.45"
+                    step="0.15"
+                    value={fontSizeScale}
+                    onChange={(e) => setFontSizeScale(parseFloat(e.target.value))}
+                    className="flex-1 accent-[#782045]"
+                  />
+                  <button 
+                    onClick={() => setFontSizeScale(Math.min(1.45, fontSizeScale + 0.15))}
+                    className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-xs font-bold hover:bg-gray-200"
+                  >
+                    A+
+                  </button>
+                </div>
+              </div>
+
+              {/* High Contrast Mode Toggle */}
+              <label className="flex items-center justify-between cursor-pointer select-none py-1">
+                <span className="text-xs font-bold text-gray-600 dark:text-gray-300">High Contrast</span>
+                <input 
+                  type="checkbox"
+                  checked={highContrast}
+                  onChange={() => setHighContrast(!highContrast)}
+                  className="rounded border-gray-350 dark:border-gray-750 text-[#782045] focus:ring-[#782045] w-4 h-4 cursor-pointer"
+                />
+              </label>
+
+              {/* Monochrome Mode Toggle */}
+              <label className="flex items-center justify-between cursor-pointer select-none py-1">
+                <span className="text-xs font-bold text-gray-600 dark:text-gray-300">Monochrome / Grayscale</span>
+                <input 
+                  type="checkbox"
+                  checked={monochrome}
+                  onChange={() => setMonochrome(!monochrome)}
+                  className="rounded border-gray-350 dark:border-gray-750 text-[#782045] focus:ring-[#782045] w-4 h-4 cursor-pointer"
+                />
+              </label>
+
+              {/* Reset Defaults button */}
+              <button
+                onClick={() => {
+                  setFontSizeScale(1);
+                  setHighContrast(false);
+                  setMonochrome(false);
+                  showToast('Accessibility preferences reset.', 'info');
+                }}
+                className="w-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 text-[10px] font-extrabold text-gray-600 dark:text-gray-300 uppercase tracking-widest py-2 rounded-xl transition-colors cursor-pointer"
               >
-                <X className="w-4 h-4" />
+                Reset Preferences
               </button>
             </div>
-
-            {/* Font Resize Slider */}
-            <div className="space-y-1.5">
-              <div className="flex justify-between text-xs font-bold text-gray-500">
-                <span>Font Scaling</span>
-                <span className="text-[#782045] font-extrabold">{Math.round(fontSizeScale * 100)}%</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <button 
-                  onClick={() => setFontSizeScale(Math.max(0.85, fontSizeScale - 0.15))}
-                  className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-xs font-bold hover:bg-gray-200"
-                >
-                  A-
-                </button>
-                <input 
-                  type="range"
-                  min="0.85"
-                  max="1.45"
-                  step="0.15"
-                  value={fontSizeScale}
-                  onChange={(e) => setFontSizeScale(parseFloat(e.target.value))}
-                  className="flex-1 accent-[#782045]"
-                />
-                <button 
-                  onClick={() => setFontSizeScale(Math.min(1.45, fontSizeScale + 0.15))}
-                  className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-xs font-bold hover:bg-gray-200"
-                >
-                  A+
-                </button>
-              </div>
-            </div>
-
-            {/* High Contrast Mode Toggle */}
-            <label className="flex items-center justify-between cursor-pointer select-none py-1">
-              <span className="text-xs font-bold text-gray-600 dark:text-gray-300">High Contrast</span>
-              <input 
-                type="checkbox"
-                checked={highContrast}
-                onChange={() => setHighContrast(!highContrast)}
-                className="rounded border-gray-350 dark:border-gray-750 text-[#782045] focus:ring-[#782045] w-4 h-4 cursor-pointer"
-              />
-            </label>
-
-            {/* Monochrome Mode Toggle */}
-            <label className="flex items-center justify-between cursor-pointer select-none py-1">
-              <span className="text-xs font-bold text-gray-600 dark:text-gray-300">Monochrome / Grayscale</span>
-              <input 
-                type="checkbox"
-                checked={monochrome}
-                onChange={() => setMonochrome(!monochrome)}
-                className="rounded border-gray-350 dark:border-gray-750 text-[#782045] focus:ring-[#782045] w-4 h-4 cursor-pointer"
-              />
-            </label>
-
-            {/* Reset Defaults button */}
-            <button
-              onClick={() => {
-                setFontSizeScale(1);
-                setHighContrast(false);
-                setMonochrome(false);
-                showToast('Accessibility preferences reset.', 'info');
-              }}
-              className="w-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 text-[10px] font-extrabold text-gray-600 dark:text-gray-300 uppercase tracking-widest py-2 rounded-xl transition-colors cursor-pointer"
-            >
-              Reset Preferences
-            </button>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       {/* Low Stock Urgent Purchase Popup Notification Modal */}

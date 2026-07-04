@@ -4,7 +4,7 @@ import {
   Pencil, PawPrint, Wrench, Armchair, ChevronLeft, ChevronRight, 
   Heart, ShoppingCart, Check, Star, AlertCircle, Sparkle 
 } from 'lucide-react';
-import { Product, StoreSettings } from '../types';
+import { Product, StoreSettings, Order, Customer } from '../types';
 import { categoryMeta, formatMoney, calcDiscount } from '../data/catalog';
 
 interface StorefrontProps {
@@ -20,6 +20,8 @@ interface StorefrontProps {
   activeSearch: string;
   comparedProductIds: number[];
   onToggleCompare: (product: Product) => void;
+  orders?: Order[];
+  currentCustomer?: Customer | null;
 }
 
 export default function Storefront({
@@ -34,7 +36,9 @@ export default function Storefront({
   activeCategory,
   activeSearch,
   comparedProductIds,
-  onToggleCompare
+  onToggleCompare,
+  orders = [],
+  currentCustomer = null
 }: StorefrontProps) {
   
   // Carousel DOM refs
@@ -109,32 +113,67 @@ export default function Storefront({
     return list;
   };
 
-  // Find recommended products based on categories of items in the wishlist
+  // Find recommended products based on categories of items in the wishlist and previous purchases
   const getRecommendedProducts = () => {
+    // 1. Check purchased categories from previous orders
+    let purchasedCategories: string[] = [];
+    
+    // Find orders for current customer
+    const customerOrders = currentCustomer && orders
+      ? orders.filter(o => o.customer.phone.trim().toLowerCase() === currentCustomer.phone.trim().toLowerCase())
+      : [];
+      
+    if (customerOrders.length > 0) {
+      const purchasedItemNames = new Set<string>();
+      customerOrders.forEach(o => {
+        o.items.forEach(item => {
+          purchasedItemNames.add(item.name.toLowerCase());
+          // Find the product to get its category
+          const prod = products.find(p => p.name.toLowerCase() === item.name.toLowerCase() || p.id === item.id);
+          if (prod && !purchasedCategories.includes(prod.category)) {
+            purchasedCategories.push(prod.category);
+          }
+        });
+      });
+    }
+
+    // 2. Check wishlist categories
     const wishlistedProds = products.filter(p => wishlist.includes(p.id));
     const wishlistCategories = Array.from(new Set(wishlistedProds.map(p => p.category)));
 
-    if (wishlistCategories.length === 0) {
-      // Return high-rated trending items as fallback
+    // Combined preferred categories (purchased first, then wishlist)
+    const preferredCategories = Array.from(new Set([...purchasedCategories, ...wishlistCategories]));
+
+    if (preferredCategories.length === 0) {
+      // Fallback: high-rated trending items
       return {
         isFallback: true,
+        reason: 'trending',
         items: products.filter(p => (p.rating || 0) >= 4.7 && !wishlist.includes(p.id)).slice(0, 5)
       };
     }
 
+    // Get suggestions from these categories, excluding products already purchased or wishlisted
+    const alreadyPurchasedIds = new Set<number>();
+    customerOrders.forEach(o => o.items.forEach(item => alreadyPurchasedIds.add(item.id)));
+
     const suggestions = products.filter(p => 
-      wishlistCategories.includes(p.category) && !wishlist.includes(p.id)
+      preferredCategories.includes(p.category) && 
+      !wishlist.includes(p.id) &&
+      !alreadyPurchasedIds.has(p.id)
     );
 
     if (suggestions.length > 0) {
       return {
         isFallback: false,
+        reason: purchasedCategories.length > 0 ? 'purchased' : 'wishlist',
         items: suggestions.slice(0, 5)
       };
     }
     
     return {
       isFallback: true,
+      reason: 'trending',
       items: products.filter(p => (p.rating || 0) >= 4.7 && !wishlist.includes(p.id)).slice(0, 5)
     };
   };
@@ -377,8 +416,49 @@ export default function Storefront({
     <div className="px-4 pb-12">
       <div className="max-w-7xl mx-auto">
         
-        {/* Render filtered catalog results if Search or Category filter is active */}
-        {activeSearch || activeCategory === 'all' || (activeCategory && activeCategory !== 'all') ? (
+        {loading ? (
+          /* PREMIUM SHIMMERING SKELETON UI FOR BOTH HOME AND FILTER VIEW */
+          <div className="space-y-12 py-6">
+            {/* Banner skeleton */}
+            <div className="w-full h-44 sm:h-56 md:h-64 rounded-3xl bg-gray-200 dark:bg-gray-800 animate-pulse" />
+            
+            {/* Category tiles skeleton */}
+            <div className="space-y-3">
+              <div className="h-5 bg-gray-200 dark:bg-gray-800 rounded w-48 animate-pulse" />
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
+                {Array.from({ length: 8 }).map((_, idx) => (
+                  <div key={idx} className="bg-white dark:bg-gray-900 border border-gray-150 dark:border-gray-800 rounded-xl p-4 text-center space-y-2 animate-pulse">
+                    <div className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800 mx-auto" />
+                    <div className="h-3 bg-gray-200 dark:bg-gray-800 rounded w-3/4 mx-auto" />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Carousel shelves skeleton */}
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <div className="h-5 bg-gray-200 dark:bg-gray-800 rounded w-64 animate-pulse" />
+                <div className="flex gap-1.5">
+                  <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-800 animate-pulse" />
+                  <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-800 animate-pulse" />
+                </div>
+              </div>
+              <div className="flex gap-4 overflow-x-auto pb-4">
+                {Array.from({ length: 5 }).map((_, idx) => (
+                  <div key={idx} className="min-w-[210px] bg-white dark:bg-gray-900 border border-gray-150 dark:border-gray-800 p-4 rounded-2xl space-y-4 animate-pulse">
+                    <div className="h-44 bg-gray-200 dark:bg-gray-800 rounded-xl w-full" />
+                    <div className="space-y-2">
+                      <div className="h-3 bg-gray-200 dark:bg-gray-800 rounded w-1/3" />
+                      <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded w-5/6" />
+                      <div className="h-3 bg-gray-200 dark:bg-gray-800 rounded w-1/2" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : activeSearch || (activeCategory && activeCategory !== 'all') ? (
           <section className="py-6 min-h-[400px]">
             
             {/* STUNNING CATEGORY HERO BANNER */}
@@ -560,45 +640,6 @@ export default function Storefront({
               </section>
             )}
 
-             {/* Recommended for You personalized shelf */}
-            <section className="py-6 border-b border-gray-100">
-              <div className="mb-4">
-                <div className="flex items-center justify-between flex-wrap gap-2">
-                  <div>
-                    <h2 className="text-base font-extrabold text-gray-800 flex items-center gap-2">
-                      <Sparkles className="w-5 h-5 text-amber-500 fill-amber-500 animate-pulse" />
-                      <span>Recommended for You</span>
-                      {!recommendationData.isFallback && (
-                        <span className="text-[9px] bg-amber-100 text-amber-800 font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider">
-                          Tailored for You
-                        </span>
-                      )}
-                    </h2>
-                    <p className="text-gray-500 text-xs mt-0.5">
-                      {recommendationData.isFallback 
-                        ? 'Trending supermarket favorites we think you will love.' 
-                        : 'Curated products matching categories in your wishlist.'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {recommendationData.isFallback && (
-                <div className="mb-4 p-3.5 bg-amber-500/5 border border-amber-200/50 rounded-xl text-[11px] text-amber-800 font-semibold flex items-center gap-2">
-                  <Heart className="w-4 h-4 text-amber-600 fill-amber-600" />
-                  <span><strong>Tip:</strong> Tap the heart icon on your favorite items to unlock personalized recommendations tailored to your unique shopping profile!</span>
-                </div>
-              )}
-
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                {recommendationData.items.map(p => (
-                  <div key={p.id}>
-                    {renderProductCard(p)}
-                  </div>
-                ))}
-              </div>
-            </section>
-
             {/* Popular Products Grid */}
             <section className="py-6">
               <div className="mb-4">
@@ -722,6 +763,49 @@ export default function Storefront({
                 </div>
               </section>
             )}
+
+            {/* Recommended for You Section based on Previous Purchases/Wishlist (Positioned perfectly at the bottom) */}
+            <section className="py-6 border-t border-gray-150 mt-4">
+              <div className="mb-4">
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <div>
+                    <h2 className="text-base font-extrabold text-gray-800 flex items-center gap-2">
+                      <Sparkles className="w-5 h-5 text-amber-500 fill-amber-500 animate-pulse" />
+                      <span>Recommended For You</span>
+                      {!recommendationData.isFallback && (
+                        <span className="text-[9px] bg-[#782045] text-white font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                          {recommendationData.reason === 'purchased' ? 'Based on Purchases' : 'Based on Wishlist'}
+                        </span>
+                      )}
+                    </h2>
+                    <p className="text-gray-500 text-xs mt-0.5">
+                      {recommendationData.isFallback 
+                        ? 'Trending supermarket favorites we think you will love.' 
+                        : recommendationData.reason === 'purchased'
+                        ? 'Selected products based on your previously purchased categories.'
+                        : 'Curated products matching categories in your wishlist.'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {recommendationData.isFallback && (
+                <div className="mb-5 p-4 bg-[#782045]/5 border border-[#782045]/15 rounded-2xl text-xs text-gray-600 font-semibold flex items-center gap-2.5">
+                  <Heart className="w-5 h-5 text-[#782045] fill-[#782045]" />
+                  <span>
+                    <strong>Personalize:</strong> Tap the heart icon on your favorite items or complete your first order to unlock smart, tailored recommendations matching your taste!
+                  </span>
+                </div>
+              )}
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                {recommendationData.items.map(p => (
+                  <div key={p.id}>
+                    {renderProductCard(p)}
+                  </div>
+                ))}
+              </div>
+            </section>
 
             {/* Shop by Brand Grouped Sections */}
             <section className="py-6 border-t border-gray-150 mt-4" id="brands-section">

@@ -59,6 +59,8 @@ export interface StoreSettings {
   deliveryFee: number;
   lowStockThreshold: number;
   seasonalThemeEnabled?: boolean;
+  lowStockEmailEnabled?: boolean;
+  adminEmailForNotifications?: string;
 }
 
 export interface CategoryMeta {

@@ -367,9 +367,143 @@ export default function UserProfileModal({
                     })}
                   </div>
 
-                  <div className="bg-white dark:bg-gray-850 rounded-xl p-3 border border-gray-150 dark:border-gray-800 flex justify-between items-center text-xs text-gray-600 dark:text-gray-400 font-semibold">
+                  <div className="bg-white dark:bg-gray-850 rounded-xl p-3.5 border border-gray-150 dark:border-gray-800 flex justify-between items-center text-xs text-gray-600 dark:text-gray-400 font-semibold shadow-sm">
                     <span>Payment: <strong className="text-gray-800 dark:text-gray-200 uppercase">{selectedTrackOrder.payment}</strong></span>
-                    <span>Grand Total: <strong className="text-[#782045] dark:text-pink-400">{formatMoney(selectedTrackOrder.total)}</strong></span>
+                    <span>Grand Total: <strong className="text-[#782045] dark:text-pink-400 font-bold">{formatMoney(selectedTrackOrder.total)}</strong></span>
+                  </div>
+
+                  {/* PREMIUM VISUAL TRACKING MAP & DELIVERY COORDINATES MODULE */}
+                  <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-4.5 space-y-4">
+                    <div className="flex items-center justify-between text-xs border-b border-gray-200/60 dark:border-gray-800 pb-3">
+                      <div>
+                        <span className="text-[10px] text-gray-400 font-bold uppercase block">Expected Arrival</span>
+                        <span className="font-extrabold text-gray-800 dark:text-gray-200 text-sm">
+                          {selectedTrackOrder.status === 'pending' 
+                            ? '45 - 55 Minutes (Awaiting Dispatch)' 
+                            : selectedTrackOrder.status === 'processing' 
+                            ? '15 - 25 Minutes (En-Route)' 
+                            : 'Delivered (Completed)'}
+                        </span>
+                      </div>
+                      <div className="text-right">
+                        <span className="text-[10px] text-gray-400 font-bold uppercase block">Rider Assigned</span>
+                        <span className="font-bold text-[#782045] dark:text-pink-400">
+                          {selectedTrackOrder.status === 'pending' ? 'Scheduling Rider...' : 'Kikapu Express Rider #04'}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Highly-styled Live Map Route Mockup */}
+                    <div className="relative h-44 bg-blue-50/50 dark:bg-slate-950 rounded-2xl border border-blue-100 dark:border-slate-800 overflow-hidden flex flex-col justify-between p-3 select-none">
+                      {/* Grid background lines */}
+                      <div className="absolute inset-0 bg-[linear-gradient(to_right,#e0f2fe_1px,transparent_1px),linear-gradient(to_bottom,#e0f2fe_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:24px_24px] opacity-40 pointer-events-none" />
+
+                      {/* Map Landmarks & Dynamic Visual Route */}
+                      <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+                        {/* Connecting delivery route path */}
+                        <path 
+                          d="M 40,110 Q 150,40 280,110 T 520,70" 
+                          fill="none" 
+                          stroke="#782045" 
+                          strokeWidth="3.5" 
+                          strokeDasharray="6 4" 
+                          className="opacity-75"
+                        />
+                        {/* Fulfilled path if rider has progressed */}
+                        {(selectedTrackOrder.status === 'processing' || selectedTrackOrder.status === 'completed') && (
+                          <path 
+                            d="M 40,110 Q 150,40 280,110 T 520,70" 
+                            fill="none" 
+                            stroke="#10b981" 
+                            strokeWidth="4" 
+                            strokeDasharray={selectedTrackOrder.status === 'completed' ? "0" : "8"}
+                            className="opacity-90 animate-[dash_2s_linear_infinite]"
+                          />
+                        )}
+                      </svg>
+
+                      {/* Landmark labels */}
+                      <div className="absolute top-4 left-6 bg-white/80 dark:bg-gray-950/80 px-2 py-0.5 rounded text-[8px] font-bold text-gray-400 border border-gray-150/50">
+                        Kikapu Supermarket Hub
+                      </div>
+                      <div className="absolute bottom-4 right-8 bg-white/80 dark:bg-gray-950/80 px-2 py-0.5 rounded text-[8px] font-bold text-gray-400 border border-gray-150/50">
+                        Destination Point
+                      </div>
+
+                      {/* Store Marker Pin (Starting Point) */}
+                      <div className="absolute left-[30px] bottom-[50px] flex flex-col items-center">
+                        <div className="w-8 h-8 rounded-full bg-[#782045] text-white flex items-center justify-center shadow-md border-2 border-white">
+                          <Package className="w-4 h-4" />
+                        </div>
+                      </div>
+
+                      {/* Destination Point Pin (End Point) */}
+                      <div className="absolute right-[40px] top-[40px] flex flex-col items-center">
+                        <div className="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-md border-2 border-white animate-bounce">
+                          <MapPin className="w-4 h-4" />
+                        </div>
+                      </div>
+
+                      {/* Dynamic Rider Location Marker */}
+                      {selectedTrackOrder.status !== 'completed' ? (
+                        <div 
+                          className="absolute flex flex-col items-center transition-all duration-1000 z-10"
+                          style={{
+                            left: selectedTrackOrder.status === 'pending' ? '45px' : '260px',
+                            bottom: selectedTrackOrder.status === 'pending' ? '60px' : '45px'
+                          }}
+                        >
+                          <div className="bg-amber-500 text-white p-1.5 rounded-full shadow-lg border border-white animate-pulse">
+                            <Truck className="w-4 h-4" />
+                          </div>
+                          <span className="text-[8px] bg-amber-600 text-white px-1.5 py-0.5 rounded-full font-extrabold mt-1 tracking-wide uppercase">
+                            {selectedTrackOrder.status === 'pending' ? 'Disbursing' : 'Rider En-Route'}
+                          </span>
+                        </div>
+                      ) : (
+                        <div className="absolute right-[45px] top-[15px] flex flex-col items-center z-10">
+                          <span className="text-[8px] bg-emerald-600 text-white px-1.5 py-0.5 rounded-full font-black tracking-wide uppercase shadow">
+                            Delivered
+                          </span>
+                        </div>
+                      )}
+
+                      <div className="w-full z-10" />
+                      <div className="w-full z-10" />
+                    </div>
+
+                    {/* Coordinates Grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-white dark:bg-gray-850 p-3.5 rounded-xl border border-gray-150 dark:border-gray-800">
+                      <div className="space-y-1">
+                        <span className="text-[9px] text-gray-400 font-bold uppercase tracking-wider block">Supermarket Dispatch Coordinates</span>
+                        <div className="font-extrabold text-gray-750 dark:text-gray-300 flex items-center gap-1.5">
+                          <span className="inline-block w-2 h-2 rounded-full bg-[#782045]" />
+                          <span>1.2863° S, 36.8172° E</span>
+                        </div>
+                        <span className="text-[9px] text-gray-400 font-semibold block">Kikapu Central Cold-Chain Depot</span>
+                      </div>
+                      
+                      <div className="space-y-1 pt-2 sm:pt-0 border-t sm:border-t-0 sm:border-l border-gray-150 dark:border-gray-800 sm:pl-3">
+                        <span className="text-[9px] text-gray-400 font-bold uppercase tracking-wider block">Delivery Destination Coordinates</span>
+                        <div className="font-extrabold text-gray-750 dark:text-gray-300 flex items-center gap-1.5">
+                          <span className="inline-block w-2 h-2 rounded-full bg-emerald-600" />
+                          <span>
+                            {selectedTrackOrder.customer.city.trim().toLowerCase().includes('mombasa') 
+                              ? '4.0435° S, 39.6682° E' 
+                              : selectedTrackOrder.customer.city.trim().toLowerCase().includes('kisumu') 
+                              ? '0.0917° S, 34.7680° E' 
+                              : selectedTrackOrder.customer.city.trim().toLowerCase().includes('eldoret') 
+                              ? '0.5143° N, 35.2698° E' 
+                              : selectedTrackOrder.customer.city.trim().toLowerCase().includes('nakuru') 
+                              ? '0.3031° S, 36.0800° E' 
+                              : '1.2921° S, 36.8219° E'}
+                          </span>
+                        </div>
+                        <span className="text-[9px] text-gray-400 font-semibold block truncate">
+                          {selectedTrackOrder.customer.address}, {selectedTrackOrder.customer.city}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}

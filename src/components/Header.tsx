@@ -43,10 +43,46 @@ export default function Header({
   onToggleTheme,
   onToggleUserProfile
 }: HeaderProps) {
+  const getInitialLanguage = () => {
+    const match = document.cookie.match(/googtrans=\/en\/([^;]+)/);
+    return match ? match[1] : 'en';
+  };
+
+  const [selectedLang, setSelectedLang] = useState(getInitialLanguage);
   const [searchVal, setSearchVal] = useState('');
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isListening, setIsListening] = useState(false);
+
+  const languages = [
+    { code: 'en', label: 'English', flag: '🇬🇧' },
+    { code: 'sw', label: 'Swahili', flag: '🇰🇪' },
+    { code: 'fr', label: 'Français', flag: '🇫🇷' },
+    { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
+    { code: 'es', label: 'Español', flag: '🇪🇸' },
+    { code: 'ar', label: 'العربية', flag: '🇸🇦' },
+    { code: 'hi', label: 'हिन्दी', flag: '🇮🇳' },
+    { code: 'zh-CN', label: '中文', flag: '🇨🇳' },
+    { code: 'pt', label: 'Português', flag: '🇵🇹' },
+    { code: 'it', label: 'Italiano', flag: '🇮🇹' },
+    { code: 'ja', label: '日本語', flag: '🇯🇵' },
+    { code: 'nl', label: 'Nederlands', flag: '🇳🇱' }
+  ];
+
+  const handleLanguageChange = (langCode: string) => {
+    setSelectedLang(langCode);
+    document.cookie = `googtrans=/en/${langCode}; path=/;`;
+    document.cookie = `googtrans=/en/${langCode}; path=/; domain=.localhost`;
+    document.cookie = `googtrans=/en/${langCode}; path=/; domain=${window.location.hostname}`;
+    
+    const selectEl = document.querySelector('.goog-te-combo') as HTMLSelectElement;
+    if (selectEl) {
+      selectEl.value = langCode;
+      selectEl.dispatchEvent(new Event('change'));
+    } else {
+      window.location.reload();
+    }
+  };
 
   const startVoiceListening = () => {
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
@@ -136,9 +172,7 @@ export default function Header({
 
           <div className="flex items-center gap-3">
             {/* Google Translate Select Container */}
-            <div id="google_translate_element" className="inline-block" />
-            
-            <span className="h-3 w-px bg-white/25" />
+            <div id="google_translate_element" style={{ display: 'none' }} />
 
             {currentView === 'shop' ? (
               <button 
@@ -211,35 +245,57 @@ export default function Header({
             <span>Categories</span>
           </button>
 
-          {/* Search Bar */}
-          <form onSubmit={handleSearchSubmit} className="flex-1 max-w-lg relative">
-            <input 
-              type="text" 
-              placeholder="Search groceries, essentials, household, liquor..." 
-              value={searchVal}
-              onChange={(e) => setSearchVal(e.target.value)}
-              className="w-full py-2.5 pl-5 pr-20 rounded-full border-none bg-white text-gray-800 placeholder-gray-400 font-medium text-sm shadow-inner focus:outline-none focus:ring-3 focus:ring-white/30 transition-all"
-            />
-            <button 
-              type="button"
-              onClick={startVoiceListening}
-              className={`absolute right-10 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center cursor-pointer transition-all ${isListening ? 'bg-red-500 text-white animate-pulse shadow-md ring-4 ring-red-100' : 'text-gray-400 hover:text-[#782045] hover:bg-gray-100'}`}
-              title="Search hands-free with voice"
-            >
-              {isListening ? (
-                <MicOff className="w-4 h-4" />
-              ) : (
-                <Mic className="w-4 h-4" />
-              )}
-            </button>
-            <button 
-              type="submit"
-              className="absolute right-1 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#9c2b5b] hover:bg-[#4a1028] text-white flex items-center justify-center cursor-pointer transition-colors shadow-sm"
-              aria-label="Search"
-            >
-              <Search className="w-4 h-4" />
-            </button>
-          </form>
+          {/* Search Bar & Custom 12-Language Selector */}
+          <div className="flex-1 max-w-xl flex items-center gap-2">
+            <form onSubmit={handleSearchSubmit} className="flex-1 relative">
+              <input 
+                type="text" 
+                placeholder="Search groceries, essentials, household, liquor..." 
+                value={searchVal}
+                onChange={(e) => setSearchVal(e.target.value)}
+                className="w-full py-2.5 pl-5 pr-20 rounded-full border-none bg-white text-gray-800 placeholder-gray-400 font-medium text-sm shadow-inner focus:outline-none focus:ring-3 focus:ring-white/30 transition-all"
+              />
+              <button 
+                type="button"
+                onClick={startVoiceListening}
+                className={`absolute right-10 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center cursor-pointer transition-all ${isListening ? 'bg-red-500 text-white animate-pulse shadow-md ring-4 ring-red-100' : 'text-gray-400 hover:text-[#782045] hover:bg-gray-100'}`}
+                title="Search hands-free with voice"
+              >
+                {isListening ? (
+                  <MicOff className="w-4 h-4" />
+                ) : (
+                  <Mic className="w-4 h-4" />
+                )}
+              </button>
+              <button 
+                type="submit"
+                className="absolute right-1 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#9c2b5b] hover:bg-[#4a1028] text-white flex items-center justify-center cursor-pointer transition-colors shadow-sm"
+                aria-label="Search"
+              >
+                <Search className="w-4 h-4" />
+              </button>
+            </form>
+
+            {/* Custom 12-Language Dropdown */}
+            <div className="relative flex items-center shrink-0">
+              <select
+                value={selectedLang}
+                onChange={(e) => handleLanguageChange(e.target.value)}
+                className="bg-white/15 hover:bg-white/25 text-white font-extrabold py-2.5 pl-3.5 pr-8 rounded-full text-xs cursor-pointer transition-all border border-white/10 outline-none appearance-none flex items-center gap-1.5 focus:ring-2 focus:ring-white/30"
+                style={{ minWidth: '92px' }}
+                title="Select Language"
+              >
+                {languages.map(lang => (
+                  <option key={lang.code} value={lang.code} className="text-gray-900 bg-white font-semibold">
+                    {lang.flag} {lang.label}
+                  </option>
+                ))}
+              </select>
+              <div className="absolute right-3 pointer-events-none text-[9px] text-white/75">
+                ▼
+              </div>
+            </div>
+          </div>
 
           {/* Desktop Right Hand Actions */}
           <div className="flex items-center gap-4 text-white">
