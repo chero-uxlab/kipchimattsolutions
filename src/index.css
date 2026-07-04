@@ -1,4 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Playpen+Sans:wght@400;750&family=Inter:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
+
+@theme {
+  --font-handwriting: "Caveat", cursive, sans-serif;
+  --font-nice: "Playpen Sans", cursive, sans-serif;
+}
+
+@layer utilities {
+  .font-handwriting {
+    font-family: "Caveat", cursive, sans-serif;
+  }
+  .font-nice {
+    font-family: "Playpen Sans", cursive, sans-serif;
+  }
+}
 
 @layer utilities {
   /* Scrollbar hiders */

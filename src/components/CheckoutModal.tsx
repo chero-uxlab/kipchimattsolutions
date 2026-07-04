@@ -270,100 +270,103 @@ export default function CheckoutModal({
 
   if (placedOrder) {
     const handlePrint = () => {
-      const printWindow = window.open('', '_blank');
-      if (!printWindow) {
-        alert('Please allow popups to print your receipt!');
-        return;
-      }
+      // Create offscreen iframe for sandbox-friendly printing (never blocked by popup blocker)
+      const iframe = document.createElement('iframe');
+      iframe.style.position = 'absolute';
+      iframe.style.width = '0px';
+      iframe.style.height = '0px';
+      iframe.style.border = 'none';
+      iframe.style.left = '-9999px';
+      document.body.appendChild(iframe);
+
       const earnedPoints = Math.floor(placedOrder.subtotal / 100);
       const itemsHtml = placedOrder.items.map(item => `
         <tr>
-          <td style="padding: 8px 0; border-bottom: 1px dashed #eee;">${item.name} x${item.qty}</td>
-          <td style="padding: 8px 0; border-bottom: 1px dashed #eee; text-align: right;">Ksh ${item.price * item.qty}</td>
+          <td style="padding: 6px 0; border-bottom: 1px dashed #ddd;">${item.name} x${item.qty}</td>
+          <td style="padding: 6px 0; border-bottom: 1px dashed #ddd; text-align: right;">Ksh ${item.price * item.qty}</td>
         </tr>
       `).join('');
 
-      printWindow.document.write(`
+      const content = `
         <html>
           <head>
-            <title>Receipt #${placedOrder.id.slice(-6).toUpperCase()} - Kipchimatt Supermarket</title>
+            <title>Kipchimatt Supermarket Receipt #${placedOrder.id.slice(-6).toUpperCase()}</title>
             <style>
               @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
               body {
                 font-family: 'Courier Prime', 'Courier', monospace;
-                max-width: 400px;
+                max-width: 320px;
                 margin: 0 auto;
-                padding: 20px;
-                color: #333;
-                font-size: 14px;
-                line-height: 1.4;
+                padding: 10px;
+                color: #000;
+                font-size: 13px;
+                line-height: 1.35;
               }
               .header {
                 text-align: center;
-                margin-bottom: 20px;
+                margin-bottom: 15px;
                 border-bottom: 2px dashed #000;
-                padding-bottom: 15px;
+                padding-bottom: 10px;
               }
               .title {
-                font-size: 18px;
+                font-size: 16px;
                 font-weight: bold;
-                margin: 0;
+                margin: 0 0 4px 0;
                 text-transform: uppercase;
               }
               .subtitle {
-                font-size: 11px;
-                color: #666;
-                margin: 5px 0 0 0;
+                font-size: 10px;
+                margin: 2px 0;
+                color: #444;
               }
               .info-table, .items-table {
                 width: 100%;
                 border-collapse: collapse;
-                margin-bottom: 15px;
+                margin-bottom: 12px;
               }
               .info-table td {
-                padding: 3px 0;
-                font-size: 12px;
+                padding: 2px 0;
+                font-size: 11px;
               }
               .items-table th {
                 border-bottom: 1px solid #000;
-                padding: 5px 0;
+                padding: 4px 0;
                 text-align: left;
-                font-size: 12px;
+                font-size: 11px;
               }
               .totals {
                 border-top: 2px dashed #000;
-                padding-top: 10px;
-                margin-top: 10px;
+                padding-top: 8px;
+                margin-top: 8px;
               }
               .total-row {
                 display: flex;
                 justify-content: space-between;
-                font-size: 13px;
-                padding: 3px 0;
+                font-size: 12px;
+                padding: 2px 0;
               }
               .grand-total {
-                font-size: 16px;
+                font-size: 14px;
                 font-weight: bold;
                 border-top: 1px solid #000;
-                padding-top: 5px;
-                margin-top: 5px;
+                padding-top: 4px;
+                margin-top: 4px;
               }
               .loyalty-box {
                 border: 1px dashed #000;
-                padding: 10px;
+                padding: 8px;
                 text-align: center;
-                margin: 20px 0;
-                font-size: 12px;
+                margin: 15px 0;
+                font-size: 11px;
               }
               .footer {
                 text-align: center;
-                font-size: 11px;
-                margin-top: 30px;
-                color: #666;
+                font-size: 10px;
+                margin-top: 20px;
+                color: #555;
               }
               @media print {
-                body { margin: 0; padding: 10px; }
-                .no-print { display: none; }
+                body { margin: 0; padding: 5px; }
               }
             </style>
           </head>
@@ -377,7 +380,7 @@ export default function CheckoutModal({
             <table class="info-table">
               <tr>
                 <td><strong>Order ID:</strong></td>
-                <td style="text-align: right;">#${placedOrder.id}</td>
+                <td style="text-align: right;">#${placedOrder.id.slice(-6).toUpperCase()}</td>
               </tr>
               <tr>
                 <td><strong>Customer:</strong></td>
@@ -388,11 +391,11 @@ export default function CheckoutModal({
                 <td style="text-align: right;">${placedOrder.customer.phone}</td>
               </tr>
               <tr>
-                <td><strong>Delivery to:</strong></td>
+                <td><strong>Delivery Location:</strong></td>
                 <td style="text-align: right;">${placedOrder.customer.address}, ${placedOrder.customer.city}</td>
               </tr>
               <tr>
-                <td><strong>Payment:</strong></td>
+                <td><strong>Payment Option:</strong></td>
                 <td style="text-align: right; text-transform: uppercase;">${placedOrder.payment}</td>
               </tr>
             </table>
@@ -400,8 +403,8 @@ export default function CheckoutModal({
             <table class="items-table">
               <thead>
                 <tr>
-                  <th style="border-bottom: 2px dashed #000;">Item</th>
-                  <th style="border-bottom: 2px dashed #000; text-align: right;">Amount</th>
+                  <th style="border-bottom: 2px dashed #000; font-weight: bold;">Description</th>
+                  <th style="border-bottom: 2px dashed #000; text-align: right; font-weight: bold;">Subtotal</th>
                 </tr>
               </thead>
               <tbody>
@@ -415,39 +418,63 @@ export default function CheckoutModal({
                 <span>Ksh ${placedOrder.subtotal.toLocaleString('en-KE')}</span>
               </div>
               <div class="total-row">
-                <span>Delivery Fee:</span>
+                <span>Delivery:</span>
                 <span>${placedOrder.deliveryFee === 0 ? 'FREE' : 'Ksh ' + placedOrder.deliveryFee.toLocaleString('en-KE')}</span>
               </div>
               <div class="total-row grand-total">
-                <span>GRAND TOTAL:</span>
+                <span>TOTAL DUE:</span>
                 <span>Ksh ${placedOrder.total.toLocaleString('en-KE')}</span>
               </div>
             </div>
 
             <div class="loyalty-box">
               <p style="margin: 0; font-weight: bold; text-transform: uppercase;">Kipchimatt Loyalty Club</p>
-              <p style="margin: 4px 0 0 0;">Points Earned: +${earnedPoints}</p>
-              <p style="margin: 2px 0 0 0; font-weight: bold;">New Balance: ${placedOrder.customer.points || 0} pts</p>
+              <p style="margin: 4px 0 0 0;">Points Gained: +${earnedPoints}</p>
+              <p style="margin: 2px 0 0 0; font-weight: bold;">Current Balance: ${placedOrder.customer.points || 0} pts</p>
             </div>
 
             <div class="footer">
-              <p>Thank you for shopping at Kipchimatt!</p>
-              <p>We deliver freshness in 90 Mins.</p>
-              <p style="font-size: 9px; margin-top: 15px;">Powered by Kipchimatt Kikapu POS</p>
+              <p>Asante sana for shopping at Kipchimatt!</p>
+              <p>Fresh groceries delivered in 90 Mins.</p>
+              <p style="font-size: 8px; margin-top: 10px;">Powered by Kipchimatt POS</p>
             </div>
 
-            <div style="text-align: center; margin-top: 20px;" class="no-print">
-              <button onclick="window.print();" style="padding: 10px 20px; background: #782045; color: white; border: none; border-radius: 5px; font-family: sans-serif; font-weight: bold; cursor: pointer;">
-                Print Receipt
-              </button>
-            </div>
+            <script>
+              window.onload = function() {
+                setTimeout(function() {
+                  window.print();
+                  setTimeout(function() {
+                    window.frameElement.parentNode.removeChild(window.frameElement);
+                  }, 1000);
+                }, 300);
+              }
+            </script>
           </body>
         </html>
-      `);
-      printWindow.document.close();
-      setTimeout(() => {
-        printWindow.print();
-      }, 500);
+      `;
+
+      try {
+        const doc = iframe.contentWindow?.document || iframe.contentDocument;
+        if (doc) {
+          doc.open();
+          doc.write(content);
+          doc.close();
+        } else {
+          // Fallback if iframe fails
+          const printWindow = window.open('', '_blank');
+          if (printWindow) {
+            printWindow.document.write(content);
+            printWindow.document.close();
+          }
+        }
+      } catch (err) {
+        console.error('Offscreen print iframe failure, attempting window.open fallback', err);
+        const printWindow = window.open('', '_blank');
+        if (printWindow) {
+          printWindow.document.write(content);
+          printWindow.document.close();
+        }
+      }
     };
 
     const earnedPoints = Math.floor(placedOrder.subtotal / 100);
@@ -510,7 +537,7 @@ export default function CheckoutModal({
               className="flex-1 bg-white hover:bg-gray-50 border border-gray-300 text-gray-800 font-bold text-xs py-3.5 rounded-full flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-sm"
             >
               <Printer className="w-4 h-4 text-[#782045]" />
-              <span>Print Thermal Receipt</span>
+              <span>Print Receipt</span>
             </button>
             <button
               onClick={onClose}

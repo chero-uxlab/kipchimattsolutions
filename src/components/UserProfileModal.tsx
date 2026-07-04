@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   X, User, Award, MapPin, Phone, Mail, Search, 
-  CheckCircle, Truck, Package, ShoppingBag, AlertCircle, Sparkles
+  CheckCircle, Truck, Package, ShoppingBag, AlertCircle, Sparkles, HelpCircle
 } from 'lucide-react';
 import { Customer, Order } from '../types';
 import { formatMoney, formatDate } from '../data/catalog';
@@ -27,6 +27,7 @@ export default function UserProfileModal({
   const [orderSearchId, setOrderSearchId] = useState('');
   const [searchError, setSearchError] = useState('');
   const [selectedTrackOrder, setSelectedTrackOrder] = useState<Order | null>(null);
+  const [showRedeemTooltip, setShowRedeemTooltip] = useState(false);
 
   if (!isOpen) return null;
 
@@ -143,7 +144,7 @@ export default function UserProfileModal({
               <User className="w-5.5 h-5.5" />
             </div>
             <div>
-              <h3 className="text-lg font-black text-gray-800 dark:text-gray-100 uppercase tracking-tight">Kikapu Customer Lounge</h3>
+              <h3 className="text-xl font-bold text-[#782045] dark:text-pink-300 font-nice tracking-tight">Kipchimatt Lounge</h3>
               <p className="text-xs text-gray-500 dark:text-gray-400 font-semibold">Track orders, manage loyalty points, and check out faster</p>
             </div>
           </div>
@@ -161,20 +162,57 @@ export default function UserProfileModal({
             <div className="bg-gradient-to-br from-gray-50 to-gray-100/40 dark:from-gray-800/50 dark:to-gray-900/40 border border-gray-150 dark:border-gray-800 rounded-2xl p-5 space-y-4">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-gray-200/50 dark:border-gray-850 pb-4">
                 <div>
-                  <h4 className="text-base font-extrabold text-gray-800 dark:text-gray-100">{customer.name}</h4>
-                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-xs text-gray-500 dark:text-gray-400 font-semibold">
+                  <h4 className="text-lg font-bold text-gray-800 dark:text-gray-100 font-nice">{customer.name}</h4>
+                  <p className="text-sm text-[#782045] dark:text-pink-400 font-handwriting font-bold -mt-1 mb-1 shadow-none">Welcome back, happy shopping! ✨</p>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500 dark:text-gray-400 font-semibold">
                     <span className="flex items-center gap-1"><Phone className="w-3.5 h-3.5 text-gray-400" /> {customer.phone}</span>
                     {customer.email && <span className="flex items-center gap-1"><Mail className="w-3.5 h-3.5 text-gray-400" /> {customer.email}</span>}
                     <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5 text-gray-400" /> {customer.address}, {customer.city}</span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/10 border border-amber-200 dark:border-amber-900/60 rounded-xl px-4 py-2.5 shadow-sm">
-                  <Award className="w-8 h-8 text-amber-500 fill-amber-500" />
+                <div className="relative flex items-center gap-3 bg-gradient-to-br from-[#782045]/5 to-[#782045]/15 dark:from-[#782045]/10 dark:to-[#782045]/20 border border-[#782045]/25 rounded-xl px-4 py-3 shadow-sm select-none">
+                  <Award className="w-8 h-8 text-[#782045] dark:text-pink-400 fill-[#782045]/10" />
                   <div className="text-left">
-                    <span className="text-[9px] text-amber-600 dark:text-amber-400 font-black uppercase tracking-wider block">Kipchimatt Club</span>
-                    <span className="text-base font-black text-[#782045] dark:text-pink-400">{customer.points || 0} pts</span>
+                    <span className="text-[9px] text-[#782045]/85 dark:text-pink-300 font-black uppercase tracking-wider block">Kipchimatt Club</span>
+                    <span className="text-base font-black text-[#782045] dark:text-pink-400 font-nice">{customer.points || 0} pts</span>
+                    
+                    {/* How to Redeem Interactive Trigger */}
+                    <div className="mt-0.5">
+                      <button
+                        type="button"
+                        onMouseEnter={() => setShowRedeemTooltip(true)}
+                        onMouseLeave={() => setShowRedeemTooltip(false)}
+                        onClick={() => setShowRedeemTooltip(!showRedeemTooltip)}
+                        className="flex items-center gap-1 text-[10px] text-[#782045] hover:text-[#4a1028] dark:text-pink-300 dark:hover:text-white font-extrabold underline decoration-dotted cursor-pointer focus:outline-none"
+                      >
+                        <HelpCircle className="w-3 h-3" />
+                        <span>How to Redeem</span>
+                      </button>
+                    </div>
                   </div>
+
+                  {/* How to Redeem Tooltip Overlay */}
+                  {showRedeemTooltip && (
+                    <div className="absolute right-0 top-full mt-2.5 w-76 bg-white dark:bg-gray-800 border-2 border-[#782045]/30 p-4 rounded-xl shadow-2xl z-50 text-left space-y-2.5 animate-scale-up">
+                      <div className="absolute -top-2 right-12 w-4 h-4 bg-white dark:bg-gray-800 border-t-2 border-l-2 border-[#782045]/30 rotate-45" />
+                      <h5 className="font-extrabold text-xs text-[#782045] dark:text-pink-300 flex items-center gap-1 border-b border-gray-100 dark:border-gray-700 pb-1 font-nice">
+                        <Award className="w-4 h-4 text-amber-500 fill-amber-500" />
+                        <span>Loyalty Rewards Guide</span>
+                      </h5>
+                      <div className="text-[11px] font-semibold text-gray-600 dark:text-gray-350 space-y-2 leading-relaxed">
+                        <p>
+                          🛍️ <strong className="text-gray-800 dark:text-white">Earnings:</strong> Get <span className="text-[#782045] dark:text-pink-400 font-extrabold">1 Loyalty Point</span> for every <strong className="text-gray-800 dark:text-white">Ksh 100 spent</strong> automatically on each order.
+                        </p>
+                        <p>
+                          🎁 <strong className="text-gray-800 dark:text-white">Redemption:</strong> Every <span className="text-emerald-600 dark:text-emerald-400 font-extrabold">10 Points = Ksh 1 discount</span> off your Kikapu grocery purchase at checkout, or exchange points for premium gift baskets at the store counter!
+                        </p>
+                      </div>
+                      <p className="text-[14px] font-handwriting text-[#782045]/90 dark:text-pink-300 font-bold text-center border-t border-gray-100 dark:border-gray-700 pt-1.5">
+                        "Shukran for being our esteemed customer!"
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
 
