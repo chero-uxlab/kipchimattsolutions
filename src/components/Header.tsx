@@ -146,8 +146,8 @@ export default function Header({
   return (
     <>
       {/* 1. PRIMARY AMAZON-STYLE HIGH-CONTRAST HEADER ROW */}
-      <header className="bg-[#131921] text-white py-2 px-4 sticky top-0 z-40 shadow-md border-b border-[#111] font-sans">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 md:gap-4 lg:gap-6">
+      <header className="bg-[#131921] text-white py-2 sticky top-0 z-40 shadow-md border-b border-[#111] font-sans">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3 md:gap-4 lg:gap-6">
           
           {/* Mobile Hamburger Menu (hidden on desktop) */}
           <button 
@@ -364,8 +364,8 @@ export default function Header({
       </header>
 
       {/* 2. SECONDARY SUB-HEADER ROW (All Categories & Quick Links) */}
-      <nav className="bg-[#232f3e] text-white py-1.5 px-4 text-xs font-semibold flex items-center justify-between sticky top-[56px] z-30 shadow-sm border-t border-white/5 select-none overflow-x-auto whitespace-nowrap scrollbar-none">
-        <div className="max-w-7xl mx-auto w-full flex items-center justify-between gap-4">
+      <nav className="bg-[#232f3e] text-white py-1.5 text-xs font-semibold flex items-center justify-between sticky top-[56px] z-30 shadow-sm border-t border-white/5 select-none overflow-x-auto whitespace-nowrap scrollbar-none">
+        <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
           
           {/* Left Navigation quick-links & Drawer Toggle */}
           <div className="flex items-center gap-3">
@@ -474,10 +474,7 @@ export default function Header({
       {/* 3. QUICK HORIZONTAL CATEGORIES RAIL (Sits beautifully under the subheaders) */}
       {currentView === 'shop' && (
         <nav className="bg-white dark:bg-gray-900 border-b border-gray-150 dark:border-gray-800 shadow-sm overflow-hidden select-none" id="quick-category-rail">
-          <div className="max-w-7xl mx-auto px-4 flex items-center gap-2 overflow-x-auto py-2.5 scrollbar-none">
-            <span className="text-[10px] uppercase font-extrabold text-gray-450 shrink-0 select-none tracking-wider">
-              Shop Departments:
-            </span>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-2 overflow-x-auto py-2.5 scrollbar-none">
             {categoryMeta.map((cat) => (
               <button
                 key={cat.key}

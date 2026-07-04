@@ -104,8 +104,8 @@ export default function Hero({ onExploreCategory, onScrollToDeals, onScrollToBra
   };
 
   return (
-    <section className="py-6 px-4">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Carousel */}
         <div className="relative rounded-2xl overflow-hidden shadow-lg h-[280px] sm:h-[320px] md:h-[380px]">

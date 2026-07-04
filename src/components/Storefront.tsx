@@ -470,8 +470,8 @@ export default function Storefront({
   const currentBanner = categoryBanners[activeCategory] || categoryBanners['all'];
 
   return (
-    <div className="px-4 pb-12">
-      <div className="max-w-7xl mx-auto">
+    <div className="pb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {loading ? (
           /* PREMIUM SHIMMERING SKELETON UI FOR BOTH HOME AND FILTER VIEW */
@@ -946,7 +946,7 @@ export default function Storefront({
               </div>
             </section>
 
-            {/* Shop by Brand Grouped Sections */}
+            {/* Shop by Brand Sections */}
             <section className="py-6 border-t border-gray-150 mt-4" id="brands-section">
               <div className="mb-6">
                 <h2 className="text-base font-extrabold text-gray-800 flex items-center gap-2">
@@ -956,44 +956,24 @@ export default function Storefront({
                 <p className="text-gray-500 text-xs mt-0.5">Explore by selecting your favorite domestic or international brand.</p>
               </div>
 
-              <div className="space-y-6">
-                {brandGroupCategories.map(group => {
-                  const brandsInGroup = Array.from(
+              <div className="bg-gray-50/50 dark:bg-gray-950/20 p-6 rounded-2xl border border-gray-150 dark:border-gray-800">
+                <div className="flex flex-wrap gap-2.5 justify-center md:justify-start">
+                  {Array.from(
                     new Set(
                       products
-                        .filter(p => p.category === group.cat)
                         .map(p => p.brand)
                         .filter(Boolean)
                     )
-                  ).slice(0, 6);
-
-                  if (brandsInGroup.length === 0) return null;
-
-                  return (
-                    <div key={group.cat} className="bg-gray-50/50 p-4 rounded-xl border border-gray-100">
-                      <span className="text-[10px] font-extrabold uppercase tracking-widest text-gray-400 block mb-2.5">
-                        {group.title}
-                      </span>
-                      <div className="flex flex-wrap gap-2">
-                        {brandsInGroup.map(brand => (
-                          <button
-                            key={brand}
-                            onClick={() => onBrandSelect(brand)}
-                            className="bg-white border border-gray-200 hover:border-[#782045] hover:text-[#782045] font-bold text-xs px-4 py-2 rounded-full cursor-pointer transition-all shadow-sm"
-                          >
-                            {brand}
-                          </button>
-                        ))}
-                        <button
-                          onClick={() => onCategorySelect(group.cat)}
-                          className="bg-[#782045]/5 hover:bg-[#782045]/10 text-[#782045] font-extrabold text-xs px-4 py-2 rounded-full cursor-pointer transition-colors"
-                        >
-                          View All
-                        </button>
-                      </div>
-                    </div>
-                  );
-                })}
+                  ).slice(0, 18).map(brand => (
+                    <button
+                      key={brand}
+                      onClick={() => onBrandSelect(brand)}
+                      className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:border-[#782045] dark:hover:border-amber-400 hover:text-[#782045] dark:hover:text-amber-400 font-extrabold text-xs px-5 py-2.5 rounded-full cursor-pointer transition-all shadow-sm hover:shadow-md active:scale-95 text-gray-750 dark:text-gray-250"
+                    >
+                      {brand}
+                    </button>
+                  ))}
+                </div>
               </div>
             </section>
           </>

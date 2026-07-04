@@ -720,7 +720,7 @@ export default function App() {
 
           {/* Beautiful Supermarket Shopper Footer */}
           <footer className="bg-gray-900 text-white/70 pt-14 pb-8 mt-auto border-t border-gray-800">
-            <div className="max-w-7xl mx-auto px-4">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               
               {/* Newsletter Banner */}
               <div className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
