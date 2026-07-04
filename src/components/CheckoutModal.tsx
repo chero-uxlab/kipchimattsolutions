@@ -35,6 +35,7 @@ export default function CheckoutModal({
   const [feedbackComment, setFeedbackComment] = useState<string>('');
   const [feedbackSubmitted, setFeedbackSubmitted] = useState<boolean>(false);
   const [showFeedbackModal, setShowFeedbackModal] = useState<boolean>(true);
+  const [ratingError, setRatingError] = useState<boolean>(false);
 
   // New States: Special Instructions Delivery Notes
   const [notes, setNotes] = useState('');
@@ -450,9 +451,6 @@ export default function CheckoutModal({
               window.onload = function() {
                 setTimeout(function() {
                   window.print();
-                  setTimeout(function() {
-                    window.frameElement.parentNode.removeChild(window.frameElement);
-                  }, 1000);
                 }, 300);
               }
             </script>
@@ -466,6 +464,12 @@ export default function CheckoutModal({
           doc.open();
           doc.write(content);
           doc.close();
+          // Safely clean up the iframe from the main thread after 15 seconds
+          setTimeout(() => {
+            if (iframe.parentNode) {
+              iframe.parentNode.removeChild(iframe);
+            }
+          }, 15000);
         } else {
           // Fallback if iframe fails
           const printWindow = window.open('', '_blank');
@@ -505,28 +509,38 @@ export default function CheckoutModal({
               {!feedbackSubmitted ? (
                 <>
                   {/* 1-5 Star interactive selector */}
-                  <div className="flex gap-2 py-1">
-                    {[1, 2, 3, 4, 5].map((star) => {
-                      const active = star <= (hoverRating || rating);
-                      return (
-                        <button
-                          key={star}
-                          type="button"
-                          onClick={() => setRating(star)}
-                          onMouseEnter={() => setHoverRating(star)}
-                          onMouseLeave={() => setHoverRating(0)}
-                          className="p-1 cursor-pointer hover:scale-125 transition-transform"
-                        >
-                          <Star 
-                            className={`w-8 h-8 transition-colors ${
-                              active 
-                                ? 'fill-amber-400 text-amber-500' 
-                                : 'text-gray-300 dark:text-gray-700'
-                            }`} 
-                          />
-                        </button>
-                      );
-                    })}
+                  <div className="flex flex-col items-center gap-1">
+                    <div className="flex gap-2 py-1">
+                      {[1, 2, 3, 4, 5].map((star) => {
+                        const active = star <= (hoverRating || rating);
+                        return (
+                          <button
+                            key={star}
+                            type="button"
+                            onClick={() => {
+                              setRating(star);
+                              setRatingError(false);
+                            }}
+                            onMouseEnter={() => setHoverRating(star)}
+                            onMouseLeave={() => setHoverRating(0)}
+                            className="p-1 cursor-pointer hover:scale-125 transition-transform"
+                          >
+                            <Star 
+                              className={`w-8 h-8 transition-colors ${
+                                active 
+                                  ? 'fill-amber-400 text-amber-500' 
+                                  : 'text-gray-300 dark:text-gray-700'
+                              }`} 
+                            />
+                          </button>
+                        );
+                      })}
+                    </div>
+                    {ratingError && (
+                      <p className="text-[11px] text-red-500 dark:text-red-400 font-extrabold animate-pulse">
+                        ⚠️ Please choose a star rating to submit
+                      </p>
+                    )}
                   </div>
 
                   {/* Optional rating descriptions */}
@@ -562,9 +576,10 @@ export default function CheckoutModal({
                     <button
                       onClick={() => {
                         if (rating === 0) {
-                          alert('Please select a star rating first!');
+                          setRatingError(true);
                           return;
                         }
+                        setRatingError(false);
                         setFeedbackSubmitted(true);
                         setTimeout(() => {
                           setShowFeedbackModal(false);

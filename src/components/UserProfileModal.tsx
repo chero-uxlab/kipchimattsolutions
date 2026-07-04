@@ -69,10 +69,10 @@ export default function UserProfileModal({
   const currentLat = startLat + (dest.lat - startLat) * (deliveryProgress / 100);
   const currentLng = startLng + (dest.lng - startLng) * (deliveryProgress / 100);
 
-  // visual percentage positions for truck
-  const riderLeft = 12 + (78 - 12) * (deliveryProgress / 100);
-  const riderBounce = Math.sin((deliveryProgress / 100) * Math.PI * 3) * 10;
-  const riderBottom = 28 + (64 - 28) * (deliveryProgress / 100) + riderBounce;
+  // visual percentage positions for truck (Responsive Quadratic Bezier curve)
+  const t = deliveryProgress / 100;
+  const riderLeft = (1 - t) * (1 - t) * 12 + 2 * (1 - t) * t * 45 + t * t * 88;
+  const riderBottom = (1 - t) * (1 - t) * 30 + 2 * (1 - t) * t * 80 + t * t * 75;
 
   if (!isOpen) return null;
 
@@ -482,46 +482,54 @@ export default function UserProfileModal({
                       <div className="absolute inset-0 bg-[linear-gradient(to_right,#e0f2fe_1px,transparent_1px),linear-gradient(to_bottom,#e0f2fe_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:24px_24px] opacity-40 pointer-events-none" />
 
                       {/* Map Landmarks & Dynamic Visual Route */}
-                      <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+                      <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
                         {/* Connecting delivery route path */}
                         <path 
-                          d="M 40,110 Q 150,40 280,110 T 520,70" 
+                          d="M 12,70 Q 45,20 88,25" 
                           fill="none" 
                           stroke="#782045" 
                           strokeWidth="3.5" 
                           strokeDasharray="6 4" 
+                          vectorEffect="non-scaling-stroke"
                           className="opacity-75"
                         />
                         {/* Fulfilled path if rider has progressed */}
                         {(selectedTrackOrder.status === 'processing' || selectedTrackOrder.status === 'completed') && (
                           <path 
-                            d="M 40,110 Q 150,40 280,110 T 520,70" 
+                            d="M 12,70 Q 45,20 88,25" 
                             fill="none" 
                             stroke="#10b981" 
                             strokeWidth="4" 
                             strokeDasharray={selectedTrackOrder.status === 'completed' ? "0" : "8"}
+                            vectorEffect="non-scaling-stroke"
                             className="opacity-90 animate-[dash_2s_linear_infinite]"
                           />
                         )}
                       </svg>
 
                       {/* Landmark labels */}
-                      <div className="absolute top-4 left-6 bg-white/80 dark:bg-gray-950/80 px-2 py-0.5 rounded text-[8px] font-bold text-gray-400 border border-gray-150/50">
+                      <div className="absolute bottom-[44px] left-[15px] bg-white/80 dark:bg-gray-950/80 px-2 py-0.5 rounded text-[8px] font-bold text-gray-450 border border-gray-150/50">
                         Kikapu Supermarket Hub
                       </div>
-                      <div className="absolute bottom-4 right-8 bg-white/80 dark:bg-gray-950/80 px-2 py-0.5 rounded text-[8px] font-bold text-gray-400 border border-gray-150/50">
+                      <div className="absolute top-[48px] right-[15px] bg-white/80 dark:bg-gray-950/80 px-2 py-0.5 rounded text-[8px] font-bold text-gray-450 border border-gray-150/50">
                         Destination Point
                       </div>
 
                       {/* Store Marker Pin (Starting Point) */}
-                      <div className="absolute left-[30px] bottom-[50px] flex flex-col items-center">
+                      <div 
+                        className="absolute flex flex-col items-center -translate-x-1/2 translate-y-1/2 z-10"
+                        style={{ left: '12%', bottom: '30%' }}
+                      >
                         <div className="w-8 h-8 rounded-full bg-[#782045] text-white flex items-center justify-center shadow-md border-2 border-white">
                           <Package className="w-4 h-4" />
                         </div>
                       </div>
 
                       {/* Destination Point Pin (End Point) */}
-                      <div className="absolute right-[40px] top-[40px] flex flex-col items-center">
+                      <div 
+                        className="absolute flex flex-col items-center -translate-x-1/2 translate-y-1/2 z-10"
+                        style={{ left: '88%', bottom: '75%' }}
+                      >
                         <div className="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-md border-2 border-white animate-bounce">
                           <MapPin className="w-4 h-4" />
                         </div>
@@ -530,7 +538,7 @@ export default function UserProfileModal({
                       {/* Dynamic Rider Location Marker */}
                       {selectedTrackOrder.status !== 'completed' ? (
                         <div 
-                          className="absolute flex flex-col items-center transition-all duration-300 z-10"
+                          className="absolute flex flex-col items-center transition-all duration-300 z-10 -translate-x-1/2 translate-y-1/2"
                           style={{
                             left: `${riderLeft}%`,
                             bottom: `${riderBottom}%`
@@ -539,12 +547,12 @@ export default function UserProfileModal({
                           <div className="bg-amber-500 text-white p-1.5 rounded-full shadow-lg border border-white animate-pulse">
                             <Truck className="w-4 h-4" />
                           </div>
-                          <span className="text-[8px] bg-amber-600 text-white px-1.5 py-0.5 rounded-full font-extrabold mt-1 tracking-wide uppercase">
+                          <span className="text-[8px] bg-amber-600 text-white px-1.5 py-0.5 rounded-full font-extrabold mt-1 tracking-wide uppercase shadow">
                             {selectedTrackOrder.status === 'pending' ? 'Disbursing' : `En-Route (${Math.round(deliveryProgress)}%)`}
                           </span>
                         </div>
                       ) : (
-                        <div className="absolute right-[45px] top-[15px] flex flex-col items-center z-10">
+                        <div className="absolute right-[14%] top-[12%] flex flex-col items-center z-10">
                           <span className="text-[8px] bg-emerald-600 text-white px-1.5 py-0.5 rounded-full font-black tracking-wide uppercase shadow">
                             Delivered
                           </span>
