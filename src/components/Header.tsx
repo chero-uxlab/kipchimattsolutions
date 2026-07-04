@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { 
   Phone, MapPin, Truck, Lock, Menu, Search, User, Heart, ShoppingCart, 
-  X, LayoutGrid, LogOut, Store, ArrowRight, Mic, MicOff, Sun, Moon
+  X, LayoutGrid, LogOut, Store, ArrowRight, Mic, MicOff, Sun, Moon,
+  ChevronDown, HelpCircle, ShieldCheck, Tag, Sparkles
 } from 'lucide-react';
 import { StoreSettings, CategoryMeta } from '../types';
 import { categoryMeta, formatMoney } from '../data/catalog';
@@ -53,6 +54,7 @@ export default function Header({
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isListening, setIsListening] = useState(false);
+  const [searchCategory, setSearchCategory] = useState('all');
 
   const languages = [
     { code: 'en', label: 'English', flag: '🇬🇧' },
@@ -130,236 +132,347 @@ export default function Header({
 
   const selectCategory = (catKey: string) => {
     onCategorySelect(catKey);
+    setSearchCategory(catKey);
     setMegaMenuOpen(false);
     setMobileMenuOpen(false);
   };
 
+  const handleCategoryDropdownChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const cat = e.target.value;
+    setSearchCategory(cat);
+    onCategorySelect(cat);
+  };
+
   return (
     <>
-      {/* Top Bar */}
-      <div className="bg-[#4a1028] text-white/90 text-xs py-2 px-4 shadow-sm z-50 relative">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
-          <div className="flex items-center gap-4 flex-wrap justify-center">
-            <span className="flex items-center gap-1.5 font-medium">
-              <Phone className="w-3.5 h-3.5 text-white/70" />
-              <span>{settings.storePhone}</span>
-            </span>
-            <span className="h-3 w-px bg-white/25 hidden sm:inline" />
-            <div className="flex items-center gap-1 bg-white/10 px-2.5 py-1 rounded-full text-white hover:bg-white/15 transition-colors cursor-pointer">
-              <MapPin className="w-3.5 h-3.5 text-white/85" />
-              <span className="text-[11px] font-semibold">Deliver to:</span>
-              <select 
-                value={deliveryLocation}
-                onChange={(e) => onDeliveryLocationChange(e.target.value)}
-                className="bg-transparent border-none text-white font-bold outline-none cursor-pointer text-[11px] pr-1"
-                style={{ WebkitAppearance: 'none', MozAppearance: 'none' }}
-              >
-                <option value="Nairobi" className="text-gray-800">Nairobi</option>
-                <option value="Kiambu" className="text-gray-800">Kiambu</option>
-                <option value="Kajiado" className="text-gray-800">Kajiado</option>
-                <option value="Machakos" className="text-gray-800">Machakos</option>
-                <option value="Mombasa" className="text-gray-800">Mombasa</option>
-                <option value="Nakuru" className="text-gray-800">Nakuru</option>
-                <option value="Kisumu" className="text-gray-800">Kisumu</option>
-              </select>
+      {/* 1. PRIMARY AMAZON-STYLE ROW */}
+      <header className="bg-[#131921] text-white py-2 px-4 sticky top-0 z-40 shadow-md">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 md:gap-5">
+          
+          {/* Mobile Hamburger (Visible only on small screens) */}
+          <button 
+            onClick={() => setMobileMenuOpen(true)}
+            className="md:hidden text-white hover:text-[#febd69] cursor-pointer p-1 shrink-0"
+            aria-label="Toggle Navigation"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+
+          {/* Amazon-Style Logo & Curved Smile Underline */}
+          <div 
+            onClick={() => { selectCategory('all'); onViewChange('shop'); }}
+            className="flex flex-col cursor-pointer select-none shrink-0 group"
+          >
+            <div className="flex items-baseline gap-0.5">
+              <span className="text-white font-black text-2xl tracking-tight leading-none group-hover:text-gray-100 transition-colors">
+                Kipchimatt
+              </span>
+              <span className="text-[#febd69] text-xs font-black uppercase tracking-wider">
+                .ke
+              </span>
+            </div>
+            
+            {/* Supermarket text with curved smile-like swoop SVG */}
+            <div className="flex items-center gap-1.5 -mt-0.5 pl-0.5">
+              <span className="text-gray-300 text-[10px] font-bold uppercase tracking-widest leading-none">
+                Supermarket
+              </span>
+              <svg className="w-16 h-2 text-[#febd69]" viewBox="0 0 100 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 2 Q 50 10 95 2" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                <path d="M92 1 L96 3.5 L91.5 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              </svg>
             </div>
           </div>
-          
-          <div className="flex items-center gap-2.5 font-medium text-center sm:text-left">
-            <Truck className="w-4 h-4 text-white/80" />
-            <span>Free delivery on orders over {formatMoney(settings.freeDeliveryThreshold)} | 90 Mins Delivery</span>
+
+          {/* Deliver To Widget (Nairobi, Mombasa, Kiambu, etc.) */}
+          <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-sm border border-transparent hover:border-white/35 cursor-pointer relative shrink-0">
+            <MapPin className="w-5 h-5 text-gray-300 mt-2" />
+            <div className="flex flex-col text-left">
+              <span className="text-[11px] text-gray-400 font-semibold leading-tight">Deliver to</span>
+              <div className="relative flex items-center gap-1">
+                <select 
+                  value={deliveryLocation}
+                  onChange={(e) => onDeliveryLocationChange(e.target.value)}
+                  className="bg-transparent border-none text-white font-extrabold text-xs outline-none cursor-pointer pr-4 appearance-none focus:ring-0"
+                  style={{ WebkitAppearance: 'none', MozAppearance: 'none' }}
+                >
+                  <option value="Nairobi" className="text-gray-800 font-bold">Nairobi</option>
+                  <option value="Kiambu" className="text-gray-800 font-bold">Kiambu</option>
+                  <option value="Kajiado" className="text-gray-800 font-bold">Kajiado</option>
+                  <option value="Machakos" className="text-gray-800 font-bold">Machakos</option>
+                  <option value="Mombasa" className="text-gray-800 font-bold">Mombasa</option>
+                  <option value="Nakuru" className="text-gray-800 font-bold">Nakuru</option>
+                  <option value="Kisumu" className="text-gray-800 font-bold">Kisumu</option>
+                </select>
+                <ChevronDown className="w-3 h-3 absolute right-0 text-gray-400 pointer-events-none" />
+              </div>
+            </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            {/* Google Translate Select Container */}
-            <div id="google_translate_element" style={{ display: 'none' }} />
+          {/* Amazon Giant Search Bar Container */}
+          <div className="flex-1 max-w-2xl flex items-center z-10">
+            <form 
+              onSubmit={handleSearchSubmit} 
+              className="w-full h-10 bg-white rounded-md flex items-center overflow-hidden focus-within:ring-2 focus-within:ring-[#f3a847] border border-transparent"
+            >
+              {/* Category selector left of search bar */}
+              <select
+                value={searchCategory}
+                onChange={handleCategoryDropdownChange}
+                className="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs px-3.5 h-full outline-none cursor-pointer font-bold border-r border-gray-300 shrink-0 max-w-[125px] select-none transition-colors"
+                title="Select Department"
+              >
+                <option value="all">All Departments</option>
+                {categoryMeta.map(cat => (
+                  <option key={cat.key} value={cat.key}>
+                    {cat.label}
+                  </option>
+                ))}
+              </select>
 
+              {/* Main text input */}
+              <input 
+                type="text" 
+                placeholder="Search supermarket categories, brands, fruits, snacks..." 
+                value={searchVal}
+                onChange={(e) => setSearchVal(e.target.value)}
+                className="flex-1 px-4 h-full outline-none text-sm text-gray-900 placeholder-gray-400 font-medium"
+              />
+
+              {/* Voice search mic button */}
+              <button 
+                type="button"
+                onClick={startVoiceListening}
+                className={`w-9 h-9 shrink-0 rounded-full my-auto mr-1 flex items-center justify-center cursor-pointer transition-all ${isListening ? 'bg-red-500 text-white animate-pulse shadow' : 'text-gray-400 hover:text-gray-700 hover:bg-gray-100'}`}
+                title="Search hands-free with voice"
+              >
+                {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4.5 h-4.5" />}
+              </button>
+
+              {/* Search button trigger */}
+              <button 
+                type="submit"
+                className="h-full px-5 bg-[#febd69] hover:bg-[#f3a847] text-gray-900 flex items-center justify-center cursor-pointer transition-colors shrink-0"
+                aria-label="Submit Search"
+              >
+                <Search className="w-5 h-5 stroke-[2.5]" />
+              </button>
+            </form>
+          </div>
+
+          {/* Right Hand Actions (Languages, Account, Returns, Cart) */}
+          <div className="flex items-center gap-2 lg:gap-4 shrink-0">
+            
+            {/* Custom Language Flag Selector (Matches Amazon EN) */}
+            <div className="relative flex items-center rounded-sm border border-transparent hover:border-white/35 px-2 py-1.5 cursor-pointer shrink-0">
+              <select
+                value={selectedLang}
+                onChange={(e) => handleLanguageChange(e.target.value)}
+                className="bg-transparent text-white font-extrabold text-xs cursor-pointer outline-none appearance-none pr-4.5"
+                title="Select Language"
+              >
+                {languages.slice(0, 5).map(lang => (
+                  <option key={lang.code} value={lang.code} className="text-gray-950 bg-white font-bold">
+                    {lang.flag} {lang.code.toUpperCase()}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="w-2.5 h-2.5 text-gray-400 absolute right-1.5 pointer-events-none" />
+            </div>
+
+            {/* Account & Lists (Triggers User Profile / Logged In) */}
+            {currentView === 'shop' && (
+              <button 
+                onClick={onToggleUserProfile}
+                className="flex flex-col text-left px-2 py-1 rounded-sm border border-transparent hover:border-white/35 cursor-pointer"
+              >
+                <span className="text-[11px] text-gray-400 font-semibold leading-tight">
+                  {isLoggedIn ? 'Hello, Customer' : 'Hello, Guest'}
+                </span>
+                <span className="text-xs text-white font-extrabold leading-tight flex items-center gap-0.5">
+                  Account & Lists <ChevronDown className="w-3 h-3 text-gray-400" />
+                </span>
+              </button>
+            )}
+
+            {/* Returns & Orders (Quick order tracker) */}
+            {currentView === 'shop' && (
+              <button 
+                onClick={onToggleUserProfile}
+                className="hidden sm:flex flex-col text-left px-2 py-1 rounded-sm border border-transparent hover:border-white/35 cursor-pointer"
+              >
+                <span className="text-[11px] text-gray-400 font-semibold leading-tight">Returns</span>
+                <span className="text-xs text-white font-extrabold leading-tight">& Orders</span>
+              </button>
+            )}
+
+            {/* Theme Toggle (Moon/Sun) */}
+            <button 
+              onClick={onToggleTheme}
+              className="p-2 rounded-full hover:bg-white/10 text-white cursor-pointer transition-colors shrink-0"
+              title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            >
+              {isDark ? <Sun className="w-5 h-5 text-amber-400" /> : <Moon className="w-5 h-5 text-gray-300" />}
+            </button>
+
+            {/* Wishlist Button */}
+            {currentView === 'shop' && (
+              <button 
+                onClick={onToggleWishlist}
+                className="hidden md:flex flex-col items-center justify-center p-1.5 rounded-sm border border-transparent hover:border-white/35 cursor-pointer relative"
+                aria-label="Wishlist"
+              >
+                <Heart className="w-5 h-5 text-pink-400 fill-pink-400/10" />
+                {wishlistCount > 0 && (
+                  <span className="absolute -top-1 -right-1.5 bg-[#f08804] text-white text-[9px] font-black rounded-full w-4 h-4 flex items-center justify-center shadow-sm">
+                    {wishlistCount}
+                  </span>
+                )}
+              </button>
+            )}
+
+            {/* Giant Amazon Cart Widget */}
+            {currentView === 'shop' && (
+              <button 
+                onClick={onToggleCart}
+                className="flex items-end gap-1.5 px-2.5 py-1.5 rounded-sm border border-transparent hover:border-white/35 cursor-pointer relative shrink-0 select-none group"
+                aria-label="Cart"
+              >
+                {/* Shopping cart with bubble count overlay */}
+                <div className="relative">
+                  <ShoppingCart className="w-6.5 h-6.5 text-white" />
+                  <span className="absolute -top-1.5 left-1/2 -translate-x-1/2 bg-[#f08804] text-gray-950 text-[11px] font-black rounded-full px-1.5 min-w-[18px] text-center leading-none py-0.5 shadow-sm group-hover:scale-105 transition-transform">
+                    {cartCount}
+                  </span>
+                </div>
+                <span className="text-xs text-white font-black uppercase tracking-wider self-end mb-0.5 hidden md:inline">
+                  Cart
+                </span>
+              </button>
+            )}
+
+          </div>
+
+        </div>
+      </header>
+
+      {/* 2. SECONDARY AMAZON-STYLE SUB-HEADER ROW */}
+      <nav className="bg-[#232f3e] text-white py-1.5 px-4 text-xs font-semibold flex items-center justify-between sticky top-[56px] z-30 shadow-sm border-t border-white/5 select-none overflow-x-auto whitespace-nowrap scrollbar-none">
+        <div className="max-w-7xl mx-auto w-full flex items-center justify-between gap-4">
+          
+          {/* Left links */}
+          <div className="flex items-center gap-4">
+            
+            {/* Mega Menu Toggle */}
+            <button 
+              onClick={() => setMegaMenuOpen(true)}
+              className="flex items-center gap-1 text-white hover:text-[#febd69] cursor-pointer transition-colors font-bold uppercase tracking-wider py-1 px-1.5 rounded-sm hover:ring-1 hover:ring-white/30"
+            >
+              <Menu className="w-4 h-4" />
+              <span>All Categories</span>
+            </button>
+
+            {/* Quick direct category filters */}
+            <div className="hidden md:flex items-center gap-3">
+              <button 
+                onClick={() => selectCategory('all')} 
+                className="text-gray-200 hover:text-white py-1 px-1.5 rounded-sm hover:ring-1 hover:ring-white/20 transition-all cursor-pointer"
+              >
+                Today's Deals
+              </button>
+              <button 
+                onClick={() => selectCategory('groceries_fresh')} 
+                className="text-gray-200 hover:text-white py-1 px-1.5 rounded-sm hover:ring-1 hover:ring-white/20 transition-all cursor-pointer"
+              >
+                Fresh Foods
+              </button>
+              <button 
+                onClick={() => selectCategory('beverages')} 
+                className="text-gray-200 hover:text-white py-1 px-1.5 rounded-sm hover:ring-1 hover:ring-white/20 transition-all cursor-pointer"
+              >
+                Beverages
+              </button>
+              <button 
+                onClick={() => selectCategory('grains_flours')} 
+                className="text-gray-200 hover:text-white py-1 px-1.5 rounded-sm hover:ring-1 hover:ring-white/20 transition-all cursor-pointer"
+              >
+                Flour & grains
+              </button>
+              <button 
+                onClick={() => selectCategory('liquor')} 
+                className="text-gray-200 hover:text-[#febd69] font-bold py-1 px-1.5 rounded-sm hover:ring-1 hover:ring-white/20 transition-all cursor-pointer flex items-center gap-1"
+              >
+                <Tag className="w-3.5 h-3.5 text-amber-400" />
+                Liquor Cellar
+              </button>
+              <button 
+                onClick={() => selectCategory('household')} 
+                className="text-gray-200 hover:text-white py-1 px-1.5 rounded-sm hover:ring-1 hover:ring-white/20 transition-all cursor-pointer"
+              >
+                Household
+              </button>
+            </div>
+          </div>
+
+          {/* Right features & Admin link */}
+          <div className="flex items-center gap-4 text-[11px] font-bold text-gray-300">
+            
+            {/* Free Shipping Badge */}
+            <span className="hidden lg:flex items-center gap-1 text-emerald-400 bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-900/30">
+              <Truck className="w-3.5 h-3.5" />
+              <span>Free Delivery over {formatMoney(settings.freeDeliveryThreshold)}</span>
+            </span>
+
+            {/* Admin view switch */}
             {currentView === 'shop' ? (
               <button 
                 onClick={() => onViewChange('admin')}
-                className="flex items-center gap-1 hover:text-white transition-colors font-semibold"
+                className="flex items-center gap-1 hover:text-white py-1 px-2 rounded bg-white/10 text-white cursor-pointer transition-all border border-white/5 active:scale-95 shrink-0"
               >
-                <Lock className="w-3.5 h-3.5" />
+                <Lock className="w-3 h-3" />
                 <span>Admin Portal</span>
               </button>
             ) : (
               <div className="flex items-center gap-3">
                 <button 
                   onClick={() => onViewChange('shop')}
-                  className="flex items-center gap-1 hover:text-white transition-colors font-semibold"
+                  className="flex items-center gap-1 hover:text-white py-1 px-2 rounded bg-[#febd69] text-gray-950 cursor-pointer font-bold transition-all"
                 >
-                  <Store className="w-3.5 h-3.5" />
+                  <Store className="w-3 h-3" />
                   <span>View Storefront</span>
                 </button>
                 {isLoggedIn && (
-                  <>
-                    <span className="h-3 w-px bg-white/25" />
-                    <button 
-                      onClick={onLogout}
-                      className="flex items-center gap-1 hover:text-red-300 transition-colors font-semibold text-red-200"
-                    >
-                      <LogOut className="w-3.5 h-3.5" />
-                      <span>Logout</span>
-                    </button>
-                  </>
+                  <button 
+                    onClick={onLogout}
+                    className="flex items-center gap-1 text-red-400 hover:text-red-300 cursor-pointer"
+                  >
+                    <LogOut className="w-3 h-3" />
+                    <span>Logout</span>
+                  </button>
                 )}
               </div>
             )}
           </div>
+
         </div>
-      </div>
+      </nav>
 
-      {/* Main Header */}
-      <header className="bg-[#782045] py-3 px-4 sticky top-0 z-40 shadow-md">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-          
-          {/* Hamburger Menu (Mobile) */}
-          <button 
-            onClick={() => setMobileMenuOpen(true)}
-            className="md:hidden text-white hover:opacity-85 cursor-pointer p-1"
-            aria-label="Toggle Navigation"
-          >
-            <Menu className="w-6 h-6" />
-          </button>
-
-          {/* Brand Logo & Title */}
-          <div 
-            onClick={() => onViewChange('shop')}
-            className="flex items-center gap-2.5 cursor-pointer select-none"
-          >
-            <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center p-1 shadow-sm border border-white/20">
-              <Store className="w-6 h-6 text-[#782045]" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-white font-extrabold text-xl tracking-tight leading-none">Kipchimatt</span>
-              <span className="text-white/60 text-[9px] uppercase tracking-widest font-bold">Supermarket</span>
-            </div>
-          </div>
-
-          {/* Shop Categories Mega Dropdown Trigger */}
-          <button 
-            onClick={() => setMegaMenuOpen(true)}
-            className="hidden md:flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold py-2 px-4 rounded-full text-sm cursor-pointer transition-colors"
-          >
-            <LayoutGrid className="w-4 h-4" />
-            <span>Categories</span>
-          </button>
-
-          {/* Search Bar & Custom 12-Language Selector */}
-          <div className="flex-1 max-w-xl flex items-center gap-2">
-            <form onSubmit={handleSearchSubmit} className="flex-1 relative">
-              <input 
-                type="text" 
-                placeholder="Search groceries, essentials, household, liquor..." 
-                value={searchVal}
-                onChange={(e) => setSearchVal(e.target.value)}
-                className="w-full py-2.5 pl-5 pr-20 rounded-full border-none bg-white text-gray-800 placeholder-gray-400 font-medium text-sm shadow-inner focus:outline-none focus:ring-3 focus:ring-white/30 transition-all"
-              />
-              <button 
-                type="button"
-                onClick={startVoiceListening}
-                className={`absolute right-10 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center cursor-pointer transition-all ${isListening ? 'bg-red-500 text-white animate-pulse shadow-md ring-4 ring-red-100' : 'text-gray-400 hover:text-[#782045] hover:bg-gray-100'}`}
-                title="Search hands-free with voice"
-              >
-                {isListening ? (
-                  <MicOff className="w-4 h-4" />
-                ) : (
-                  <Mic className="w-4 h-4" />
-                )}
-              </button>
-              <button 
-                type="submit"
-                className="absolute right-1 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#9c2b5b] hover:bg-[#4a1028] text-white flex items-center justify-center cursor-pointer transition-colors shadow-sm"
-                aria-label="Search"
-              >
-                <Search className="w-4 h-4" />
-              </button>
-            </form>
-
-            {/* Custom 12-Language Dropdown */}
-            <div className="relative flex items-center shrink-0">
-              <select
-                value={selectedLang}
-                onChange={(e) => handleLanguageChange(e.target.value)}
-                className="bg-white/15 hover:bg-white/25 text-white font-extrabold py-2.5 pl-3.5 pr-8 rounded-full text-xs cursor-pointer transition-all border border-white/10 outline-none appearance-none flex items-center gap-1.5 focus:ring-2 focus:ring-white/30"
-                style={{ minWidth: '92px' }}
-                title="Select Language"
-              >
-                {languages.map(lang => (
-                  <option key={lang.code} value={lang.code} className="text-gray-900 bg-white font-semibold">
-                    {lang.flag} {lang.label}
-                  </option>
-                ))}
-              </select>
-              <div className="absolute right-3 pointer-events-none text-[9px] text-white/75">
-                ▼
-              </div>
-            </div>
-          </div>
-
-          {/* Desktop Right Hand Actions */}
-          <div className="flex items-center gap-4 text-white">
-            {currentView === 'shop' && (
-              <>
-                <button 
-                  onClick={onToggleUserProfile}
-                  className="hidden sm:flex flex-col items-center gap-0.5 hover:opacity-80 transition-opacity cursor-pointer text-center"
-                >
-                  <User className="w-5 h-5" />
-                  <span className="text-[10px] font-bold">Account</span>
-                </button>
-
-                <button 
-                  onClick={onToggleTheme}
-                  className="flex flex-col items-center gap-0.5 hover:opacity-80 transition-opacity cursor-pointer text-center"
-                  title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
-                >
-                  {isDark ? <Sun className="w-5 h-5 text-amber-400" /> : <Moon className="w-5 h-5 text-gray-200" />}
-                  <span className="text-[10px] font-bold hidden md:inline">Theme</span>
-                </button>
-
-                <button 
-                  onClick={onToggleWishlist}
-                  className="flex flex-col items-center gap-0.5 hover:opacity-80 transition-opacity cursor-pointer text-center relative"
-                  aria-label="Wishlist"
-                >
-                  <Heart className="w-5 h-5" />
-                  <span className="text-[10px] font-bold hidden md:inline">Wishlist</span>
-                  {wishlistCount > 0 && (
-                    <span className="absolute -top-1.5 -right-1 bg-amber-600 text-white text-[9px] font-extrabold rounded-full w-4 h-4 flex items-center justify-center shadow-sm">
-                      {wishlistCount}
-                    </span>
-                  )}
-                </button>
-
-                <button 
-                  onClick={onToggleCart}
-                  className="flex flex-col items-center gap-0.5 hover:opacity-80 transition-opacity cursor-pointer text-center relative"
-                  aria-label="Cart"
-                >
-                  <ShoppingCart className="w-5 h-5" />
-                  <span className="text-[10px] font-bold hidden md:inline">Cart</span>
-                  {cartCount > 0 && (
-                    <span className="absolute -top-1.5 -right-1.5 bg-amber-600 text-white text-[9px] font-extrabold rounded-full w-4 h-4 flex items-center justify-center shadow-sm animate-pulse">
-                      {cartCount}
-                    </span>
-                  )}
-                </button>
-              </>
-            )}
-          </div>
-        </div>
-      </header>
-
-      {/* Quick Category Navigation Bar */}
+      {/* 3. CATEGORIES SCROLL RAIL FOR MOBILE / QUICK SHOPPING (Sits nicely under headers) */}
       {currentView === 'shop' && (
-        <nav className="bg-white border-b border-gray-200 sticky top-[64px] z-30 shadow-sm overflow-hidden">
-          <div className="max-w-7xl mx-auto px-4 flex items-center gap-1.5 overflow-x-auto py-2 scrollbar-none">
-            {categoryMeta.slice(0, 9).map((cat) => (
+        <nav className="bg-white dark:bg-gray-900 border-b border-gray-150 dark:border-gray-800 shadow-sm overflow-hidden select-none">
+          <div className="max-w-7xl mx-auto px-4 flex items-center gap-2 overflow-x-auto py-2.5 scrollbar-none">
+            <span className="text-[10px] uppercase font-extrabold text-gray-400 shrink-0 select-none">
+              Shop Quick:
+            </span>
+            {categoryMeta.map((cat) => (
               <button
                 key={cat.key}
                 onClick={() => selectCategory(cat.key)}
-                className="px-4 py-1.5 rounded-full border border-transparent font-semibold text-xs text-gray-600 hover:bg-[#782045]/5 hover:text-[#782045] whitespace-nowrap transition-all cursor-pointer"
+                className={`px-3.5 py-1.5 rounded-full font-bold text-xs whitespace-nowrap transition-all cursor-pointer border ${
+                  searchCategory === cat.key 
+                    ? 'bg-[#131921] text-white border-[#131921] dark:bg-gray-100 dark:text-gray-900 dark:border-gray-100' 
+                    : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100 dark:bg-gray-850 dark:text-gray-300 dark:border-gray-800 dark:hover:bg-gray-800'
+                }`}
               >
                 {cat.label}
               </button>
@@ -368,121 +481,163 @@ export default function Header({
         </nav>
       )}
 
-      {/* Mega Menu Overlay & Sidebar */}
+      {/* 4. MEGA CATEGORIES OVERLAY SIDEBAR */}
       {megaMenuOpen && (
         <>
           <div 
             onClick={() => setMegaMenuOpen(false)}
-            className="fixed inset-0 bg-black/40 z-50 transition-opacity duration-300"
+            className="fixed inset-0 bg-black/60 z-50 transition-opacity duration-300 backdrop-blur-xs"
           />
-          <nav className="fixed top-0 left-0 w-[340px] max-w-[85%] h-full bg-white shadow-2xl z-50 flex flex-col animate-slide-in">
-            <div className="bg-[#782045] text-white p-5 flex items-center justify-between sticky top-0">
-              <h3 className="font-extrabold text-base flex items-center gap-2">
-                <LayoutGrid className="w-5 h-5" />
-                <span>Shop by Category</span>
+          <nav className="fixed top-0 left-0 w-[345px] max-w-[85%] h-full bg-white dark:bg-gray-900 shadow-2xl z-55 flex flex-col animate-slide-in">
+            {/* Header */}
+            <div className="bg-[#131921] text-white p-5 flex items-center justify-between sticky top-0 border-b border-gray-800">
+              <h3 className="font-extrabold text-base flex items-center gap-2.5 uppercase tracking-wide">
+                <LayoutGrid className="w-5 h-5 text-[#febd69]" />
+                <span>Shop All Departments</span>
               </h3>
               <button 
                 onClick={() => setMegaMenuOpen(false)}
-                className="text-white hover:opacity-75 cursor-pointer p-1"
+                className="text-gray-300 hover:text-white cursor-pointer p-1 rounded-full hover:bg-white/10 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <div className="flex-1 overflow-y-auto py-3">
+            
+            {/* Sub banner */}
+            <div className="bg-[#232f3e] text-white py-3 px-5 text-[11px] font-bold flex items-center justify-between border-b border-white/5 shrink-0">
+              <span className="flex items-center gap-1.5"><Sparkles className="w-3.5 h-3.5 text-[#febd69]" /><span>Welcome to Kipchimatt Supermarket</span></span>
+              <span className="text-[#febd69] uppercase tracking-wider">Fast delivery</span>
+            </div>
+
+            {/* List items */}
+            <div className="flex-1 overflow-y-auto py-3 divide-y divide-gray-100 dark:divide-gray-800">
               {categoryMeta.map((cat) => (
                 <button
                   key={cat.key}
                   onClick={() => selectCategory(cat.key)}
-                  className="w-full flex items-center justify-between text-left px-5 py-3.5 border-b border-gray-50 hover:bg-[#782045]/5 group cursor-pointer transition-colors"
+                  className="w-full flex items-center justify-between text-left px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-gray-850 group cursor-pointer transition-colors"
                 >
-                  <span className="font-semibold text-gray-700 group-hover:text-[#782045] text-sm">
+                  <span className="font-bold text-gray-700 dark:text-gray-300 group-hover:text-amber-600 text-sm">
                     {cat.label}
                   </span>
-                  <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-[#782045] group-hover:translate-x-1 transition-all" />
+                  <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-amber-600 group-hover:translate-x-1 transition-all" />
                 </button>
               ))}
+            </div>
+
+            {/* Footer */}
+            <div className="bg-gray-50 dark:bg-gray-950 p-4 border-t border-gray-150 dark:border-gray-800 text-center text-[10px] text-gray-400 font-bold uppercase tracking-wider">
+              Kipchimatt E-Commerce Engine v2.1
             </div>
           </nav>
         </>
       )}
 
-      {/* Mobile Navigation Sidebar */}
+      {/* 5. MOBILE NAVIGATION OVERLAY SIDEBAR */}
       {mobileMenuOpen && (
         <>
           <div 
             onClick={() => setMobileMenuOpen(false)}
-            className="fixed inset-0 bg-black/40 z-50 transition-opacity"
+            className="fixed inset-0 bg-black/60 z-50 transition-opacity backdrop-blur-xs"
           />
-          <nav className="fixed top-0 left-0 w-[280px] max-w-[80%] h-full bg-white shadow-2xl z-50 flex flex-col">
-            <div className="bg-[#782045] text-white p-5 flex items-center gap-3 relative">
-              <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center p-1 border border-white/20">
-                <Store className="w-5 h-5 text-[#782045]" />
+          <nav className="fixed top-0 left-0 w-[290px] max-w-[80%] h-full bg-white dark:bg-gray-900 shadow-2xl z-55 flex flex-col">
+            {/* Brand/User Info Header */}
+            <div className="bg-[#131921] text-white p-5 flex flex-col gap-3 relative border-b border-gray-800">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-[#232f3e] border border-white/20 flex items-center justify-center p-1">
+                  <User className="w-6 h-6 text-[#febd69]" />
+                </div>
+                <div className="flex flex-col">
+                  <h2 className="font-black text-sm tracking-tight leading-none">
+                    {isLoggedIn ? 'Hello, Customer' : 'Hello, Sign In'}
+                  </h2>
+                  <span className="text-[10px] text-gray-400 mt-1 font-bold">Manage Account & Tracking</span>
+                </div>
               </div>
-              <h2 className="font-extrabold text-base tracking-tight">Kipchimatt</h2>
+              
               <button 
                 onClick={() => setMobileMenuOpen(false)}
-                className="absolute top-5 right-4 text-white hover:opacity-80 p-1 cursor-pointer"
+                className="absolute top-5 right-4 text-gray-400 hover:text-white p-1 cursor-pointer rounded-full hover:bg-white/10 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <div className="flex-1 overflow-y-auto py-3 flex flex-col font-semibold text-sm text-gray-700">
+
+            {/* Navigation options */}
+            <div className="flex-1 overflow-y-auto py-3 flex flex-col font-bold text-sm text-gray-700 dark:text-gray-300">
+              
               <button 
-                onClick={() => { selectCategory('all'); onViewChange('shop'); }}
-                className="w-full text-left px-5 py-3.5 hover:bg-[#782045]/5 flex items-center gap-3 text-gray-800"
+                onClick={() => { selectCategory('all'); onViewChange('shop'); setMobileMenuOpen(false); }}
+                className="w-full text-left px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-gray-850 flex items-center gap-3 text-gray-800 dark:text-gray-100"
               >
-                <Store className="w-5 h-5 text-[#782045]" />
+                <Store className="w-5 h-5 text-gray-400" />
                 <span>Store Home</span>
               </button>
+
               <button 
                 onClick={() => { setMegaMenuOpen(true); setMobileMenuOpen(false); }}
-                className="w-full text-left px-5 py-3.5 hover:bg-[#782045]/5 flex items-center gap-3 text-gray-800"
+                className="w-full text-left px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-gray-850 flex items-center gap-3 text-gray-800 dark:text-gray-100"
               >
-                <LayoutGrid className="w-5 h-5 text-[#782045]" />
-                <span>All Categories</span>
+                <LayoutGrid className="w-5 h-5 text-gray-400" />
+                <span>Shop All Departments</span>
               </button>
               
-              <div className="h-px bg-gray-100 my-2 mx-5" />
+              <div className="h-px bg-gray-150 dark:bg-gray-800 my-2 mx-5" />
               
               <button 
                 onClick={() => { onToggleWishlist(); setMobileMenuOpen(false); }}
-                className="w-full text-left px-5 py-3.5 hover:bg-[#782045]/5 flex items-center justify-between"
+                className="w-full text-left px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-gray-850 flex items-center justify-between"
               >
-                <span className="flex items-center gap-3"><Heart className="w-5 h-5 text-[#782045]" /><span>Wishlist</span></span>
-                {wishlistCount > 0 && <span className="bg-[#782045] text-white text-[10px] px-2.5 py-0.5 rounded-full font-bold">{wishlistCount}</span>}
+                <span className="flex items-center gap-3">
+                  <Heart className="w-5 h-5 text-gray-400" />
+                  <span>Wishlist</span>
+                </span>
+                {wishlistCount > 0 && (
+                  <span className="bg-[#f08804] text-white text-[10px] px-2 py-0.5 rounded-full font-black">
+                    {wishlistCount}
+                  </span>
+                )}
               </button>
+
               <button 
                 onClick={() => { onToggleCart(); setMobileMenuOpen(false); }}
-                className="w-full text-left px-5 py-3.5 hover:bg-[#782045]/5 flex items-center justify-between"
+                className="w-full text-left px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-gray-850 flex items-center justify-between"
               >
-                <span className="flex items-center gap-3"><ShoppingCart className="w-5 h-5 text-[#782045]" /><span>Cart</span></span>
-                {cartCount > 0 && <span className="bg-[#782045] text-white text-[10px] px-2.5 py-0.5 rounded-full font-bold animate-pulse">{cartCount}</span>}
+                <span className="flex items-center gap-3">
+                  <ShoppingCart className="w-5 h-5 text-gray-400" />
+                  <span>Shopping Cart</span>
+                </span>
+                {cartCount > 0 && (
+                  <span className="bg-[#f08804] text-white text-[10px] px-2 py-0.5 rounded-full font-black animate-pulse">
+                    {cartCount}
+                  </span>
+                )}
               </button>
 
               <button 
                 onClick={() => { onToggleUserProfile(); setMobileMenuOpen(false); }}
-                className="w-full text-left px-5 py-3.5 hover:bg-[#782045]/5 flex items-center gap-3 text-gray-800"
+                className="w-full text-left px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-gray-850 flex items-center gap-3 text-gray-800 dark:text-gray-100"
               >
-                <User className="w-5 h-5 text-[#782045]" />
+                <User className="w-5 h-5 text-gray-400" />
                 <span>My Profile / Track Order</span>
               </button>
 
               <button 
                 onClick={() => { onToggleTheme(); setMobileMenuOpen(false); }}
-                className="w-full text-left px-5 py-3.5 hover:bg-[#782045]/5 flex items-center gap-3 text-gray-800"
+                className="w-full text-left px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-gray-850 flex items-center gap-3 text-gray-800 dark:text-gray-100"
               >
-                {isDark ? <Sun className="w-5 h-5 text-[#782045]" /> : <Moon className="w-5 h-5 text-[#782045]" />}
+                {isDark ? <Sun className="w-5 h-5 text-gray-400" /> : <Moon className="w-5 h-5 text-gray-400" />}
                 <span>{isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}</span>
               </button>
 
-              <div className="h-px bg-gray-100 my-2 mx-5" />
+              <div className="h-px bg-gray-150 dark:bg-gray-800 my-2 mx-5" />
 
               <button 
                 onClick={() => { onViewChange('admin'); setMobileMenuOpen(false); }}
-                className="w-full text-left px-5 py-3.5 hover:bg-[#782045]/5 flex items-center gap-3"
+                className="w-full text-left px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-gray-850 flex items-center gap-3"
               >
-                <Lock className="w-5 h-5 text-[#782045]" />
-                <span>Admin Panel</span>
+                <Lock className="w-5 h-5 text-gray-400" />
+                <span>Admin Panel Portal</span>
               </button>
             </div>
           </nav>
