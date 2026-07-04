@@ -2,7 +2,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import { 
   LayoutGrid, Boxes, Carrot, Coffee, Baby, Plug, Sparkles, Wine, 
   Pencil, PawPrint, Wrench, Armchair, ChevronLeft, ChevronRight, 
-  Heart, ShoppingCart, Check, Star, AlertCircle, Sparkle 
+  Heart, ShoppingCart, Check, Star, AlertCircle, Sparkle,
+  HeartPulse, Shirt, Trophy, BookOpen
 } from 'lucide-react';
 import { Product, StoreSettings, Order, Customer } from '../types';
 import { categoryMeta, formatMoney, calcDiscount } from '../data/catalog';
@@ -83,6 +84,10 @@ export default function Storefront({
       case 'PawPrint': return <PawPrint className="w-5 h-5" />;
       case 'Wrench': return <Wrench className="w-5 h-5" />;
       case 'Armchair': return <Armchair className="w-5 h-5" />;
+      case 'HeartPulse': return <HeartPulse className="w-5 h-5" />;
+      case 'Shirt': return <Shirt className="w-5 h-5" />;
+      case 'Trophy': return <Trophy className="w-5 h-5" />;
+      case 'BookOpen': return <BookOpen className="w-5 h-5" />;
       default: return <LayoutGrid className="w-5 h-5" />;
     }
   };

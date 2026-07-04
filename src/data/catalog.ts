@@ -13,7 +13,11 @@ export const categoryMeta: CategoryMeta[] = [
   { key: 'stationery', label: 'Stationery', icon: 'Pencil' },
   { key: 'pet', label: 'Pet Supplies', icon: 'PawPrint' },
   { key: 'hardware', label: 'Hardware', icon: 'Wrench' },
-  { key: 'furniture', label: 'Furniture', icon: 'Armchair' }
+  { key: 'furniture', label: 'Furniture', icon: 'Armchair' },
+  { key: 'health', label: 'Health & Wellness', icon: 'HeartPulse' },
+  { key: 'apparel', label: 'Apparel & Fashion', icon: 'Shirt' },
+  { key: 'sports', label: 'Sports & Outdoors', icon: 'Trophy' },
+  { key: 'books', label: 'Books & Media', icon: 'BookOpen' }
 ];
 
 export const defaultSettings: StoreSettings = {
@@ -595,6 +599,110 @@ export const defaultProducts: Product[] = [
     description: 'Give your living room a modern makeover. This elasticated slipcover is made from breathable, stretch-to-fit fabric, protecting your sofas from pet hairs, dust, and stains. Easy to machine wash.',
     rating: 4.5,
     ratingCount: 30
+  },
+  {
+    id: 71,
+    name: 'Deep Heat Rub Pain Relieving Cream 100g',
+    brand: 'Deep Heat',
+    category: 'health',
+    price: 650,
+    originalPrice: 800,
+    stock: 45,
+    image: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?w=400&h=400&fit=crop',
+    description: 'Deep Heat Rub is a fast-acting pain-relieving cream that generates soothing warmth to relax sore muscles, ease joint stiffness, and relieve minor sports injuries. Perfect for pre-workout warming and post-activity recovery.',
+    rating: 4.8,
+    ratingCount: 88
+  },
+  {
+    id: 72,
+    name: 'Seven Seas Cod Liver Oil Capsules 100pc',
+    brand: 'Seven Seas',
+    category: 'health',
+    price: 1200,
+    originalPrice: 1500,
+    stock: 35,
+    image: 'https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=400&h=400&fit=crop',
+    description: 'Enriched with natural Omega-3 fish oil and essential Vitamin D to support joint health, maintain a strong immune system, and promote healthy skin, bones, and teeth. Formulated for everyday wellness.',
+    rating: 4.9,
+    ratingCount: 110
+  },
+  {
+    id: 75,
+    name: 'Classic Crewneck Cotton White T-Shirt',
+    brand: 'Cotton Comfort',
+    category: 'apparel',
+    price: 599,
+    originalPrice: 799,
+    stock: 60,
+    image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400&h=400&fit=crop',
+    description: 'Crafted from 100% premium combed cotton, this classic crewneck t-shirt is ultra-soft, highly breathable, and holds its shape perfectly. Ideal for everyday casual styling or layered warmth.',
+    rating: 4.7,
+    ratingCount: 42
+  },
+  {
+    id: 76,
+    name: 'Comfort-Fit Fleece Hoodie Unisex',
+    brand: 'Urban Threads',
+    category: 'apparel',
+    price: 1899,
+    originalPrice: 2499,
+    stock: 25,
+    image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=400&fit=crop',
+    description: 'Stay warm and cozy in this heavy-knit fleece hoodie. Features a dual-lined drawstring hood, roomy kangaroo pocket, and rib-knit cuffs. Styled for a timeless, modern relaxed fit.',
+    rating: 4.6,
+    ratingCount: 64
+  },
+  {
+    id: 81,
+    name: 'Premium Non-Slip Yoga Mat with Carry Strap',
+    brand: 'FitLife',
+    category: 'sports',
+    price: 1450,
+    originalPrice: 1990,
+    stock: 30,
+    image: 'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=400&h=400&fit=crop',
+    description: 'A thick, dual-textured yoga mat providing superb traction, joint cushioning, and durability. Ideal for yoga, Pilates, home workouts, and stretching. Includes a free elastic carry strap.',
+    rating: 4.8,
+    ratingCount: 55
+  },
+  {
+    id: 82,
+    name: 'Waterproof Sports Smartwatch & Fitness Tracker',
+    brand: 'Aero',
+    category: 'sports',
+    price: 3499,
+    originalPrice: 4500,
+    stock: 20,
+    image: 'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=400&h=400&fit=crop',
+    description: 'Track your real-time running metrics, daily steps, calorie burn, and sleep cycles. Features a clear 1.4" color touchscreen, IP68 water resistance, and robust battery life up to 10 days.',
+    rating: 4.5,
+    ratingCount: 38
+  },
+  {
+    id: 86,
+    name: 'Atomic Habits by James Clear (Paperback)',
+    brand: 'Penguin Books',
+    category: 'books',
+    price: 950,
+    originalPrice: 1200,
+    stock: 50,
+    image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=400&fit=crop',
+    description: 'The revolutionary guide to building positive habits and breaking bad ones. James Clear provides practical, actionable strategies backed by biology, psychology, and neuroscience to reshape your daily routines.',
+    rating: 4.9,
+    ratingCount: 220
+  },
+  {
+    id: 87,
+    name: 'Sapiens: A Brief History of Humankind',
+    brand: 'Vintage Publishing',
+    category: 'books',
+    price: 1100,
+    originalPrice: 1400,
+    stock: 40,
+    image: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=400&h=400&fit=crop',
+    description: 'Dr. Yuval Noah Harari spans the whole of human history, from the very first humans to walk the Earth to the radical, sometimes devastating breakthroughs of the Cognitive, Agricultural, and Scientific Revolutions.',
+    rating: 4.8,
+    ratingCount: 180
   }
 ];
 

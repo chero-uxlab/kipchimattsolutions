@@ -16,30 +16,75 @@ export default function Hero({ onExploreCategory, onScrollToDeals, onScrollToBra
   const slides = [
     {
       id: 1,
-      title: 'Kipchimatt Supermarket',
-      desc: "Fresh groceries, household essentials & more delivered to your doorstep in under 90 minutes across Kenya's key locations.",
-      btnText: 'Start Shopping',
-      action: onScrollToDeals,
-      bgClass: 'bg-gradient-to-r from-[#782045] to-[#4a1028]',
-      icon: <ShoppingBag className="w-24 h-24 text-white/10 absolute right-16 bottom-16 -rotate-12 hidden sm:block" />
+      title: 'Fresh Farm Produce & Butchery',
+      category: 'fresh food',
+      desc: '100% organic leafy greens, juicy local tomatoes, premium tender beef steaks, and fresh Kenchic poultry delivered daily.',
+      btnText: 'Shop Fresh Food',
+      action: () => onExploreCategory('fresh food'),
+      image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200&q=80',
     },
     {
       id: 2,
-      title: 'Mambo Fresh, Every Day',
-      desc: 'Farm-fresh fruits, organic veggies, premium dairy, and butchery cuts sourced locally and delivered same-day in pristine condition.',
-      btnText: 'Shop Fresh Food',
-      action: () => onExploreCategory('fresh food'),
-      bgClass: 'bg-gradient-to-r from-emerald-700 to-teal-900',
-      icon: <Carrot className="w-24 h-24 text-white/10 absolute right-16 bottom-16 -rotate-12 hidden sm:block" />
+      title: 'Premium Electronics & Appliances',
+      category: 'electronics',
+      desc: 'Upgrade your home with Samsung microwaves, Ramtons smart blenders, Mika fast-boil kettles, and high-performance smartphones.',
+      btnText: 'Explore Electronics',
+      action: () => onExploreCategory('electronics'),
+      image: 'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=1200&q=80',
     },
     {
       id: 3,
-      title: 'Kikapu Chapchap Deals',
-      desc: 'Basket-loads of incredible savings, refreshed every morning. Enjoy up to 40% off across every supermarket aisle today.',
-      btnText: "See Today's Deals",
-      action: onScrollToDeals,
-      bgClass: 'bg-gradient-to-r from-amber-700 to-orange-900',
-      icon: <Tags className="w-24 h-24 text-white/10 absolute right-16 bottom-16 -rotate-12 hidden sm:block" />
+      title: 'Health, Wellness & Pharmacy',
+      category: 'health',
+      desc: 'Keep your family strong with premium vitamins, Seven Seas cod liver oil, deep heat rubs, and general health-wellness products.',
+      btnText: 'Shop Health & Wellness',
+      action: () => onExploreCategory('health'),
+      image: 'https://images.unsplash.com/photo-1511688868353-3a3668881515?w=1200&q=80',
+    },
+    {
+      id: 4,
+      title: 'Modern Apparel & Wardrobe',
+      category: 'apparel',
+      desc: 'Discover ultra-soft cotton white tees, heavy-knit unisex hoodies, and cozy apparel crafted for ultimate everyday comfort.',
+      btnText: 'Browse Apparel & Fashion',
+      action: () => onExploreCategory('apparel'),
+      image: 'https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=1200&q=80',
+    },
+    {
+      id: 5,
+      title: 'Sports, Fitness & Outdoors',
+      category: 'sports',
+      desc: 'Achieve your wellness goals with non-slip dual-textured yoga mats, smart fitness trackers, and professional sports gear.',
+      btnText: 'Explore Sports & Fitness',
+      action: () => onExploreCategory('sports'),
+      image: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=1200&q=80',
+    },
+    {
+      id: 6,
+      title: 'Books, Fiction & Business Media',
+      category: 'books',
+      desc: "Immerse yourself in James Clear's Atomic Habits, Yuval Harari's Sapiens, and other global bestsellers packed with wisdom.",
+      btnText: 'Browse Books & Media',
+      action: () => onExploreCategory('books'),
+      image: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=1200&q=80',
+    },
+    {
+      id: 7,
+      title: 'Pantry Staples & Food Cupboard',
+      category: 'food cupboard',
+      desc: 'Stock up on Dola maize flour, Sunrice pure Basmati rice, Nescafe classic granules, and your absolute favorite cooking fats.',
+      btnText: 'Fill Your Cupboard',
+      action: () => onExploreCategory('food cupboard'),
+      image: 'https://images.unsplash.com/photo-1578916171728-46686eac8d58?w=1200&q=80',
+    },
+    {
+      id: 8,
+      title: 'Exquisite Liquors & Spirits',
+      category: 'liquor',
+      desc: 'Browse award-winning Scotch whiskies, Johnnie Walker Black Label, fine vintage wines, and craft beers. Delivered strictly for 18+.',
+      btnText: 'Visit Liquor Cellar',
+      action: () => onExploreCategory('liquor'),
+      image: 'https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=1200&q=80',
     }
   ];
 
@@ -63,7 +108,7 @@ export default function Hero({ onExploreCategory, onScrollToDeals, onScrollToBra
       <div className="max-w-7xl mx-auto">
         
         {/* Carousel */}
-        <div className="relative rounded-2xl overflow-hidden shadow-lg h-[280px] sm:h-[320px] md:h-[350px]">
+        <div className="relative rounded-2xl overflow-hidden shadow-lg h-[280px] sm:h-[320px] md:h-[380px]">
           <div 
             className="flex h-full transition-transform duration-500 ease-in-out"
             style={{ transform: `translateX(-${currentSlide * 100}%)` }}
@@ -71,27 +116,27 @@ export default function Hero({ onExploreCategory, onScrollToDeals, onScrollToBra
             {slides.map((slide) => (
               <div 
                 key={slide.id}
-                className={`min-w-full h-full flex items-center justify-between p-8 sm:p-12 text-white relative select-none ${slide.bgClass}`}
+                className="min-w-full h-full flex items-center justify-between p-8 sm:p-12 text-white relative select-none bg-cover bg-center"
+                style={{ backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.85) 40%, rgba(0,0,0,0.4) 100%), url(${slide.image})` }}
               >
-                <div className="z-10 max-w-lg">
-                  <span className="bg-white/15 px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase mb-3 inline-block">
-                    Kikapu Chapchap
+                <div className="z-10 max-w-xl">
+                  <span className="bg-[#febd69] text-gray-950 px-3 py-1 rounded-full text-[10px] font-extrabold tracking-wider uppercase mb-3 inline-block">
+                    Featured Department
                   </span>
-                  <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-3">
+                  <h1 className="text-2xl sm:text-3xl md:text-4.5xl font-black tracking-tight mb-3 text-white drop-shadow-sm">
                     {slide.title}
                   </h1>
-                  <p className="text-white/80 text-xs sm:text-sm md:text-base leading-relaxed mb-6 font-medium">
+                  <p className="text-gray-100 text-xs sm:text-sm md:text-base leading-relaxed mb-6 font-medium max-w-lg drop-shadow-sm">
                     {slide.desc}
                   </p>
                   <button 
                     onClick={slide.action}
-                    className="flex items-center gap-2 bg-white text-[#782045] font-bold text-xs sm:text-sm py-2.5 px-6 rounded-full hover:shadow-xl hover:-translate-y-0.5 transition-all cursor-pointer"
+                    className="flex items-center gap-2 bg-[#febd69] text-gray-950 hover:bg-[#f3a847] font-black text-xs sm:text-sm py-3 px-7 rounded-full hover:shadow-xl hover:-translate-y-0.5 transition-all cursor-pointer"
                   >
                     <ShoppingBag className="w-4 h-4" />
                     <span>{slide.btnText}</span>
                   </button>
                 </div>
-                {slide.icon}
               </div>
             ))}
           </div>
@@ -99,17 +144,17 @@ export default function Hero({ onExploreCategory, onScrollToDeals, onScrollToBra
           {/* Controls */}
           <button 
             onClick={prevSlide}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/20 hover:bg-black/40 text-white flex items-center justify-center cursor-pointer transition-colors z-20"
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center cursor-pointer transition-colors z-20"
             aria-label="Previous Slide"
           >
-            <ChevronLeft className="w-5 h-5" />
+            <ChevronLeft className="w-6 h-6" />
           </button>
           <button 
             onClick={nextSlide}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/20 hover:bg-black/40 text-white flex items-center justify-center cursor-pointer transition-colors z-20"
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center cursor-pointer transition-colors z-20"
             aria-label="Next Slide"
           >
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight className="w-6 h-6" />
           </button>
 
           {/* Dots Indicator */}
@@ -118,7 +163,7 @@ export default function Hero({ onExploreCategory, onScrollToDeals, onScrollToBra
               <button
                 key={idx}
                 onClick={() => setCurrentSlide(idx)}
-                className={`h-2 rounded-full transition-all cursor-pointer ${currentSlide === idx ? 'bg-white w-6' : 'bg-white/45 w-2'}`}
+                className={`h-2 rounded-full transition-all cursor-pointer ${currentSlide === idx ? 'bg-[#febd69] w-6' : 'bg-white/45 w-2'}`}
                 aria-label={`Go to slide ${idx + 1}`}
               />
             ))}
