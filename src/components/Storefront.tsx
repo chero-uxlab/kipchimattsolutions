@@ -293,7 +293,7 @@ export default function Storefront({
 
         <div className="p-4 flex-1 flex flex-col">
           <div className="flex items-center justify-between gap-2 mb-1">
-            <span className="text-[10px] text-[#782045] dark:text-pink-400 font-black uppercase tracking-widest truncate">
+            <span className="text-[10px] text-[#782045] font-black uppercase tracking-widest truncate">
               {p.brand || 'Kipchimatt'}
             </span>
             {p.rating && (
@@ -304,12 +304,12 @@ export default function Storefront({
                     return (
                       <Star 
                         key={starVal} 
-                        className={`w-2.5 h-2.5 ${isFilled ? 'fill-amber-500 text-amber-500' : 'text-gray-200 dark:text-gray-700'}`} 
+                        className={`w-2.5 h-2.5 ${isFilled ? 'fill-amber-500 text-amber-500' : 'text-gray-200'}`} 
                       />
                     );
                   })}
                 </div>
-                <span className="text-[9px] text-gray-500 dark:text-gray-400 font-black ml-1">({p.rating})</span>
+                <span className="text-[9px] text-gray-500 font-black ml-1">({p.rating})</span>
               </div>
             )}
           </div>
@@ -342,7 +342,7 @@ export default function Storefront({
                 type="checkbox"
                 checked={comparedProductIds.includes(p.id)}
                 onChange={(e) => { e.stopPropagation(); onToggleCompare(p); }}
-                className="rounded border-gray-350 dark:border-gray-750 text-[#782045] focus:ring-[#782045] w-3.5 h-3.5 cursor-pointer"
+                className="rounded border-gray-350 dark:border-gray-755 text-[#782045] focus:ring-[#782045] w-3.5 h-3.5 cursor-pointer"
               />
               <span>Compare specs</span>
             </label>

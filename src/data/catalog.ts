@@ -726,6 +726,11 @@ export function calcDiscount(price: number, original: number): number {
   return Math.round(((original - price) / original) * 100);
 }
 
+let counter = 0;
 export function uid(): string {
-  return Date.now().toString(36).toUpperCase();
+  counter = (counter + 1) % 10000;
+  const timestamp = Date.now().toString(36).toUpperCase();
+  const counterPart = counter.toString(36).toUpperCase().padStart(3, '0');
+  const randomPart = Math.random().toString(36).substring(2, 5).toUpperCase().padEnd(3, 'X');
+  return `${timestamp}${counterPart}${randomPart}`;
 }

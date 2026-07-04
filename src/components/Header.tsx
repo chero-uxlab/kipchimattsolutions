@@ -228,7 +228,7 @@ export default function Header({
                 title="Select Department"
               >
                 <option value="all">All Departments</option>
-                {categoryMeta.map(cat => (
+                {categoryMeta.filter(cat => cat.key !== 'all').map(cat => (
                   <option key={cat.key} value={cat.key}>
                     {cat.label}
                   </option>
