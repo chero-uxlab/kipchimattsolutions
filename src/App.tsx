@@ -288,9 +288,55 @@ export default function App() {
     return saved ? JSON.parse(saved) : [];
   });
 
+  const [isInitialLoaded, setIsInitialLoaded] = useState(false);
+
+  // Load initial datasets from our separate Express API backend on mount
+  useEffect(() => {
+    const loadInitialData = async () => {
+      try {
+        const [pRes, oRes, sRes, aRes] = await Promise.all([
+          fetch('/api/products'),
+          fetch('/api/orders'),
+          fetch('/api/settings'),
+          fetch('/api/admin-alerts')
+        ]);
+        
+        if (pRes.ok) {
+          const pData = await pRes.json();
+          if (pData && pData.length > 0) setProducts(pData);
+        }
+        if (oRes.ok) {
+          const oData = await oRes.json();
+          setOrders(oData);
+        }
+        if (sRes.ok) {
+          const sData = await sRes.json();
+          setSettings(sData);
+        }
+        if (aRes.ok) {
+          const aData = await aRes.json();
+          setAdminAlerts(aData);
+        }
+      } catch (err) {
+        console.error("Error loading backend data:", err);
+      } finally {
+        setIsInitialLoaded(true);
+      }
+    };
+    
+    loadInitialData();
+  }, []);
+
   useEffect(() => {
     localStorage.setItem('kipchimatt_admin_alerts', JSON.stringify(adminAlerts));
-  }, [adminAlerts]);
+    if (isInitialLoaded) {
+      fetch('/api/admin-alerts/bulk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(adminAlerts)
+      }).catch(err => console.error("Failed to sync admin alerts to backend:", err));
+    }
+  }, [adminAlerts, isInitialLoaded]);
 
   const handleTriggerLowStockEmail = (productName: string, stock: number) => {
     const emailTo = settings.adminEmailForNotifications || settings.storeEmail || 'admin@kipchimatt.co.ke';
@@ -316,18 +362,39 @@ export default function App() {
     }, 3000);
   };
 
-  // --- Side Effects Sync to LocalStorage ---
+  // --- Side Effects Sync to LocalStorage & Backend ---
   useEffect(() => {
     localStorage.setItem('kipchimatt_products', JSON.stringify(products));
-  }, [products]);
+    if (isInitialLoaded) {
+      fetch('/api/products/bulk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(products)
+      }).catch(err => console.error("Failed to sync products to backend:", err));
+    }
+  }, [products, isInitialLoaded]);
 
   useEffect(() => {
     localStorage.setItem('kipchimatt_orders', JSON.stringify(orders));
-  }, [orders]);
+    if (isInitialLoaded) {
+      fetch('/api/orders/bulk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(orders)
+      }).catch(err => console.error("Failed to sync orders to backend:", err));
+    }
+  }, [orders, isInitialLoaded]);
 
   useEffect(() => {
     localStorage.setItem('kipchimatt_settings', JSON.stringify(settings));
-  }, [settings]);
+    if (isInitialLoaded) {
+      fetch('/api/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(settings)
+      }).catch(err => console.error("Failed to sync settings to backend:", err));
+    }
+  }, [settings, isInitialLoaded]);
 
   useEffect(() => {
     localStorage.setItem('kipchimatt_cart', JSON.stringify(cart));
@@ -1181,6 +1248,9 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {/* Hidden google translate container to prevent initialization scripts from throwing a Script error */}
+      <div id="google_translate_element" style={{ display: 'none' }}></div>
 
     </div>
   );

@@ -145,10 +145,10 @@ export default function Header({
 
   return (
     <>
-      <div className="sticky top-0 z-40 w-full flex flex-col">
+      <div className="sticky top-0 z-40 w-full max-w-7xl mx-auto flex flex-col px-0 sm:px-6 lg:px-8 pt-0 sm:pt-3">
       {/* 1. PRIMARY AMAZON-STYLE HIGH-CONTRAST HEADER ROW */}
-      <header className="bg-[#131921] text-white py-2 shadow-md border-b border-[#111] font-sans w-full">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-center justify-between gap-2.5 md:gap-4 lg:gap-6">
+      <header className="bg-[#782045] text-white py-2 shadow-md border-b border-[#5a1431] font-sans w-full sm:rounded-t-2xl">
+        <div className="w-full px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-3 lg:gap-5">
           
           {/* Top Row for Mobile, or Left/Right for Desktop */}
           <div className="flex items-center justify-between w-full md:w-auto gap-3 shrink-0">
@@ -259,7 +259,7 @@ export default function Header({
           </div>
 
           {/* Prominent Giant Search Bar - Desktop Only */}
-          <div className="hidden md:flex flex-1 max-w-2xl items-center z-10" id="search-bar-container">
+          <div className="hidden md:flex flex-1 min-w-0 max-w-3xl items-center z-10 mx-2 lg:mx-4" id="search-bar-container">
             <form 
               onSubmit={handleSearchSubmit} 
               className="w-full h-10 bg-white rounded-md flex items-center overflow-hidden focus-within:ring-2 focus-within:ring-[#f3a847] border border-transparent transition-all"
@@ -268,7 +268,7 @@ export default function Header({
               <select
                 value={searchCategory}
                 onChange={handleCategoryDropdownChange}
-                className="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs px-3.5 h-full outline-none cursor-pointer font-bold border-r border-gray-300 shrink-0 max-w-[135px] select-none transition-colors"
+                className="bg-gray-100 hover:bg-gray-200 text-gray-700 text-[11px] lg:text-xs px-2 lg:px-3 h-full outline-none cursor-pointer font-bold border-r border-gray-300 shrink-0 max-w-[85px] lg:max-w-[135px] select-none transition-colors truncate"
                 title="Select Department"
               >
                 <option value="all">All Departments</option>
@@ -282,10 +282,10 @@ export default function Header({
               {/* Central text input */}
               <input 
                 type="text" 
-                placeholder="Search supermarket departments, brands, ingredients, sports gear..." 
+                placeholder="Search supermarket departments, brands..." 
                 value={searchVal}
                 onChange={(e) => setSearchVal(e.target.value)}
-                className="flex-1 px-4 h-full outline-none text-sm text-gray-900 placeholder-gray-400 font-medium"
+                className="flex-1 px-2.5 lg:px-4 h-full outline-none text-xs lg:text-sm text-gray-900 placeholder-gray-400 font-medium min-w-0"
                 aria-label="Search inputs"
               />
 
@@ -311,14 +311,14 @@ export default function Header({
           </div>
 
           {/* Right Hand Navigation Widgets - Desktop Only */}
-          <div className="hidden md:flex items-center gap-1 md:gap-2.5 lg:gap-4 shrink-0" id="header-right-actions">
+          <div className="hidden md:flex items-center gap-1 lg:gap-2.5 xl:gap-3.5 shrink-0" id="header-right-actions">
             
             {/* Amazon-Style Language / Currency Selector */}
-            <div className="relative flex items-center rounded-sm border border-transparent hover:border-white px-2 py-1.5 cursor-pointer shrink-0 transition-all">
+            <div className="hidden xl:flex relative items-center rounded-sm border border-transparent hover:border-white px-1.5 py-1 cursor-pointer shrink-0 transition-all">
               <select
                 value={selectedLang}
                 onChange={(e) => handleLanguageChange(e.target.value)}
-                className="bg-transparent text-white font-extrabold text-xs cursor-pointer outline-none appearance-none pr-4.5"
+                className="bg-transparent text-white font-extrabold text-[11px] cursor-pointer outline-none appearance-none pr-4"
                 title="Select Language"
               >
                 {languages.slice(0, 6).map(lang => (
@@ -334,14 +334,14 @@ export default function Header({
             {currentView === 'shop' && (
               <button 
                 onClick={onToggleUserProfile}
-                className="flex flex-col text-left px-2.5 py-1 rounded-sm border border-transparent hover:border-white cursor-pointer transition-all"
+                className="flex flex-col text-left px-1.5 lg:px-2 py-1 rounded-sm border border-transparent hover:border-white cursor-pointer transition-all"
                 id="account-menu-trigger"
               >
-                <span className="text-[11px] text-gray-300 font-normal leading-tight">
+                <span className="text-[10px] lg:text-[11px] text-gray-300 font-normal leading-none mb-0.5">
                   {isLoggedIn ? 'Hello, Customer' : 'Hello, Sign In'}
                 </span>
-                <span className="text-xs text-white font-black leading-tight flex items-center gap-0.5">
-                  Account & Lists <ChevronDown className="w-3 h-3 text-gray-400" />
+                <span className="text-[11px] lg:text-xs text-white font-black leading-none flex items-center gap-0.5">
+                  Account <ChevronDown className="w-2.5 h-2.5 text-gray-400" />
                 </span>
               </button>
             )}
@@ -350,32 +350,32 @@ export default function Header({
             {currentView === 'shop' && (
               <button 
                 onClick={onToggleUserProfile}
-                className="hidden sm:flex flex-col text-left px-2.5 py-1 rounded-sm border border-transparent hover:border-white cursor-pointer transition-all"
+                className="hidden lg:flex flex-col text-left px-1.5 lg:px-2 py-1 rounded-sm border border-transparent hover:border-white cursor-pointer transition-all"
               >
-                <span className="text-[11px] text-gray-300 font-normal leading-tight">Returns</span>
-                <span className="text-xs text-white font-black leading-tight">& Orders</span>
+                <span className="text-[10px] lg:text-[11px] text-gray-300 font-normal leading-none mb-0.5">Returns</span>
+                <span className="text-[11px] lg:text-xs text-white font-black leading-none">& Orders</span>
               </button>
             )}
 
             {/* Theme Toggle Button */}
             <button 
               onClick={onToggleTheme}
-              className="p-2 rounded-full hover:bg-white/10 text-white cursor-pointer transition-all shrink-0"
+              className="p-1 lg:p-1.5 rounded-full hover:bg-white/10 text-white cursor-pointer transition-all shrink-0"
               title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
             >
-              {isDark ? <Sun className="w-4.5 h-4.5 text-amber-400" /> : <Moon className="w-4.5 h-4.5 text-gray-300" />}
+              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-gray-300" />}
             </button>
 
             {/* Elegant Wishlist panel */}
             {currentView === 'shop' && (
               <button 
                 onClick={onToggleWishlist}
-                className="hidden md:flex flex-col items-center justify-center px-2.5 py-1 rounded-sm border border-transparent hover:border-white cursor-pointer relative transition-all"
+                className="flex flex-col items-center justify-center px-1.5 lg:px-2 py-1 rounded-sm border border-transparent hover:border-white cursor-pointer relative transition-all"
                 aria-label="Wishlist"
               >
-                <Heart className="w-5 h-5 text-pink-400 fill-pink-400/15" />
+                <Heart className="w-4.5 h-4.5 text-pink-400 fill-pink-400/15" />
                 {wishlistCount > 0 && (
-                  <span className="absolute top-0.5 right-1 bg-[#f08804] text-white text-[9px] font-black rounded-full w-4 h-4 flex items-center justify-center shadow-sm">
+                  <span className="absolute top-0.5 right-0.5 bg-[#f08804] text-white text-[9px] font-black rounded-full w-3.5 h-3.5 flex items-center justify-center shadow-sm">
                     {wishlistCount}
                   </span>
                 )}
@@ -386,17 +386,17 @@ export default function Header({
             {currentView === 'shop' && (
               <button 
                 onClick={onToggleCart}
-                className="flex items-end gap-1 px-2.5 py-1 rounded-sm border border-transparent hover:border-white cursor-pointer relative shrink-0 select-none group transition-all"
+                className="flex items-end gap-1 px-1.5 lg:px-2 py-1 rounded-sm border border-transparent hover:border-white cursor-pointer relative shrink-0 select-none group transition-all"
                 aria-label="Shopping Cart"
                 id="cart-trigger-button"
               >
                 <div className="relative">
-                  <ShoppingCart className="w-6.5 h-6.5 text-white" />
-                  <span className="absolute -top-1 left-1/2 -translate-x-1/2 bg-[#f08804] text-gray-950 text-[11px] font-black rounded-full px-1.5 min-w-[18px] text-center leading-none py-0.5 shadow-sm group-hover:scale-105 transition-all duration-150">
+                  <ShoppingCart className="w-5.5 h-5.5 text-white" />
+                  <span className="absolute -top-1 left-1/2 -translate-x-1/2 bg-[#f08804] text-gray-950 text-[10px] font-black rounded-full px-1 min-w-[16px] text-center leading-none py-0.5 shadow-sm group-hover:scale-105 transition-all duration-150">
                     {cartCount}
                   </span>
                 </div>
-                <span className="text-xs text-white font-black uppercase tracking-wider self-end mb-0.5 hidden md:inline">
+                <span className="text-[11px] lg:text-xs text-white font-black uppercase tracking-wider self-end mb-0.5 hidden lg:inline">
                   Cart
                 </span>
               </button>
@@ -407,7 +407,7 @@ export default function Header({
         </div>
 
         {/* Mobile Search Bar Row (shown ONLY on mobile/tablet screens below md) */}
-        <div className="md:hidden px-4 pb-2.5 pt-1 bg-[#131921] w-full" id="search-bar-container-mobile">
+        <div className="md:hidden px-4 pb-2.5 pt-1 bg-[#782045] w-full" id="search-bar-container-mobile">
           <form 
             onSubmit={handleSearchSubmit} 
             className="w-full h-10 bg-white rounded-md flex items-center overflow-hidden focus-within:ring-2 focus-within:ring-[#f3a847] border border-transparent transition-all"
@@ -445,8 +445,8 @@ export default function Header({
       </header>
 
       {/* 2. SECONDARY SUB-HEADER ROW (All Categories & Quick Links) */}
-      <nav className="bg-[#232f3e] text-white py-1 text-xs font-semibold flex items-center justify-between shadow-sm border-t border-white/5 select-none overflow-x-auto whitespace-nowrap scrollbar-none w-full">
-        <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+      <nav className={`bg-[#4a1028] text-white py-1 text-xs font-semibold flex items-center justify-between shadow-sm border-t border-white/5 select-none overflow-x-auto whitespace-nowrap scrollbar-none w-full ${currentView === 'shop' ? '' : 'sm:rounded-b-2xl'}`}>
+        <div className="w-full px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
           
           {/* Left Navigation quick-links & Drawer Toggle */}
           <div className="flex items-center gap-1.5">
@@ -551,19 +551,18 @@ export default function Header({
 
         </div>
       </nav>
-    </div>
-
+ 
       {/* 3. QUICK HORIZONTAL CATEGORIES RAIL (Sits beautifully under the subheaders) */}
       {currentView === 'shop' && (
-        <nav className="bg-white dark:bg-gray-900 border-b border-gray-150 dark:border-gray-800 shadow-sm overflow-hidden select-none" id="quick-category-rail">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-2 overflow-x-auto py-2.5 scrollbar-none">
+        <nav className="bg-white dark:bg-gray-900 border-b sm:border border-gray-150 dark:border-gray-800 shadow-sm overflow-hidden select-none sm:rounded-b-2xl" id="quick-category-rail">
+          <div className="w-full px-4 sm:px-6 lg:px-8 flex items-center gap-2 overflow-x-auto py-2.5 scrollbar-none">
             {categoryMeta.map((cat) => (
               <button
                 key={cat.key}
                 onClick={() => selectCategory(cat.key)}
                 className={`px-3.5 py-1.5 rounded-full font-extrabold text-xs whitespace-nowrap transition-all cursor-pointer border ${
                   searchCategory === cat.key 
-                    ? 'bg-[#131921] text-white border-[#131921] dark:bg-gray-100 dark:text-gray-900 dark:border-gray-100' 
+                    ? 'bg-[#782045] text-white border-[#782045] dark:bg-gray-100 dark:text-gray-900 dark:border-gray-100' 
                     : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100 dark:bg-gray-850 dark:text-gray-300 dark:border-gray-800 dark:hover:bg-gray-800'
                 }`}
               >
@@ -573,6 +572,7 @@ export default function Header({
           </div>
         </nav>
       )}
+    </div>
 
       {/* 4. HIGH-FIDELITY ROBUST MEGA CATEGORIES DRAWER (ALL MENU) */}
       {megaMenuOpen && (
@@ -589,10 +589,10 @@ export default function Header({
             id="mega-menu-sidebar"
           >
             {/* Drawer Header (Sign In profile banner) */}
-            <div className="bg-[#131921] text-white p-5 flex items-center justify-between sticky top-0 border-b border-gray-800 shrink-0">
+            <div className="bg-[#782045] text-white p-5 flex items-center justify-between sticky top-0 border-b border-[#5a1431] shrink-0">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-gray-200 border border-white/20 flex items-center justify-center p-1 overflow-hidden">
-                  <User className="w-6 h-6 text-[#131921]" />
+                  <User className="w-6 h-6 text-[#782045]" />
                 </div>
                 <div>
                   <h3 className="font-extrabold text-base tracking-tight leading-none text-[#febd69]">
@@ -611,7 +611,7 @@ export default function Header({
             </div>
             
             {/* Sub banner advertisement */}
-            <div className="bg-[#232f3e] text-white py-3 px-5 text-[11px] font-bold flex items-center justify-between border-b border-white/5 shrink-0 select-none">
+            <div className="bg-[#4a1028] text-white py-3 px-5 text-[11px] font-bold flex items-center justify-between border-b border-white/5 shrink-0 select-none">
               <span className="flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-[#febd69]" />
                 <span>Supercharged shopping deals today!</span>
@@ -779,10 +779,10 @@ export default function Header({
           />
           <nav className="fixed top-0 left-0 w-[300px] max-w-[85%] h-full bg-white dark:bg-gray-900 shadow-2xl z-55 flex flex-col font-sans">
             {/* Header */}
-            <div className="bg-[#131921] text-white p-5 flex flex-col gap-3 relative border-b border-gray-800">
+            <div className="bg-[#782045] text-white p-5 flex flex-col gap-3 relative border-b border-[#5a1431]">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-gray-250 border border-white/20 flex items-center justify-center p-1">
-                  <User className="w-6 h-6 text-[#131921]" />
+                  <User className="w-6 h-6 text-[#782045]" />
                 </div>
                 <div className="flex flex-col">
                   <h2 className="font-black text-sm tracking-tight leading-none text-[#febd69]">
