@@ -91,7 +91,7 @@ export default function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [showOnlineStatusMsg, setShowOnlineStatusMsg] = useState(false);
   const [fontSizeScale, setFontSizeScale] = useState(1); // 1 = 100%, 1.15 = 115%, 1.3 = 130%
-  const [highContrast, setHighContrast] = useState(false);
+  const [highContrast, setHighContrast] = useState(true);
   const [monochrome, setMonochrome] = useState(false);
   const [accessibilityOpen, setAccessibilityOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
@@ -1170,15 +1170,18 @@ export default function App() {
               </div>
 
               {/* High Contrast Mode Toggle */}
-              <label className="flex items-center justify-between cursor-pointer select-none py-1">
-                <span className="text-xs font-bold text-gray-600 dark:text-gray-300">High Contrast</span>
+              <div className="flex items-center justify-between py-1">
+                <div className="flex flex-col">
+                  <span className="text-xs font-bold text-gray-850 dark:text-gray-100">High Contrast</span>
+                  <span className="text-[10px] text-plum font-extrabold uppercase tracking-wider">Always Enabled</span>
+                </div>
                 <input 
                   type="checkbox"
-                  checked={highContrast}
-                  onChange={() => setHighContrast(!highContrast)}
-                  className="rounded border-gray-350 dark:border-gray-750 text-plum focus:ring-plum w-4 h-4 cursor-pointer"
+                  checked={true}
+                  disabled
+                  className="rounded border-gray-350 dark:border-gray-750 text-plum focus:ring-plum w-4 h-4 opacity-70 cursor-not-allowed"
                 />
-              </label>
+              </div>
 
               {/* Monochrome Mode Toggle */}
               <label className="flex items-center justify-between cursor-pointer select-none py-1">
@@ -1195,7 +1198,7 @@ export default function App() {
               <button
                 onClick={() => {
                   setFontSizeScale(1);
-                  setHighContrast(false);
+                  setHighContrast(true);
                   setMonochrome(false);
                   showToast('Accessibility preferences reset.', 'info');
                 }}

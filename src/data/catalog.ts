@@ -6,18 +6,18 @@ export const categoryMeta: CategoryMeta[] = [
   { key: 'fresh food', label: 'Fresh Food', icon: 'Carrot' },
   { key: 'beverages', label: 'Beverages', icon: 'Coffee' },
   { key: 'baby & kids', label: 'Baby & Kids', icon: 'Baby' },
-  { key: 'electronics', label: 'Electronics', icon: 'Plug' },
-  { key: 'cleaning', label: 'Cleaning', icon: 'Sparkles' },
-  { key: 'beauty', label: 'Beauty & Cosmetics', icon: 'Sparkles' },
-  { key: 'liquor', label: 'Liquor & Spirits', icon: 'Wine', gated: true },
-  { key: 'stationery', label: 'Stationery', icon: 'Pencil' },
+  { key: 'electronics', label: 'Electricals & Batteries', icon: 'Plug' },
+  { key: 'cleaning', label: 'Cleaning & Home Care', icon: 'Sparkles' },
+  { key: 'beauty', label: 'Beauty & Personal Care', icon: 'Sparkles' },
+  { key: 'liquor', label: 'Liquor & Cellar', icon: 'Wine', gated: true },
+  { key: 'stationery', label: 'Stationery & School', icon: 'Pencil' },
   { key: 'pet', label: 'Pet Supplies', icon: 'PawPrint' },
-  { key: 'hardware', label: 'Hardware', icon: 'Wrench' },
-  { key: 'furniture', label: 'Furniture', icon: 'Armchair' },
+  { key: 'hardware', label: 'Hardware & DIY', icon: 'Wrench' },
+  { key: 'furniture', label: 'Home Decor & Linen', icon: 'Armchair' },
   { key: 'health', label: 'Health & Wellness', icon: 'HeartPulse' },
-  { key: 'apparel', label: 'Apparel & Fashion', icon: 'Shirt' },
-  { key: 'sports', label: 'Sports & Outdoors', icon: 'Trophy' },
-  { key: 'books', label: 'Books & Media', icon: 'BookOpen' }
+  { key: 'apparel', label: 'Everyday Wear & Basics', icon: 'Shirt' },
+  { key: 'sports', label: 'Fitness & Travel Essentials', icon: 'Trophy' },
+  { key: 'books', label: 'Books, Planners & Diaries', icon: 'BookOpen' }
 ];
 
 export const defaultSettings: StoreSettings = {
@@ -392,6 +392,32 @@ export const defaultProducts: Product[] = [
     rating: 4.7,
     ratingCount: 94
   },
+  {
+    id: 26,
+    name: 'Keringet Natural Mineral Water 1.5L',
+    brand: 'Keringet',
+    category: 'beverages',
+    price: 85,
+    originalPrice: 110,
+    stock: 180,
+    image: 'https://images.unsplash.com/photo-1550574358-85940adc4120?w=400&h=400&fit=crop',
+    description: 'Pure, crisp natural mineral water bottled at the source in the Kenyan highlands. High in beneficial minerals and perfect for hydration throughout the day.',
+    rating: 4.9,
+    ratingCount: 124
+  },
+  {
+    id: 27,
+    name: 'Del Monte Passion Fruit Juice 1L',
+    brand: 'Del Monte',
+    category: 'beverages',
+    price: 220,
+    originalPrice: 260,
+    stock: 95,
+    image: 'https://images.unsplash.com/photo-1546173159-31980b358f68?w=400&h=400&fit=crop',
+    description: 'Deliciously tangy and refreshing premium passion fruit juice. Packed with real juice, Vitamin C, and natural fruit flavor, perfect for family breakfasts.',
+    rating: 4.8,
+    ratingCount: 75
+  },
 
   // BABY & KIDS
   { 
@@ -432,25 +458,52 @@ export const defaultProducts: Product[] = [
       'Nutrients': 'Iron + Zinc + Calcium'
     }
   },
+  {
+    id: 35,
+    name: "Johnson's Gentle Baby Powder 200g",
+    brand: "Johnson's",
+    category: 'baby & kids',
+    price: 295,
+    originalPrice: 350,
+    stock: 65,
+    image: 'https://images.unsplash.com/photo-1626248801379-51a070825f90?w=400&h=400&fit=crop',
+    description: 'Johnson\'s Baby Powder gently absorbs excess moisture to keep baby\'s skin comfortable, dry, and feeling soft all day. Specially designed with a classic clean scent.',
+    rating: 4.7,
+    ratingCount: 55
+  },
+  {
+    id: 36,
+    name: 'Huggies Pure Baby Wipes (56-pack)',
+    brand: 'Huggies',
+    category: 'baby & kids',
+    price: 180,
+    originalPrice: 240,
+    stock: 120,
+    image: 'https://images.unsplash.com/photo-1560717789-0ac7c58ac90a?w=400&h=400&fit=crop',
+    description: 'Formulated with 99% pure water and completely fragrance-free, Huggies Pure Wipes are safe and gentle for newborn baby skin. Prevents redness and rashes.',
+    rating: 4.8,
+    ratingCount: 89
+  },
 
-  // ELECTRONICS (AMAZON-STYLE HIGH TICKET ITEMS)
+  // ELECTRONICS (HOUSEHOLD UTILITY ELECTRICALS)
   { 
     id: 39, 
-    name: 'Ramtons Stainless Steel Blender 1.5L', 
-    brand: 'Ramtons', 
+    name: 'Philips E27 LED Cool White Lightbulb 12W', 
+    brand: 'Philips', 
     category: 'electronics', 
-    price: 3499, 
-    originalPrice: 4500, 
-    stock: 20, 
-    image: 'https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=400&h=400&fit=crop',
-    description: 'A kitchen powerhouse. The Ramtons Blender features a massive 1.5-liter glass jar, stainless steel body, and highly engineered 4-point blades. Has 5 speeds plus pulse for blending smoothies, pureeing vegetables, or crushing ice.',
+    price: 150, 
+    originalPrice: 200, 
+    stock: 140, 
+    image: 'https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=400&h=400&fit=crop',
+    description: 'Energy-saving LED bulb with a standard E27 screw base, providing bright cool white light. Lasts up to 15,000 hours, making it an essential household replacement staple.',
     rating: 4.8,
-    ratingCount: 74,
+    ratingCount: 92,
     specifications: {
-      'Capacity': '1.5 Liters Jar',
-      'Motor Power': '500 Watts heavy-duty',
-      'Blade Material': 'Stainless Steel',
-      'Warranty': '1-Year Official Ramtons Warranty'
+      'Cap Base': 'E27 Screw',
+      'Wattage': '12 Watts',
+      'Lifespan': '15,000 Hours',
+      'Luminous Flux': '1050 Lumens',
+      'Color Temp': '6500K Cool White'
     }
   },
   { 
@@ -468,43 +521,60 @@ export const defaultProducts: Product[] = [
   },
   { 
     id: 41, 
-    name: 'Samsung Solo Microwave Oven 20L', 
-    brand: 'Samsung', 
+    name: 'Mika Premium Non-Stick Dry Iron 1000W', 
+    brand: 'Mika', 
     category: 'electronics', 
-    price: 12999, 
-    originalPrice: 15999, 
-    stock: 10, 
-    image: 'https://images.unsplash.com/photo-1585659722983-3a675dabf23d?w=400&h=400&fit=crop',
-    description: 'Heat, defrost, and cook food instantly with the Samsung Solo Microwave. Features Ceramic Inside walls that are scratch-resistant, hygienic, and incredibly easy to clean. Equipped with smart local food cooking presets.',
-    rating: 4.9,
-    ratingCount: 63,
+    price: 1450, 
+    originalPrice: 1950, 
+    stock: 45, 
+    image: 'https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?w=400&h=400&fit=crop',
+    description: 'A lightweight, durable dry iron box featuring a high-quality non-stick soleplate and adjustable thermostatic temperature dials. Keeps everyday work and school clothes perfectly pressed.',
+    rating: 4.7,
+    ratingCount: 38,
     specifications: {
-      'Capacity': '20 Liters',
-      'Control Panel': 'Digital Tact Touch Buttons',
-      'Interior': 'Scratch-Proof Ceramic Enamel',
-      'Output Power': '800 Watts',
-      'Defrost Modes': 'Quick Auto-Defrost'
+      'Type': 'Dry Iron Box',
+      'Power': '1000 Watts',
+      'Soleplate': 'Non-stick Coated',
+      'Safety Indicator': 'Thermal Overheat Protection',
+      'Warranty': '1 Year'
     }
   },
   { 
     id: 43, 
-    name: 'Samsung Galaxy A14 4G LTE 64GB', 
-    brand: 'Samsung', 
+    name: 'Duracell Coppertop AA Batteries (4-Pack)', 
+    brand: 'Duracell', 
     category: 'electronics', 
-    price: 18999, 
-    originalPrice: 22999, 
-    stock: 15, 
-    image: 'https://images.unsplash.com/photo-1610945265078-3858a0828671?w=400&h=400&fit=crop',
-    description: 'A beautiful, feature-rich smartphone. The Galaxy A14 features a massive 6.6\" FHD+ screen, octa-core processor, and a top-tier 50MP triple-lens main camera. Complemented by a 5000mAh battery that lasts up to 2 full days.',
-    rating: 4.7,
-    ratingCount: 135,
+    price: 250, 
+    originalPrice: 320, 
+    stock: 160, 
+    image: 'https://images.unsplash.com/photo-1532443025530-979f4f46bc0b?w=400&h=400&fit=crop',
+    description: 'Long-lasting, leak-proof AA alkaline batteries designed for everyday home devices. Ideal for television remotes, wall clocks, children\'s toys, and torches.',
+    rating: 4.9,
+    ratingCount: 175,
     specifications: {
-      'Screen': '6.6 Inches FHD+ PLS LCD',
-      'Processor': 'Exynos 850 Octa-Core',
-      'Storage': '64GB ROM (Expandable up to 1TB)',
-      'RAM': '4GB RAM',
-      'Battery': '5000 mAh with 15W Fast Charge',
-      'Rear Camera': '50MP Main + 5MP Ultra-Wide + 2MP Macro'
+      'Battery Type': 'AA Alkaline',
+      'Voltage': '1.5V',
+      'Pack Size': '4 Batteries',
+      'Storage Life': 'Up to 10 Years'
+    }
+  },
+  {
+    id: 44,
+    name: 'Premium 4-Way Extension Socket with Surge Protector',
+    brand: 'Premium',
+    category: 'electronics',
+    price: 850,
+    originalPrice: 1100,
+    stock: 55,
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=400&fit=crop',
+    description: 'Heavy-duty 4-way extension power strip with shuttered universal outlets, individual neon switches, and built-in surge/spike overload protectors.',
+    rating: 4.8,
+    ratingCount: 61,
+    specifications: {
+      'Outlets': '4 Universal sockets',
+      'Cable Length': '1.5 Meters',
+      'Safety': 'Surge Defense & Overload Breaker',
+      'Power Rating': '2500 Watts Max'
     }
   },
 
@@ -560,7 +630,7 @@ export const defaultProducts: Product[] = [
     }
   },
 
-  // HARDWARE, STATIONERY, FURNITURE
+  // HARDWARE, STATIONERY, FURNITURE, HEALTH, APPAREL, SPORTS, BOOKS
   { 
     id: 63, 
     name: 'BIC Cristal Ballpoint Pens 10pcs Pack', 
@@ -573,6 +643,32 @@ export const defaultProducts: Product[] = [
     description: 'The world\'s most popular writing pen. BIC Cristal features a durable tungsten carbide ballpoint, delivering exceptionally smooth ink flows for long school essays or office notes. Contains 10 pens.',
     rating: 4.6,
     ratingCount: 140
+  },
+  {
+    id: 91,
+    name: 'Kasuku Exercise Book A5 Single Line (120 Pages)',
+    brand: 'Kasuku',
+    category: 'stationery',
+    price: 55,
+    originalPrice: 75,
+    stock: 350,
+    image: 'https://images.unsplash.com/photo-1531346878377-a5be20888e57?w=400&h=400&fit=crop',
+    description: 'Kenya\'s most popular student exercise book. Features high-quality white paper, clean printed margins, and a sturdy protective cover sheet. Perfect for primary and secondary schooling.',
+    rating: 4.9,
+    ratingCount: 215
+  },
+  {
+    id: 92,
+    name: 'Helix Oxford Mathematical Instruments Set',
+    brand: 'Helix Oxford',
+    category: 'stationery',
+    price: 450,
+    originalPrice: 599,
+    stock: 120,
+    image: 'https://images.unsplash.com/photo-1452860606245-08befc1ff44d?w=400&h=400&fit=crop',
+    description: 'The legendary metal tin containing essential mathematical tools: premium compass, divider, 15cm transparent ruler, protractor, set squares, pencil, eraser, and sharpener.',
+    rating: 4.8,
+    ratingCount: 94
   },
   { 
     id: 64, 
@@ -587,18 +683,128 @@ export const defaultProducts: Product[] = [
     rating: 4.8,
     ratingCount: 54
   },
+  {
+    id: 93,
+    name: 'Whiskas Chicken Dry Cat Food 1.2kg',
+    brand: 'Whiskas',
+    category: 'pet',
+    price: 620,
+    originalPrice: 780,
+    stock: 85,
+    image: 'https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=400&h=400&fit=crop',
+    description: 'Crunchy dry kibbles filled with essential nutrients, taurine, and proteins to support your feline\'s eyesight, coat shininess, and urinary tract health.',
+    rating: 4.9,
+    ratingCount: 68
+  },
+  {
+    id: 94,
+    name: 'Super Clumping Lavender Scented Cat Litter 5kg',
+    brand: 'Happy Pets',
+    category: 'pet',
+    price: 850,
+    originalPrice: 1100,
+    stock: 45,
+    image: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400&h=400&fit=crop',
+    description: 'All-natural bentonite clay cat litter featuring instant clumping, superior odor block, low dust tracking, and a pleasant calming lavender scent.',
+    rating: 4.7,
+    ratingCount: 39
+  },
   { 
     id: 66, 
-    name: 'Elite Home 3-Seater Elastic Sofa Cover', 
-    brand: 'Home Style', 
+    name: 'Royal Velvet Cotton Bath Towel Large', 
+    brand: 'Royal Comfort', 
     category: 'furniture', 
-    price: 1299, 
-    originalPrice: 1699, 
-    stock: 20, 
-    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=400&fit=crop',
-    description: 'Give your living room a modern makeover. This elasticated slipcover is made from breathable, stretch-to-fit fabric, protecting your sofas from pet hairs, dust, and stains. Easy to machine wash.',
-    rating: 4.5,
-    ratingCount: 30
+    price: 850, 
+    originalPrice: 1100, 
+    stock: 75, 
+    image: 'https://images.unsplash.com/photo-1546554137-f86b9593a222?w=400&h=400&fit=crop',
+    description: 'Thick, highly absorbent bath towel woven from 100% carded cotton yarns. Gentle on the skin, fade-resistant, and easily machine-washable.',
+    rating: 4.7,
+    ratingCount: 45
+  },
+  {
+    id: 95,
+    name: 'Kenpoly Heavy Duty Plastic Basin 15L',
+    brand: 'Kenpoly',
+    category: 'furniture',
+    price: 250,
+    originalPrice: 350,
+    stock: 140,
+    image: 'https://images.unsplash.com/photo-1506084868230-bb9d95c24759?w=400&h=400&fit=crop',
+    description: 'The classic Kenpoly utility basin found in every Kenyan home. Moulded from high-grade virgin plastic, featuring dual grip handles. Perfect for laundry, cleaning, or storage.',
+    rating: 4.9,
+    ratingCount: 182
+  },
+  {
+    id: 96,
+    name: 'Super Foam Orthopedic Bed Pillow',
+    brand: 'Super Foam',
+    category: 'furniture',
+    price: 1200,
+    originalPrice: 1600,
+    stock: 55,
+    image: 'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=400&h=400&fit=crop',
+    description: 'Filled with premium memory foam to provide optimal neck support and relieve sleeping pressure. Breathable cotton casing keeps you cool and comfortable.',
+    rating: 4.8,
+    ratingCount: 72
+  },
+  {
+    id: 101,
+    name: 'Tri-Circle Brass Padlock 40mm',
+    brand: 'Tri-Circle',
+    category: 'hardware',
+    price: 220,
+    originalPrice: 290,
+    stock: 150,
+    image: 'https://images.unsplash.com/photo-1510519138101-570d1dca3d66?w=400&h=400&fit=crop',
+    description: 'Heavy-duty security padlock made from pure solid brass. Features a hardened steel shackle and a double locking mechanism to secure cabinets, gates, and padboxes.',
+    rating: 4.8,
+    ratingCount: 88,
+    specifications: {
+      'Size': '40 Millimeters (40mm)',
+      'Material': 'Solid Brass Body',
+      'Shackle': 'Hardened Steel Shackle',
+      'Keys Included': '3 Brass Keys'
+    }
+  },
+  {
+    id: 102,
+    name: 'Amcos Super Glue 3g (3-Pack)',
+    brand: 'Amcos',
+    category: 'hardware',
+    price: 95,
+    originalPrice: 135,
+    stock: 250,
+    image: 'https://images.unsplash.com/photo-1603048588665-791ca8aea617?w=400&h=400&fit=crop',
+    description: 'Instant cyanoacrylate adhesive bond that repairs plastic, ceramic, wood, rubber, and glass in seconds. A must-have toolbox helper in every household.',
+    rating: 4.7,
+    ratingCount: 165
+  },
+  {
+    id: 103,
+    name: 'PVC Electrical Insulating Tape Black (5-Roll Pack)',
+    brand: 'Anchor',
+    category: 'hardware',
+    price: 180,
+    originalPrice: 250,
+    stock: 110,
+    image: 'https://images.unsplash.com/photo-1563720223185-11003d516935?w=400&h=400&fit=crop',
+    description: 'Flexible, self-extinguishing PVC tape for insulating electrical splices, wire bundling, and minor cable repairs. Safe up to 600V.',
+    rating: 4.6,
+    ratingCount: 52
+  },
+  {
+    id: 104,
+    name: 'Professional Claw Hammer with Steel Handle 16oz',
+    brand: 'TufTools',
+    category: 'hardware',
+    price: 750,
+    originalPrice: 980,
+    stock: 35,
+    image: 'https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?w=400&h=400&fit=crop',
+    description: 'Heavy-duty forged carbon steel hammer with a curved claw for nail extraction and an anti-vibration rubberized grip. Perfect for home DIY repairs.',
+    rating: 4.8,
+    ratingCount: 41
   },
   {
     id: 71,
@@ -627,6 +833,32 @@ export const defaultProducts: Product[] = [
     ratingCount: 110
   },
   {
+    id: 105,
+    name: 'Dettol Antiseptic Liquid Disinfectant 250ml',
+    brand: 'Dettol',
+    category: 'health',
+    price: 380,
+    originalPrice: 480,
+    stock: 115,
+    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=400&fit=crop',
+    description: 'Enriched with standard antiseptic formulation to sanitize skin, clean minor wounds, disinfect baby laundry, and clean household surfaces thoroughly.',
+    rating: 4.9,
+    ratingCount: 142
+  },
+  {
+    id: 106,
+    name: 'Panadol Extra Pain Relief Tablets 20pc',
+    brand: 'Panadol',
+    category: 'health',
+    price: 195,
+    originalPrice: 260,
+    stock: 220,
+    image: 'https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&h=400&fit=crop',
+    description: 'Tough on pain, gentle on stomach. Contains paracetamol and caffeine to provide fast and effective relief from headache, toothache, joint pain, and cold symptoms.',
+    rating: 4.8,
+    ratingCount: 184
+  },
+  {
     id: 75,
     name: 'Classic Crewneck Cotton White T-Shirt',
     brand: 'Cotton Comfort',
@@ -640,17 +872,30 @@ export const defaultProducts: Product[] = [
     ratingCount: 42
   },
   {
-    id: 76,
-    name: 'Comfort-Fit Fleece Hoodie Unisex',
-    brand: 'Urban Threads',
+    id: 107,
+    name: 'Premium Cotton Crew Socks (5-pack)',
+    brand: 'Cotton Comfort',
     category: 'apparel',
-    price: 1899,
-    originalPrice: 2499,
-    stock: 25,
-    image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=400&fit=crop',
-    description: 'Stay warm and cozy in this heavy-knit fleece hoodie. Features a dual-lined drawstring hood, roomy kangaroo pocket, and rib-knit cuffs. Styled for a timeless, modern relaxed fit.',
-    rating: 4.6,
-    ratingCount: 64
+    price: 350,
+    originalPrice: 480,
+    stock: 90,
+    image: 'https://images.unsplash.com/photo-1582966772680-860e372bb558?w=400&h=400&fit=crop',
+    description: 'Soft, breathable combed-cotton socks with ribbed elastic cuffs and reinforced heel support. Perfect for everyday wear, exercise, or school uniforms.',
+    rating: 4.8,
+    ratingCount: 65
+  },
+  {
+    id: 108,
+    name: 'Comfort Cushioned Bathroom Slippers',
+    brand: 'Comfort Walk',
+    category: 'apparel',
+    price: 299,
+    originalPrice: 399,
+    stock: 110,
+    image: 'https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=400&h=400&fit=crop',
+    description: 'Lightweight EVA slide sandals featuring non-slip ribbed outsoles and a cushioned ergonomic footbed. Ideal for wet bathroom floors or casual indoor wear.',
+    rating: 4.7,
+    ratingCount: 52
   },
   {
     id: 81,
@@ -666,17 +911,30 @@ export const defaultProducts: Product[] = [
     ratingCount: 55
   },
   {
-    id: 82,
-    name: 'Waterproof Sports Smartwatch & Fitness Tracker',
+    id: 109,
+    name: 'Windproof Double-Layer Compact Umbrella',
+    brand: 'RainStop',
+    category: 'sports',
+    price: 650,
+    originalPrice: 850,
+    stock: 80,
+    image: 'https://images.unsplash.com/photo-1534224039826-c7a0dea0e66a?w=400&h=400&fit=crop',
+    description: 'An essential outdoor lifestyle staple. Features 8 reinforced fiberglass ribs, automatic open/close button, and double-canopy design to withstand heavy rain and wind.',
+    rating: 4.8,
+    ratingCount: 112
+  },
+  {
+    id: 110,
+    name: 'Stainless Steel Vacuum Insulated Water Bottle 750ml',
     brand: 'Aero',
     category: 'sports',
-    price: 3499,
-    originalPrice: 4500,
-    stock: 20,
-    image: 'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=400&h=400&fit=crop',
-    description: 'Track your real-time running metrics, daily steps, calorie burn, and sleep cycles. Features a clear 1.4" color touchscreen, IP68 water resistance, and robust battery life up to 10 days.',
-    rating: 4.5,
-    ratingCount: 38
+    price: 950,
+    originalPrice: 1250,
+    stock: 65,
+    image: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400&h=400&fit=crop',
+    description: 'Double-walled flask that keeps drinks hot for up to 12 hours or cold for 24 hours. Made from food-grade stainless steel with a leak-proof cap.',
+    rating: 4.9,
+    ratingCount: 87
   },
   {
     id: 86,
@@ -692,17 +950,30 @@ export const defaultProducts: Product[] = [
     ratingCount: 220
   },
   {
-    id: 87,
-    name: 'Sapiens: A Brief History of Humankind',
-    brand: 'Vintage Publishing',
+    id: 111,
+    name: 'Executive A5 Daily Planner & Journal (Hardcover)',
+    brand: 'Executive',
     category: 'books',
-    price: 1100,
-    originalPrice: 1400,
-    stock: 40,
-    image: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=400&h=400&fit=crop',
-    description: 'Dr. Yuval Noah Harari spans the whole of human history, from the very first humans to walk the Earth to the radical, sometimes devastating breakthroughs of the Cognitive, Agricultural, and Scientific Revolutions.',
+    price: 450,
+    originalPrice: 600,
+    stock: 140,
+    image: 'https://images.unsplash.com/photo-1531346878377-a5be20888e57?w=400&h=400&fit=crop',
+    description: 'Elegant leatherette hardcover planner with 200 ruled pages, ribbon marker, and elastic closure band. Ideal for scheduling, goal tracking, and note-taking.',
     rating: 4.8,
-    ratingCount: 180
+    ratingCount: 65
+  },
+  {
+    id: 112,
+    name: 'Kenyan Traditional Cookery & Recipe Guide',
+    brand: 'Heritage Books',
+    category: 'books',
+    price: 650,
+    originalPrice: 800,
+    stock: 45,
+    image: 'https://images.unsplash.com/photo-1543353071-10c8ba85a904?w=400&h=400&fit=crop',
+    description: 'An inspiring collection of traditional and modern Kenyan recipes—from soft chapatis, tasty pilau, traditional mukimo, to sweet mandazi. Simple step-by-step guides.',
+    rating: 4.8,
+    ratingCount: 37
   }
 ];
 

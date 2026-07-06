@@ -479,25 +479,25 @@ export default function Header({
                 onClick={() => selectCategory('electronics')} 
                 className="border border-transparent hover:border-white py-1.5 px-2.5 rounded-sm text-gray-200 hover:text-white transition-all duration-150 cursor-pointer"
               >
-                Electronics
+                Electricals & Batteries
               </button>
               <button 
                 onClick={() => selectCategory('apparel')} 
                 className="border border-transparent hover:border-white py-1.5 px-2.5 rounded-sm text-gray-200 hover:text-white transition-all duration-150 cursor-pointer"
               >
-                Fashion
+                Everyday Wear
               </button>
               <button 
                 onClick={() => selectCategory('sports')} 
                 className="border border-transparent hover:border-white py-1.5 px-2.5 rounded-sm text-gray-200 hover:text-white transition-all duration-150 cursor-pointer"
               >
-                Sports & Gym
+                Fitness & Travel
               </button>
               <button 
                 onClick={() => selectCategory('books')} 
                 className="border border-transparent hover:border-white py-1.5 px-2.5 rounded-sm text-gray-200 hover:text-white transition-all duration-150 cursor-pointer"
               >
-                Books
+                Books & Planners
               </button>
               <button 
                 onClick={() => selectCategory('liquor')} 
@@ -686,10 +686,10 @@ export default function Header({
 
               <div className="h-px bg-gray-150 dark:bg-gray-800" />
 
-              {/* SECTION: Lifestyle, Tech & Wellness */}
+              {/* SECTION: Lifestyle, Basics & Fitness */}
               <div>
                 <h4 className="text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2.5">
-                  Lifestyle, Tech & Sports
+                  Lifestyle, Basics & Fitness
                 </h4>
                 <div className="space-y-1 text-sm font-bold text-gray-750 dark:text-gray-250">
                   {categoryMeta.filter(c => ['electronics', 'health', 'apparel', 'sports', 'books', 'beauty'].includes(c.key)).map(cat => (
@@ -710,7 +710,7 @@ export default function Header({
               {/* SECTION: Household & Pet */}
               <div>
                 <h4 className="text-[11px] font-black text-gray-400 uppercase tracking-widest mb-2.5">
-                  Household & Outdoor Essentials
+                  Household & Hardware Essentials
                 </h4>
                 <div className="space-y-1 text-sm font-bold text-gray-750 dark:text-gray-250">
                   {categoryMeta.filter(c => ['cleaning', 'furniture', 'hardware', 'pet', 'baby & kids', 'stationery'].includes(c.key)).map(cat => (
