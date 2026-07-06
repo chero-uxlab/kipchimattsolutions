@@ -1,6 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Playpen+Sans:wght@400;750&family=Inter:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
+html, body, #root {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  overflow-x: hidden;
+}
+
 :root {
   --plum: #782045;
   --plum-light: #9c2b5b;

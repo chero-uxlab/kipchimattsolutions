@@ -383,6 +383,148 @@ export default function Storefront({
     );
   };
 
+  // Render secondary product card using a different styling/color combination
+  const renderSecondaryProductCard = (p: Product) => {
+    const isWished = wishlist.includes(p.id);
+    const discount = calcDiscount(p.price, p.originalPrice);
+    const isOutOfStock = p.stock <= 0;
+    const isLowStock = !isOutOfStock && p.stock <= settings.lowStockThreshold;
+
+    return (
+      <div 
+        key={p.id} 
+        className="bg-white rounded-xl overflow-hidden border border-gray-150 hover:border-marigold/30 hover:shadow-2xl transition-all duration-300 flex flex-col group relative"
+      >
+        <div 
+          onClick={() => onProductClick(p)}
+          className="h-44 sm:h-48 bg-gray-50 flex items-center justify-center relative overflow-hidden cursor-pointer"
+        >
+          <img 
+            src={p.image || 'https://via.placeholder.com/400?text=Kipchimatt'} 
+            alt={p.name}
+            loading="lazy"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = 'https://via.placeholder.com/400?text=Kipchimatt';
+            }}
+          />
+          
+          {discount > 0 && (
+            <span className="absolute top-2.5 left-2.5 bg-marigold text-white font-black text-[10px] px-2.5 py-1 rounded shadow-sm">
+              -{discount}%
+            </span>
+          )}
+
+          <span className="absolute top-2.5 right-2.5 bg-marigold-light text-marigold font-black text-[9px] px-2.5 py-0.5 rounded uppercase tracking-wider shadow-sm border border-marigold/15">
+            {p.category}
+          </span>
+
+          <button 
+            onClick={(e) => { e.stopPropagation(); onToggleWishlist(p.id); }}
+            className={`absolute bottom-2.5 right-2.5 w-8 h-8 rounded-full flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200 hover:scale-115 ${isWished ? 'bg-red-light text-red' : 'bg-white/95 text-gray-400 hover:text-red'}`}
+            title={isWished ? 'Remove from wishlist' : 'Save for later'}
+          >
+            <Heart className={`w-4 h-4 ${isWished ? 'fill-current' : ''}`} />
+          </button>
+        </div>
+
+        <div className="p-4 flex-1 flex flex-col">
+          <div className="flex items-center justify-between gap-2 mb-1">
+            <span className="text-[10px] text-marigold font-black uppercase tracking-widest truncate">
+              {p.brand || 'Lifestyle'}
+            </span>
+            {p.rating && (
+              <div className="flex items-center gap-0.5 text-xs text-yellow font-bold" title={`${p.rating} / 5 Customer Rating`}>
+                <div className="flex items-center gap-0.5">
+                  {[1, 2, 3, 4, 5].map((starVal) => {
+                    const isFilled = starVal <= Math.round(p.rating || 0);
+                    return (
+                      <Star 
+                        key={starVal} 
+                        className={`w-2.5 h-2.5 ${isFilled ? 'fill-yellow text-yellow' : 'text-gray-200'}`} 
+                      />
+                    );
+                  })}
+                </div>
+                <span className="text-[9px] text-gray-500 font-black ml-1">({p.rating})</span>
+              </div>
+            )}
+          </div>
+          <h4 
+            onClick={() => onProductClick(p)}
+            className="font-black text-gray-800 text-xs sm:text-sm line-clamp-2 h-9 sm:h-10 leading-tight mb-2 group-hover:text-marigold transition-colors cursor-pointer"
+          >
+            {p.name}
+          </h4>
+
+          <div className="mb-3">
+            <div className="flex items-baseline gap-1.5 flex-wrap">
+              <span className="text-base font-extrabold text-marigold">
+                {formatMoney(p.price)}
+              </span>
+              {p.originalPrice > p.price && (
+                <span className="text-[11px] text-gray-400 line-through">
+                  {formatMoney(p.originalPrice)}
+                </span>
+              )}
+            </div>
+            {p.originalPrice > p.price && (
+              <span className="text-[10px] text-green font-extrabold block mt-0.5">
+                Save {formatMoney(p.originalPrice - p.price)} ({discount}%)
+              </span>
+            )}
+            
+            <label className="flex items-center gap-1.5 mt-2.5 cursor-pointer select-none text-[11px] font-bold text-gray-500 hover:text-marigold dark:text-gray-450">
+              <input 
+                type="checkbox"
+                checked={comparedProductIds.includes(p.id)}
+                onChange={(e) => { e.stopPropagation(); onToggleCompare(p); }}
+                className="rounded border-gray-350 dark:border-gray-755 text-marigold focus:ring-marigold w-3.5 h-3.5 cursor-pointer"
+              />
+              <span>Compare specs</span>
+            </label>
+          </div>
+
+          <div className="mt-auto">
+            {isOutOfStock ? (
+              <div className="text-center text-[10px] font-bold text-red bg-red-light py-1 rounded-md mb-2 flex items-center justify-center gap-1.5 border border-red/20">
+                <AlertCircle className="w-3.5 h-3.5" />
+                <span>Sold Out</span>
+              </div>
+            ) : isLowStock ? (
+              <div className="text-center text-[10px] font-bold text-marigold bg-marigold-light py-1 rounded-md mb-2 border border-marigold/15">
+                Only {p.stock} left in stock
+              </div>
+            ) : null}
+
+            <button 
+              onClick={() => handleAddToCartClick(p)}
+              disabled={isOutOfStock}
+              className={`w-full py-2 rounded-lg font-black text-xs flex items-center justify-center gap-1.5 cursor-pointer transition-colors uppercase tracking-wider ${isOutOfStock ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : addedProductId === p.id ? 'bg-leaf text-white' : 'bg-green text-white hover:bg-leaf'}`}
+            >
+              {addedProductId === p.id ? (
+                <>
+                  <Check className="w-3.5 h-3.5" />
+                  <span>Added</span>
+                </>
+              ) : (
+                <>
+                  <ShoppingCart className="w-3.5 h-3.5" />
+                  <span>{isOutOfStock ? 'Out of Stock' : 'Add to Basket'}</span>
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const getSecondaryPartProducts = () => {
+    const primaryCategories = ['food cupboard', 'fresh food', 'beverages', 'liquor'];
+    return products.filter(p => !primaryCategories.includes(p.category)).slice(0, 10);
+  };
+
   // Filter lists for shelfs
   const deals = products.filter(p => p.originalPrice > p.price);
   const fresh = products.filter(p => p.category === 'fresh food');
@@ -789,6 +931,27 @@ export default function Storefront({
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                 {products.slice(0, 10).map(p => renderProductCard(p))}
+              </div>
+            </section>
+
+            {/* Lifestyle & Household Essentials (Second Part of All Products - Different Combination) */}
+            <section className="py-8 border-y border-gray-150 my-6 bg-gray-50/30 p-5 rounded-2xl dark:bg-gray-900/10">
+              <div className="mb-6">
+                <div className="flex items-center gap-2">
+                  <LayoutGrid className="w-5 h-5 text-marigold" />
+                  <h2 className="text-base font-black text-gray-850 flex items-center gap-2">
+                    <span>Lifestyle & Household Staples</span>
+                    <span className="text-[9px] bg-marigold-light text-marigold font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider border border-marigold/15">
+                      Collection 2
+                    </span>
+                  </h2>
+                </div>
+                <p className="text-gray-500 text-xs mt-1">
+                  Explore a different combination of premium electronics, home wellness, baby care, pet supplies, and study essentials.
+                </p>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                {getSecondaryPartProducts().map(p => renderSecondaryProductCard(p))}
               </div>
             </section>
 
