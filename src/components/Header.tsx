@@ -145,10 +145,10 @@ export default function Header({
 
   return (
     <>
-      <div className="sticky top-0 z-40 w-full max-w-7xl mx-auto flex flex-col px-0 sm:px-6 lg:px-8 pt-0 sm:pt-3">
+      <div className="sticky top-0 z-40 w-full flex flex-col">
       {/* 1. PRIMARY AMAZON-STYLE HIGH-CONTRAST HEADER ROW */}
-      <header className="bg-[#782045] text-white py-2 shadow-md border-b border-[#5a1431] font-sans w-full sm:rounded-t-2xl">
-        <div className="w-full px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-3 lg:gap-5">
+      <header className="bg-[#782045] text-white py-2 shadow-md border-b border-[#5a1431] font-sans w-full">
+        <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-3 lg:gap-5">
           
           {/* Top Row for Mobile, or Left/Right for Desktop */}
           <div className="flex items-center justify-between w-full md:w-auto gap-3 shrink-0">
@@ -445,8 +445,8 @@ export default function Header({
       </header>
 
       {/* 2. SECONDARY SUB-HEADER ROW (All Categories & Quick Links) */}
-      <nav className={`bg-[#4a1028] text-white py-1 text-xs font-semibold flex items-center justify-between shadow-sm border-t border-white/5 select-none overflow-x-auto whitespace-nowrap scrollbar-none w-full ${currentView === 'shop' ? '' : 'sm:rounded-b-2xl'}`}>
-        <div className="w-full px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+      <nav className="bg-[#4a1028] text-white py-1 text-xs font-semibold flex items-center justify-between shadow-sm border-t border-white/5 select-none overflow-x-auto whitespace-nowrap scrollbar-none w-full">
+        <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
           
           {/* Left Navigation quick-links & Drawer Toggle */}
           <div className="flex items-center gap-1.5">
@@ -554,8 +554,8 @@ export default function Header({
  
       {/* 3. QUICK HORIZONTAL CATEGORIES RAIL (Sits beautifully under the subheaders) */}
       {currentView === 'shop' && (
-        <nav className="bg-white dark:bg-gray-900 border-b sm:border border-gray-150 dark:border-gray-800 shadow-sm overflow-hidden select-none sm:rounded-b-2xl" id="quick-category-rail">
-          <div className="w-full px-4 sm:px-6 lg:px-8 flex items-center gap-2 overflow-x-auto py-2.5 scrollbar-none">
+        <nav className="bg-white dark:bg-gray-900 border-b border-gray-150 dark:border-gray-800 shadow-sm overflow-hidden select-none" id="quick-category-rail">
+          <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex items-center gap-2 overflow-x-auto py-2.5 scrollbar-none">
             {categoryMeta.map((cat) => (
               <button
                 key={cat.key}
