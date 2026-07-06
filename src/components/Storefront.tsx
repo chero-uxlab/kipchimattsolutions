@@ -393,7 +393,7 @@ export default function Storefront({
     return (
       <div 
         key={p.id} 
-        className="bg-white rounded-xl overflow-hidden border border-gray-150 hover:border-marigold/30 hover:shadow-2xl transition-all duration-300 flex flex-col group relative"
+        className="bg-white rounded-xl overflow-hidden border border-gray-150 hover:border-plum/40 hover:shadow-2xl transition-all duration-300 flex flex-col group relative"
       >
         <div 
           onClick={() => onProductClick(p)}
@@ -410,12 +410,12 @@ export default function Storefront({
           />
           
           {discount > 0 && (
-            <span className="absolute top-2.5 left-2.5 bg-marigold text-white font-black text-[10px] px-2.5 py-1 rounded shadow-sm">
+            <span className="absolute top-2.5 left-2.5 bg-plum text-white font-black text-[10px] px-2.5 py-1 rounded shadow-sm">
               -{discount}%
             </span>
           )}
 
-          <span className="absolute top-2.5 right-2.5 bg-marigold-light text-marigold font-black text-[9px] px-2.5 py-0.5 rounded uppercase tracking-wider shadow-sm border border-marigold/15">
+          <span className="absolute top-2.5 right-2.5 bg-plum-fade text-plum font-black text-[9px] px-2.5 py-0.5 rounded uppercase tracking-wider shadow-sm border border-plum/15">
             {p.category}
           </span>
 
@@ -430,7 +430,7 @@ export default function Storefront({
 
         <div className="p-4 flex-1 flex flex-col">
           <div className="flex items-center justify-between gap-2 mb-1">
-            <span className="text-[10px] text-marigold font-black uppercase tracking-widest truncate">
+            <span className="text-[10px] text-plum font-black uppercase tracking-widest truncate">
               {p.brand || 'Lifestyle'}
             </span>
             {p.rating && (
@@ -452,14 +452,14 @@ export default function Storefront({
           </div>
           <h4 
             onClick={() => onProductClick(p)}
-            className="font-black text-gray-800 text-xs sm:text-sm line-clamp-2 h-9 sm:h-10 leading-tight mb-2 group-hover:text-marigold transition-colors cursor-pointer"
+            className="font-black text-gray-800 text-xs sm:text-sm line-clamp-2 h-9 sm:h-10 leading-tight mb-2 group-hover:text-plum transition-colors cursor-pointer"
           >
             {p.name}
           </h4>
 
           <div className="mb-3">
             <div className="flex items-baseline gap-1.5 flex-wrap">
-              <span className="text-base font-extrabold text-marigold">
+              <span className="text-base font-extrabold text-plum">
                 {formatMoney(p.price)}
               </span>
               {p.originalPrice > p.price && (
@@ -474,12 +474,12 @@ export default function Storefront({
               </span>
             )}
             
-            <label className="flex items-center gap-1.5 mt-2.5 cursor-pointer select-none text-[11px] font-bold text-gray-500 hover:text-marigold dark:text-gray-450">
+            <label className="flex items-center gap-1.5 mt-2.5 cursor-pointer select-none text-[11px] font-bold text-gray-500 hover:text-plum dark:text-gray-450">
               <input 
                 type="checkbox"
                 checked={comparedProductIds.includes(p.id)}
                 onChange={(e) => { e.stopPropagation(); onToggleCompare(p); }}
-                className="rounded border-gray-350 dark:border-gray-755 text-marigold focus:ring-marigold w-3.5 h-3.5 cursor-pointer"
+                className="rounded border-gray-350 dark:border-gray-755 text-plum focus:ring-plum w-3.5 h-3.5 cursor-pointer"
               />
               <span>Compare specs</span>
             </label>
@@ -492,7 +492,7 @@ export default function Storefront({
                 <span>Sold Out</span>
               </div>
             ) : isLowStock ? (
-              <div className="text-center text-[10px] font-bold text-marigold bg-marigold-light py-1 rounded-md mb-2 border border-marigold/15">
+              <div className="text-center text-[10px] font-bold text-plum bg-plum-fade py-1 rounded-md mb-2 border border-plum/15">
                 Only {p.stock} left in stock
               </div>
             ) : null}
@@ -500,7 +500,7 @@ export default function Storefront({
             <button 
               onClick={() => handleAddToCartClick(p)}
               disabled={isOutOfStock}
-              className={`w-full py-2 rounded-lg font-black text-xs flex items-center justify-center gap-1.5 cursor-pointer transition-colors uppercase tracking-wider ${isOutOfStock ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : addedProductId === p.id ? 'bg-leaf text-white' : 'bg-green text-white hover:bg-leaf'}`}
+              className={`w-full py-2 rounded-lg font-black text-xs flex items-center justify-center gap-1.5 cursor-pointer transition-colors uppercase tracking-wider ${isOutOfStock ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : addedProductId === p.id ? 'bg-plum-light text-white' : 'bg-plum text-white hover:bg-plum-light'}`}
             >
               {addedProductId === p.id ? (
                 <>
@@ -938,10 +938,10 @@ export default function Storefront({
             <section className="py-8 border-y border-gray-150 my-6 bg-gray-50/30 p-5 rounded-2xl dark:bg-gray-900/10">
               <div className="mb-6">
                 <div className="flex items-center gap-2">
-                  <LayoutGrid className="w-5 h-5 text-marigold" />
+                  <LayoutGrid className="w-5 h-5 text-plum" />
                   <h2 className="text-base font-black text-gray-850 flex items-center gap-2">
                     <span>Lifestyle & Household Staples</span>
-                    <span className="text-[9px] bg-marigold-light text-marigold font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider border border-marigold/15">
+                    <span className="text-[9px] bg-plum-fade text-plum font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider border border-plum/15">
                       Collection 2
                     </span>
                   </h2>

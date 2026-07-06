@@ -9,8 +9,8 @@ import { categoryMeta, formatMoney } from '../data/catalog';
 
 interface HeaderProps {
   settings: StoreSettings;
-  currentView: 'shop' | 'admin';
-  onViewChange: (view: 'shop' | 'admin') => void;
+  currentView: 'shop' | 'admin' | 'cart';
+  onViewChange: (view: 'shop' | 'admin' | 'cart') => void;
   onSearch: (query: string) => void;
   onCategorySelect: (cat: string) => void;
   onToggleCart: () => void;
@@ -519,14 +519,25 @@ export default function Header({
             </span>
 
             {/* Admin toggle portal buttons */}
-            {currentView === 'shop' ? (
-              <button 
-                onClick={() => onViewChange('admin')}
-                className="flex items-center gap-1 hover:text-white py-1 px-2.5 rounded bg-white/10 text-white cursor-pointer transition-all border border-white/5 active:scale-95 shrink-0"
-              >
-                <Lock className="w-3 h-3" />
-                <span>Admin Portal</span>
-              </button>
+            {currentView !== 'admin' ? (
+              <div className="flex items-center gap-2">
+                {currentView === 'cart' && (
+                  <button 
+                    onClick={() => onViewChange('shop')}
+                    className="flex items-center gap-1 hover:text-white py-1 px-2.5 rounded bg-white/10 text-white cursor-pointer transition-all border border-white/5 active:scale-95 shrink-0"
+                  >
+                    <Store className="w-3 h-3" />
+                    <span>View Storefront</span>
+                  </button>
+                )}
+                <button 
+                  onClick={() => onViewChange('admin')}
+                  className="flex items-center gap-1 hover:text-white py-1 px-2.5 rounded bg-white/10 text-white cursor-pointer transition-all border border-white/5 active:scale-95 shrink-0"
+                >
+                  <Lock className="w-3 h-3" />
+                  <span>Admin Portal</span>
+                </button>
+              </div>
             ) : (
               <div className="flex items-center gap-3">
                 <button 

@@ -16,6 +16,7 @@ import AdminPortal from './components/AdminPortal';
 import CartSidebar from './components/CartSidebar';
 import WishlistSidebar from './components/WishlistSidebar';
 import CheckoutModal from './components/CheckoutModal';
+import CartPage from './components/CartPage';
 import AgeGateModal from './components/AgeGateModal';
 import ProductDetailModal from './components/ProductDetailModal';
 import UserProfileModal from './components/UserProfileModal';
@@ -56,7 +57,7 @@ export default function App() {
   });
 
   // --- Session & Router States ---
-  const [currentView, setCurrentView] = useState<'shop' | 'admin'>('shop');
+  const [currentView, setCurrentView] = useState<'shop' | 'admin' | 'cart'>('shop');
   const [deliveryLocation, setDeliveryLocation] = useState<string>(() => {
     return localStorage.getItem('kipchimatt_delivery_county') || 'Nairobi';
   });
@@ -737,7 +738,10 @@ export default function App() {
         }}
         onSearch={setActiveSearch}
         onCategorySelect={handleCategorySelect}
-        onToggleCart={() => setCartOpen(prev => !prev)}
+        onToggleCart={() => {
+          setCurrentView(currentView === 'cart' ? 'shop' : 'cart');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
         onToggleWishlist={() => setWishlistOpen(prev => !prev)}
         cartCount={cart.reduce((s, i) => s + i.qty, 0)}
         wishlistCount={wishlist.length}
@@ -919,6 +923,21 @@ export default function App() {
           </footer>
 
         </div>
+      ) : currentView === 'cart' ? (
+        <CartPage 
+          cart={cart}
+          settings={settings}
+          onQtyChange={handleQtyChange}
+          onRemoveItem={handleRemoveCartItem}
+          deliveryLocation={deliveryLocation}
+          onDeliveryLocationChange={handleDeliveryLocationChange}
+          onPlaceOrder={handlePlaceOrder}
+          onBackToShop={() => {
+            setCurrentView('shop');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          orders={orders}
+        />
       ) : (
         /* Back-Office Operational Console Dashboard */
         <AdminPortal 
@@ -957,7 +976,8 @@ export default function App() {
         onRemoveItem={handleRemoveCartItem}
         onCheckout={() => {
           setCartOpen(false);
-          setCheckoutOpen(true);
+          setCurrentView('cart');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
       />
 
