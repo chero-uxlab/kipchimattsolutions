@@ -180,16 +180,25 @@ export default function App() {
     document.head.appendChild(styleEl);
 
     (window as any).googleTranslateElementInit = () => {
-      new (window as any).google.translate.TranslateElement({
-        pageLanguage: 'en',
-        layout: (window as any).google.translate.TranslateElement.InlineLayout.SIMPLE,
-        autoDisplay: false
-      }, 'google_translate_element');
+      try {
+        if ((window as any).google && (window as any).google.translate) {
+          new (window as any).google.translate.TranslateElement({
+            pageLanguage: 'en',
+            layout: (window as any).google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false
+          }, 'google_translate_element');
+        }
+      } catch (err) {
+        console.warn('Google translate element initialization failed, swallowed safely:', err);
+      }
     };
 
     const script = document.createElement('script');
-    script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
     script.async = true;
+    script.onerror = (err) => {
+      console.warn('Google Translate script failed to load, swallowed safely:', err);
+    };
     document.body.appendChild(script);
 
     return () => {
