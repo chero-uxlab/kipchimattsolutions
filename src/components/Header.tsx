@@ -145,59 +145,103 @@ export default function Header({
 
   return (
     <>
+      <div className="sticky top-0 z-40 w-full flex flex-col">
       {/* 1. PRIMARY AMAZON-STYLE HIGH-CONTRAST HEADER ROW */}
-      <header className="bg-[#131921] text-white py-2 sticky top-0 z-40 shadow-md border-b border-[#111] font-sans">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3 md:gap-4 lg:gap-6">
+      <header className="bg-[#131921] text-white py-2 shadow-md border-b border-[#111] font-sans w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-center justify-between gap-2.5 md:gap-4 lg:gap-6">
           
-          {/* Mobile Hamburger Menu (hidden on desktop) */}
-          <button 
-            onClick={() => setMobileMenuOpen(true)}
-            className="md:hidden text-white hover:text-[#febd69] cursor-pointer p-1 shrink-0 transition-colors"
-            aria-label="Toggle Navigation Menu"
-            id="mobile-menu-trigger"
-          >
-            <Menu className="w-6 h-6" />
-          </button>
+          {/* Top Row for Mobile, or Left/Right for Desktop */}
+          <div className="flex items-center justify-between w-full md:w-auto gap-3 shrink-0">
+            <div className="flex items-center gap-2">
+              {/* Mobile Hamburger Menu (hidden on desktop) */}
+              <button 
+                onClick={() => setMobileMenuOpen(true)}
+                className="md:hidden text-white hover:text-[#febd69] cursor-pointer p-1 shrink-0 transition-colors"
+                aria-label="Toggle Navigation Menu"
+                id="mobile-menu-trigger"
+              >
+                <Menu className="w-6 h-6" />
+              </button>
 
-          {/* Amazon-Style Logo with Curved Smile Underline */}
-          <div 
-            onClick={() => { selectCategory('all'); onViewChange('shop'); }}
-            className="flex flex-col cursor-pointer select-none shrink-0 group px-2 py-1.5 rounded-sm border border-transparent hover:border-white/30 transition-all duration-150"
-            id="header-logo"
-          >
-            <div className="flex items-baseline gap-0.5">
-              <span className="text-white font-black text-2xl tracking-tight leading-none group-hover:text-gray-150">
-                Kipchimatt
-              </span>
-              <span className="text-[#febd69] text-xs font-black uppercase tracking-wider">
-                .ke
-              </span>
+              {/* Amazon-Style Logo with Curved Smile Underline */}
+              <div 
+                onClick={() => { selectCategory('all'); onViewChange('shop'); }}
+                className="flex flex-col cursor-pointer select-none shrink-0 group px-2 py-1 rounded-sm border border-transparent hover:border-white transition-all duration-150"
+                id="header-logo"
+              >
+                <div className="flex items-baseline gap-0.5">
+                  <span className="text-white font-black text-xl sm:text-2xl tracking-tighter leading-none group-hover:text-gray-100 font-sans">
+                    kipchimatt
+                  </span>
+                  <span className="text-[#febd69] text-xs font-black uppercase tracking-wider">
+                    .ke
+                  </span>
+                </div>
+                
+                <div className="flex items-center gap-1.5 -mt-0.5 pl-0.5">
+                  <span className="text-gray-350 text-[9px] sm:text-[10px] font-black uppercase tracking-widest leading-none">
+                    Supermarket
+                  </span>
+                  <div className="relative w-12 sm:w-16 h-1.5 sm:h-2">
+                    <svg className="absolute top-0 left-0 w-full h-full text-[#febd69]" viewBox="0 0 100 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5 2 Q 50 12 95 2" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" />
+                      <path d="M91 1 L96 3.5 L90 7" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="currentColor" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
             </div>
-            
-            <div className="flex items-center gap-1.5 -mt-0.5 pl-0.5">
-              <span className="text-gray-300 text-[10px] font-extrabold uppercase tracking-widest leading-none">
-                Supermarket
-              </span>
-              <svg className="w-16 h-2 text-[#febd69]" viewBox="0 0 100 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 2 Q 50 10 95 2" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-                <path d="M92 1 L96 3.5 L91.5 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-              </svg>
+
+            {/* Mobile-Only Quick Access Actions */}
+            <div className="flex md:hidden items-center gap-1.5 sm:gap-3">
+              {/* Theme Toggle (Mobile) */}
+              <button 
+                onClick={onToggleTheme}
+                className="p-1.5 rounded-full hover:bg-white/10 text-white cursor-pointer transition-all shrink-0"
+                title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              >
+                {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-gray-300" />}
+              </button>
+
+              {/* Compact Account Link (Mobile) */}
+              <button 
+                onClick={onToggleUserProfile}
+                className="flex flex-col items-center justify-center px-1.5 py-1 text-white hover:text-[#febd69] cursor-pointer"
+                title="Account"
+              >
+                <span className="text-[9px] text-gray-300 leading-none font-medium">Hello</span>
+                <span className="text-xs font-black leading-none mt-0.5">Profile</span>
+              </button>
+
+              {/* Cart Widget (Mobile) */}
+              <button 
+                onClick={onToggleCart}
+                className="flex items-center p-1.5 rounded-sm hover:bg-white/10 cursor-pointer relative shrink-0 select-none group transition-all"
+                aria-label="Shopping Cart"
+              >
+                <div className="relative">
+                  <ShoppingCart className="w-6 h-6 text-white" />
+                  <span className="absolute -top-1 left-1/2 -translate-x-1/2 bg-[#f08804] text-gray-950 text-[10px] font-black rounded-full px-1 min-w-[16px] text-center leading-none py-0.5 shadow-sm">
+                    {cartCount}
+                  </span>
+                </div>
+              </button>
             </div>
           </div>
 
-          {/* Deliver To County Widget */}
+          {/* Deliver To County Widget (Desktop only) */}
           <div 
-            className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-sm border border-transparent hover:border-white/35 cursor-pointer relative shrink-0 transition-all"
+            className="hidden md:flex items-center gap-1 px-2.5 py-1.5 rounded-sm border border-transparent hover:border-white cursor-pointer relative shrink-0 transition-all"
             id="delivery-widget"
           >
-            <MapPin className="w-5 h-5 text-gray-300 mt-2 flex-shrink-0" />
+            <MapPin className="w-5 h-5 text-white flex-shrink-0 mr-0.5 mt-2" />
             <div className="flex flex-col text-left">
-              <span className="text-[11px] text-gray-400 font-bold leading-tight">Deliver to</span>
+              <span className="text-[11px] text-gray-350 font-normal leading-tight">Deliver to</span>
               <div className="relative flex items-center gap-1">
                 <select 
                   value={deliveryLocation}
                   onChange={(e) => onDeliveryLocationChange(e.target.value)}
-                  className="bg-transparent border-none text-white font-black text-xs outline-none cursor-pointer pr-4 appearance-none focus:ring-0"
+                  className="bg-transparent border-none text-white font-black text-xs outline-none cursor-pointer pr-4 appearance-none focus:ring-0 py-0"
                   style={{ WebkitAppearance: 'none', MozAppearance: 'none' }}
                   title="Choose Delivery Location"
                 >
@@ -209,13 +253,13 @@ export default function Header({
                   <option value="Nakuru" className="text-gray-950 bg-white font-bold">Nakuru</option>
                   <option value="Kisumu" className="text-gray-950 bg-white font-bold">Kisumu</option>
                 </select>
-                <ChevronDown className="w-3 h-3 absolute right-0 text-gray-400 pointer-events-none" />
+                <ChevronDown className="w-3 h-3 absolute right-0 text-white pointer-events-none" />
               </div>
             </div>
           </div>
 
-          {/* Prominent Giant Search Bar with Department Selector */}
-          <div className="flex-1 max-w-2xl flex items-center z-10" id="search-bar-container">
+          {/* Prominent Giant Search Bar - Desktop Only */}
+          <div className="hidden md:flex flex-1 max-w-2xl items-center z-10" id="search-bar-container">
             <form 
               onSubmit={handleSearchSubmit} 
               className="w-full h-10 bg-white rounded-md flex items-center overflow-hidden focus-within:ring-2 focus-within:ring-[#f3a847] border border-transparent transition-all"
@@ -266,11 +310,11 @@ export default function Header({
             </form>
           </div>
 
-          {/* Right Hand Navigation Widgets */}
-          <div className="flex items-center gap-1 md:gap-2.5 lg:gap-4 shrink-0" id="header-right-actions">
+          {/* Right Hand Navigation Widgets - Desktop Only */}
+          <div className="hidden md:flex items-center gap-1 md:gap-2.5 lg:gap-4 shrink-0" id="header-right-actions">
             
             {/* Amazon-Style Language / Currency Selector */}
-            <div className="relative flex items-center rounded-sm border border-transparent hover:border-white/35 px-2 py-1.5 cursor-pointer shrink-0 transition-all">
+            <div className="relative flex items-center rounded-sm border border-transparent hover:border-white px-2 py-1.5 cursor-pointer shrink-0 transition-all">
               <select
                 value={selectedLang}
                 onChange={(e) => handleLanguageChange(e.target.value)}
@@ -283,20 +327,20 @@ export default function Header({
                   </option>
                 ))}
               </select>
-              <ChevronDown className="w-2.5 h-2.5 text-gray-400 absolute right-1 pointer-events-none" />
+              <ChevronDown className="w-2.5 h-2.5 text-gray-450 absolute right-1 pointer-events-none" />
             </div>
 
             {/* Account & Lists panel with elegant Hover State */}
             {currentView === 'shop' && (
               <button 
                 onClick={onToggleUserProfile}
-                className="flex flex-col text-left px-2.5 py-1 rounded-sm border border-transparent hover:border-white/35 cursor-pointer transition-all"
+                className="flex flex-col text-left px-2.5 py-1 rounded-sm border border-transparent hover:border-white cursor-pointer transition-all"
                 id="account-menu-trigger"
               >
-                <span className="text-[11px] text-gray-400 font-semibold leading-tight">
+                <span className="text-[11px] text-gray-300 font-normal leading-tight">
                   {isLoggedIn ? 'Hello, Customer' : 'Hello, Sign In'}
                 </span>
-                <span className="text-xs text-white font-extrabold leading-tight flex items-center gap-0.5">
+                <span className="text-xs text-white font-black leading-tight flex items-center gap-0.5">
                   Account & Lists <ChevronDown className="w-3 h-3 text-gray-400" />
                 </span>
               </button>
@@ -306,10 +350,10 @@ export default function Header({
             {currentView === 'shop' && (
               <button 
                 onClick={onToggleUserProfile}
-                className="hidden sm:flex flex-col text-left px-2.5 py-1 rounded-sm border border-transparent hover:border-white/35 cursor-pointer transition-all"
+                className="hidden sm:flex flex-col text-left px-2.5 py-1 rounded-sm border border-transparent hover:border-white cursor-pointer transition-all"
               >
-                <span className="text-[11px] text-gray-400 font-semibold leading-tight">Returns</span>
-                <span className="text-xs text-white font-extrabold leading-tight">& Orders</span>
+                <span className="text-[11px] text-gray-300 font-normal leading-tight">Returns</span>
+                <span className="text-xs text-white font-black leading-tight">& Orders</span>
               </button>
             )}
 
@@ -326,12 +370,12 @@ export default function Header({
             {currentView === 'shop' && (
               <button 
                 onClick={onToggleWishlist}
-                className="hidden md:flex flex-col items-center justify-center p-1.5 rounded-sm border border-transparent hover:border-white/35 cursor-pointer relative transition-all"
+                className="hidden md:flex flex-col items-center justify-center px-2.5 py-1 rounded-sm border border-transparent hover:border-white cursor-pointer relative transition-all"
                 aria-label="Wishlist"
               >
                 <Heart className="w-5 h-5 text-pink-400 fill-pink-400/15" />
                 {wishlistCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-[#f08804] text-white text-[9px] font-black rounded-full w-4 h-4 flex items-center justify-center shadow-sm">
+                  <span className="absolute top-0.5 right-1 bg-[#f08804] text-white text-[9px] font-black rounded-full w-4 h-4 flex items-center justify-center shadow-sm">
                     {wishlistCount}
                   </span>
                 )}
@@ -342,7 +386,7 @@ export default function Header({
             {currentView === 'shop' && (
               <button 
                 onClick={onToggleCart}
-                className="flex items-end gap-1 px-2.5 py-1 rounded-sm border border-transparent hover:border-white/35 cursor-pointer relative shrink-0 select-none group transition-all"
+                className="flex items-end gap-1 px-2.5 py-1 rounded-sm border border-transparent hover:border-white cursor-pointer relative shrink-0 select-none group transition-all"
                 aria-label="Shopping Cart"
                 id="cart-trigger-button"
               >
@@ -361,68 +405,105 @@ export default function Header({
           </div>
 
         </div>
+
+        {/* Mobile Search Bar Row (shown ONLY on mobile/tablet screens below md) */}
+        <div className="md:hidden px-4 pb-2.5 pt-1 bg-[#131921] w-full" id="search-bar-container-mobile">
+          <form 
+            onSubmit={handleSearchSubmit} 
+            className="w-full h-10 bg-white rounded-md flex items-center overflow-hidden focus-within:ring-2 focus-within:ring-[#f3a847] border border-transparent transition-all"
+          >
+            {/* Search text input */}
+            <input 
+              type="text" 
+              placeholder="Search Kipchimatt Supermarket..." 
+              value={searchVal}
+              onChange={(e) => setSearchVal(e.target.value)}
+              className="flex-1 px-3.5 h-full outline-none text-sm text-gray-900 placeholder-gray-400 font-medium"
+              aria-label="Search inputs"
+            />
+
+            {/* Voice Search mic button */}
+            <button 
+              type="button"
+              onClick={startVoiceListening}
+              className={`w-9 h-9 shrink-0 rounded-full my-auto mr-1 flex items-center justify-center cursor-pointer transition-all ${isListening ? 'bg-red-500 text-white animate-pulse shadow' : 'text-gray-400 hover:text-gray-700 hover:bg-gray-50'}`}
+              title="Search hands-free with voice"
+            >
+              {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4.5 h-4.5" />}
+            </button>
+
+            {/* Trigger search button */}
+            <button 
+              type="submit"
+              className="h-full px-4 bg-[#febd69] hover:bg-[#f3a847] text-gray-900 flex items-center justify-center cursor-pointer transition-colors shrink-0"
+              aria-label="Submit Search Query"
+            >
+              <Search className="w-5 h-5 stroke-[2.5]" />
+            </button>
+          </form>
+        </div>
       </header>
 
       {/* 2. SECONDARY SUB-HEADER ROW (All Categories & Quick Links) */}
-      <nav className="bg-[#232f3e] text-white py-1.5 text-xs font-semibold flex items-center justify-between sticky top-[56px] z-30 shadow-sm border-t border-white/5 select-none overflow-x-auto whitespace-nowrap scrollbar-none">
+      <nav className="bg-[#232f3e] text-white py-1 text-xs font-semibold flex items-center justify-between shadow-sm border-t border-white/5 select-none overflow-x-auto whitespace-nowrap scrollbar-none w-full">
         <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
           
           {/* Left Navigation quick-links & Drawer Toggle */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5">
             
             {/* Mega Menu Drawer Toggle */}
             <button 
               onClick={() => setMegaMenuOpen(true)}
-              className="flex items-center gap-1.5 text-white hover:text-[#febd69] cursor-pointer transition-all font-black uppercase tracking-wider py-1 px-2 rounded-sm hover:ring-1 hover:ring-white/30"
+              className="flex items-center gap-1.5 text-white hover:text-white cursor-pointer transition-all font-black uppercase tracking-wider py-1.5 px-2.5 rounded-sm border border-transparent hover:border-white"
               id="mega-menu-trigger-all"
             >
-              <Menu className="w-4 h-4" />
-              <span>All Departments</span>
+              <Menu className="w-4 h-4 stroke-[2.5]" />
+              <span>All</span>
             </button>
-
+ 
             {/* Direct Category Access Links */}
-            <div className="hidden md:flex items-center gap-3">
+            <div className="hidden md:flex items-center gap-1">
               <button 
                 onClick={() => selectCategory('all')} 
-                className="text-gray-200 hover:text-white py-1 px-1.5 rounded-sm hover:ring-1 hover:ring-white/20 transition-all cursor-pointer"
+                className="border border-transparent hover:border-white py-1.5 px-2.5 rounded-sm text-gray-200 hover:text-white transition-all duration-150 cursor-pointer"
               >
                 Today's Deals
               </button>
               <button 
                 onClick={() => selectCategory('fresh food')} 
-                className="text-gray-200 hover:text-white py-1 px-1.5 rounded-sm hover:ring-1 hover:ring-white/20 transition-all cursor-pointer"
+                className="border border-transparent hover:border-white py-1.5 px-2.5 rounded-sm text-gray-200 hover:text-white transition-all duration-150 cursor-pointer"
               >
                 Fresh Produce
               </button>
               <button 
                 onClick={() => selectCategory('electronics')} 
-                className="text-gray-200 hover:text-white py-1 px-1.5 rounded-sm hover:ring-1 hover:ring-white/20 transition-all cursor-pointer"
+                className="border border-transparent hover:border-white py-1.5 px-2.5 rounded-sm text-gray-200 hover:text-white transition-all duration-150 cursor-pointer"
               >
                 Electronics
               </button>
               <button 
                 onClick={() => selectCategory('apparel')} 
-                className="text-gray-200 hover:text-white py-1 px-1.5 rounded-sm hover:ring-1 hover:ring-white/20 transition-all cursor-pointer"
+                className="border border-transparent hover:border-white py-1.5 px-2.5 rounded-sm text-gray-200 hover:text-white transition-all duration-150 cursor-pointer"
               >
                 Fashion
               </button>
               <button 
                 onClick={() => selectCategory('sports')} 
-                className="text-gray-200 hover:text-white py-1 px-1.5 rounded-sm hover:ring-1 hover:ring-white/20 transition-all cursor-pointer"
+                className="border border-transparent hover:border-white py-1.5 px-2.5 rounded-sm text-gray-200 hover:text-white transition-all duration-150 cursor-pointer"
               >
                 Sports & Gym
               </button>
               <button 
                 onClick={() => selectCategory('books')} 
-                className="text-gray-200 hover:text-white py-1 px-1.5 rounded-sm hover:ring-1 hover:ring-white/20 transition-all cursor-pointer"
+                className="border border-transparent hover:border-white py-1.5 px-2.5 rounded-sm text-gray-200 hover:text-white transition-all duration-150 cursor-pointer"
               >
                 Books
               </button>
               <button 
                 onClick={() => selectCategory('liquor')} 
-                className="text-gray-200 hover:text-[#febd69] font-bold py-1 px-1.5 rounded-sm hover:ring-1 hover:ring-white/20 transition-all cursor-pointer flex items-center gap-1"
+                className="border border-transparent hover:border-[#febd69] font-bold py-1.5 px-2.5 rounded-sm text-[#febd69] transition-all duration-150 cursor-pointer flex items-center gap-1"
               >
-                <Tag className="w-3.5 h-3.5 text-amber-400" />
+                <Tag className="w-3.5 h-3.5 text-[#febd69]" />
                 Liquor Cellar
               </button>
             </div>
@@ -470,6 +551,7 @@ export default function Header({
 
         </div>
       </nav>
+    </div>
 
       {/* 3. QUICK HORIZONTAL CATEGORIES RAIL (Sits beautifully under the subheaders) */}
       {currentView === 'shop' && (
