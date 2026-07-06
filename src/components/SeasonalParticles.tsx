@@ -109,8 +109,8 @@ export default function SeasonalParticles({ enabled }: { enabled: boolean }) {
       ))}
 
       {/* Subtle indicator toast at bottom-right when seasonal theme loads */}
-      <div className="fixed bottom-24 left-24 bg-white/90 dark:bg-gray-900/90 border border-[#782045]/20 px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest text-[#782045] flex items-center gap-1.5 shadow-md z-[100] animate-pulse">
-        <span className="w-1.5 h-1.5 rounded-full bg-[#782045] animate-ping" />
+      <div className="fixed bottom-24 left-24 bg-white/90 dark:bg-gray-900/90 border border-plum/20 px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest text-plum flex items-center gap-1.5 shadow-md z-[100] animate-pulse">
+        <span className="w-1.5 h-1.5 rounded-full bg-plum animate-ping" />
         <span>Theme: {themeName}</span>
       </div>
     </div>

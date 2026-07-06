@@ -147,7 +147,7 @@ export default function Header({
     <>
       <div className="sticky top-0 z-40 w-full flex flex-col">
       {/* 1. PRIMARY AMAZON-STYLE HIGH-CONTRAST HEADER ROW */}
-      <header className="bg-[#782045] text-white py-2 shadow-md border-b border-[#5a1431] font-sans w-full">
+      <header className="bg-plum text-white py-2 shadow-md border-b border-plum-dark font-sans w-full">
         <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-3 lg:gap-5">
           
           {/* Top Row for Mobile, or Left/Right for Desktop */}
@@ -156,7 +156,7 @@ export default function Header({
               {/* Mobile Hamburger Menu (hidden on desktop) */}
               <button 
                 onClick={() => setMobileMenuOpen(true)}
-                className="md:hidden text-white hover:text-[#febd69] cursor-pointer p-1 shrink-0 transition-colors"
+                className="md:hidden text-white hover:text-yellow cursor-pointer p-1 shrink-0 transition-colors"
                 aria-label="Toggle Navigation Menu"
                 id="mobile-menu-trigger"
               >
@@ -173,7 +173,7 @@ export default function Header({
                   <span className="text-white font-black text-xl sm:text-2xl tracking-tighter leading-none group-hover:text-gray-100 font-sans">
                     kipchimatt
                   </span>
-                  <span className="text-[#febd69] text-xs font-black uppercase tracking-wider">
+                  <span className="text-yellow text-xs font-black uppercase tracking-wider">
                     .ke
                   </span>
                 </div>
@@ -183,7 +183,7 @@ export default function Header({
                     Supermarket
                   </span>
                   <div className="relative w-12 sm:w-16 h-1.5 sm:h-2">
-                    <svg className="absolute top-0 left-0 w-full h-full text-[#febd69]" viewBox="0 0 100 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="absolute top-0 left-0 w-full h-full text-yellow" viewBox="0 0 100 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M5 2 Q 50 12 95 2" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" />
                       <path d="M91 1 L96 3.5 L90 7" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="currentColor" />
                     </svg>
@@ -200,13 +200,13 @@ export default function Header({
                 className="p-1.5 rounded-full hover:bg-white/10 text-white cursor-pointer transition-all shrink-0"
                 title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
               >
-                {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-gray-300" />}
+                {isDark ? <Sun className="w-4 h-4 text-yellow" /> : <Moon className="w-4 h-4 text-gray-300" />}
               </button>
 
               {/* Compact Account Link (Mobile) */}
               <button 
                 onClick={onToggleUserProfile}
-                className="flex flex-col items-center justify-center px-1.5 py-1 text-white hover:text-[#febd69] cursor-pointer"
+                className="flex flex-col items-center justify-center px-1.5 py-1 text-white hover:text-yellow cursor-pointer"
                 title="Account"
               >
                 <span className="text-[9px] text-gray-300 leading-none font-medium">Hello</span>
@@ -221,7 +221,7 @@ export default function Header({
               >
                 <div className="relative">
                   <ShoppingCart className="w-6 h-6 text-white" />
-                  <span className="absolute -top-1 left-1/2 -translate-x-1/2 bg-[#f08804] text-gray-950 text-[10px] font-black rounded-full px-1 min-w-[16px] text-center leading-none py-0.5 shadow-sm">
+                  <span className="absolute -top-1 left-1/2 -translate-x-1/2 bg-orange text-gray-950 text-[10px] font-black rounded-full px-1 min-w-[16px] text-center leading-none py-0.5 shadow-sm">
                     {cartCount}
                   </span>
                 </div>
@@ -262,7 +262,7 @@ export default function Header({
           <div className="hidden md:flex flex-1 min-w-0 max-w-3xl items-center z-10 mx-2 lg:mx-4" id="search-bar-container">
             <form 
               onSubmit={handleSearchSubmit} 
-              className="w-full h-10 bg-white rounded-md flex items-center overflow-hidden focus-within:ring-2 focus-within:ring-[#f3a847] border border-transparent transition-all"
+              className="w-full h-10 bg-white rounded-md flex items-center overflow-hidden focus-within:ring-2 focus-within:ring-orange border border-transparent transition-all"
             >
               {/* Left Department dropdown */}
               <select
@@ -302,7 +302,7 @@ export default function Header({
               {/* Trigger Orange search button */}
               <button 
                 type="submit"
-                className="h-full px-5 bg-[#febd69] hover:bg-[#f3a847] text-gray-900 flex items-center justify-center cursor-pointer transition-colors shrink-0"
+                className="h-full px-5 bg-orange hover:bg-orange/80 text-white flex items-center justify-center cursor-pointer transition-colors shrink-0"
                 aria-label="Submit Search Query"
               >
                 <Search className="w-5 h-5 stroke-[2.5]" />
@@ -363,7 +363,7 @@ export default function Header({
               className="p-1 lg:p-1.5 rounded-full hover:bg-white/10 text-white cursor-pointer transition-all shrink-0"
               title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
             >
-              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-gray-300" />}
+              {isDark ? <Sun className="w-4 h-4 text-yellow" /> : <Moon className="w-4 h-4 text-gray-300" />}
             </button>
 
             {/* Elegant Wishlist panel */}
@@ -373,9 +373,9 @@ export default function Header({
                 className="flex flex-col items-center justify-center px-1.5 lg:px-2 py-1 rounded-sm border border-transparent hover:border-white cursor-pointer relative transition-all"
                 aria-label="Wishlist"
               >
-                <Heart className="w-4.5 h-4.5 text-pink-400 fill-pink-400/15" />
+                <Heart className="w-4.5 h-4.5 text-plum-light fill-plum-light/15" />
                 {wishlistCount > 0 && (
-                  <span className="absolute top-0.5 right-0.5 bg-[#f08804] text-white text-[9px] font-black rounded-full w-3.5 h-3.5 flex items-center justify-center shadow-sm">
+                  <span className="absolute top-0.5 right-0.5 bg-orange text-white text-[9px] font-black rounded-full w-3.5 h-3.5 flex items-center justify-center shadow-sm">
                     {wishlistCount}
                   </span>
                 )}
@@ -392,7 +392,7 @@ export default function Header({
               >
                 <div className="relative">
                   <ShoppingCart className="w-5.5 h-5.5 text-white" />
-                  <span className="absolute -top-1 left-1/2 -translate-x-1/2 bg-[#f08804] text-gray-950 text-[10px] font-black rounded-full px-1 min-w-[16px] text-center leading-none py-0.5 shadow-sm group-hover:scale-105 transition-all duration-150">
+                  <span className="absolute -top-1 left-1/2 -translate-x-1/2 bg-orange text-gray-950 text-[10px] font-black rounded-full px-1 min-w-[16px] text-center leading-none py-0.5 shadow-sm group-hover:scale-105 transition-all duration-150">
                     {cartCount}
                   </span>
                 </div>
@@ -407,10 +407,10 @@ export default function Header({
         </div>
 
         {/* Mobile Search Bar Row (shown ONLY on mobile/tablet screens below md) */}
-        <div className="md:hidden px-4 pb-2.5 pt-1 bg-[#782045] w-full" id="search-bar-container-mobile">
+        <div className="md:hidden px-4 pb-2.5 pt-1 bg-plum w-full" id="search-bar-container-mobile">
           <form 
             onSubmit={handleSearchSubmit} 
-            className="w-full h-10 bg-white rounded-md flex items-center overflow-hidden focus-within:ring-2 focus-within:ring-[#f3a847] border border-transparent transition-all"
+            className="w-full h-10 bg-white rounded-md flex items-center overflow-hidden focus-within:ring-2 focus-within:ring-orange border border-transparent transition-all"
           >
             {/* Search text input */}
             <input 
@@ -435,7 +435,7 @@ export default function Header({
             {/* Trigger search button */}
             <button 
               type="submit"
-              className="h-full px-4 bg-[#febd69] hover:bg-[#f3a847] text-gray-900 flex items-center justify-center cursor-pointer transition-colors shrink-0"
+              className="h-full px-4 bg-orange hover:bg-orange/80 text-white flex items-center justify-center cursor-pointer transition-colors shrink-0"
               aria-label="Submit Search Query"
             >
               <Search className="w-5 h-5 stroke-[2.5]" />
@@ -445,7 +445,7 @@ export default function Header({
       </header>
 
       {/* 2. SECONDARY SUB-HEADER ROW (All Categories & Quick Links) */}
-      <nav className="bg-[#4a1028] text-white py-1 text-xs font-semibold flex items-center justify-between shadow-sm border-t border-white/5 select-none overflow-x-auto whitespace-nowrap scrollbar-none w-full">
+      <nav className="bg-plum-dark text-white py-1 text-xs font-semibold flex items-center justify-between shadow-sm border-t border-white/5 select-none overflow-x-auto whitespace-nowrap scrollbar-none w-full">
         <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
           
           {/* Left Navigation quick-links & Drawer Toggle */}
@@ -501,9 +501,9 @@ export default function Header({
               </button>
               <button 
                 onClick={() => selectCategory('liquor')} 
-                className="border border-transparent hover:border-[#febd69] font-bold py-1.5 px-2.5 rounded-sm text-[#febd69] transition-all duration-150 cursor-pointer flex items-center gap-1"
+                className="border border-transparent hover:border-yellow font-bold py-1.5 px-2.5 rounded-sm text-yellow transition-all duration-150 cursor-pointer flex items-center gap-1"
               >
-                <Tag className="w-3.5 h-3.5 text-[#febd69]" />
+                <Tag className="w-3.5 h-3.5 text-yellow" />
                 Liquor Cellar
               </button>
             </div>
@@ -513,7 +513,7 @@ export default function Header({
           <div className="flex items-center gap-4 text-[11px] font-bold text-gray-300">
             
             {/* Free Delivery Threshold Alert */}
-            <span className="hidden lg:flex items-center gap-1 text-emerald-400 bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-900/30">
+            <span className="hidden lg:flex items-center gap-1 text-green bg-green-light/10 px-2 py-0.5 rounded border border-green/20">
               <Truck className="w-3.5 h-3.5" />
               <span>Free Delivery over {formatMoney(settings.freeDeliveryThreshold)}</span>
             </span>
@@ -531,7 +531,7 @@ export default function Header({
               <div className="flex items-center gap-3">
                 <button 
                   onClick={() => onViewChange('shop')}
-                  className="flex items-center gap-1 hover:text-white py-1 px-2.5 rounded bg-[#febd69] text-gray-950 cursor-pointer font-bold transition-all"
+                  className="flex items-center gap-1 hover:text-white py-1 px-2.5 rounded bg-orange text-white cursor-pointer font-bold transition-all"
                 >
                   <Store className="w-3 h-3" />
                   <span>View Storefront</span>
@@ -539,7 +539,7 @@ export default function Header({
                 {isLoggedIn && (
                   <button 
                     onClick={onLogout}
-                    className="flex items-center gap-1 text-red-400 hover:text-red-300 cursor-pointer"
+                    className="flex items-center gap-1 text-red hover:text-red-light cursor-pointer"
                   >
                     <LogOut className="w-3 h-3" />
                     <span>Logout</span>
@@ -562,7 +562,7 @@ export default function Header({
                 onClick={() => selectCategory(cat.key)}
                 className={`px-3.5 py-1.5 rounded-full font-extrabold text-xs whitespace-nowrap transition-all cursor-pointer border ${
                   searchCategory === cat.key 
-                    ? 'bg-[#782045] text-white border-[#782045] dark:bg-gray-100 dark:text-gray-900 dark:border-gray-100' 
+                    ? 'bg-plum text-white border-plum dark:bg-gray-100 dark:text-gray-900 dark:border-gray-100' 
                     : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100 dark:bg-gray-850 dark:text-gray-300 dark:border-gray-800 dark:hover:bg-gray-800'
                 }`}
               >
@@ -589,13 +589,13 @@ export default function Header({
             id="mega-menu-sidebar"
           >
             {/* Drawer Header (Sign In profile banner) */}
-            <div className="bg-[#782045] text-white p-5 flex items-center justify-between sticky top-0 border-b border-[#5a1431] shrink-0">
+            <div className="bg-plum text-white p-5 flex items-center justify-between sticky top-0 border-b border-plum-dark shrink-0">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-gray-200 border border-white/20 flex items-center justify-center p-1 overflow-hidden">
-                  <User className="w-6 h-6 text-[#782045]" />
+                  <User className="w-6 h-6 text-plum" />
                 </div>
                 <div>
-                  <h3 className="font-extrabold text-base tracking-tight leading-none text-[#febd69]">
+                  <h3 className="font-extrabold text-base tracking-tight leading-none text-yellow">
                     {isLoggedIn ? 'Hello, Customer' : 'Hello, Sign In'}
                   </h3>
                   <p className="text-[10px] text-gray-400 mt-1 font-semibold">Your Kipchimatt Account</p>
@@ -611,12 +611,12 @@ export default function Header({
             </div>
             
             {/* Sub banner advertisement */}
-            <div className="bg-[#4a1028] text-white py-3 px-5 text-[11px] font-bold flex items-center justify-between border-b border-white/5 shrink-0 select-none">
+            <div className="bg-plum-dark text-white py-3 px-5 text-[11px] font-bold flex items-center justify-between border-b border-white/5 shrink-0 select-none">
               <span className="flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#febd69]" />
+                <Sparkles className="w-3.5 h-3.5 text-yellow" />
                 <span>Supercharged shopping deals today!</span>
               </span>
-              <span className="text-[#febd69] uppercase tracking-wider text-[9px] font-black bg-white/10 px-1.5 py-0.5 rounded">HOT</span>
+              <span className="text-yellow uppercase tracking-wider text-[9px] font-black bg-white/10 px-1.5 py-0.5 rounded">HOT</span>
             </div>
 
             {/* Grouped Department Lists (The robust categorized mega-menu structure) */}
@@ -630,21 +630,21 @@ export default function Header({
                 <div className="space-y-2 text-sm font-bold text-gray-750 dark:text-gray-250">
                   <button 
                     onClick={() => { selectCategory('all'); setMegaMenuOpen(false); }}
-                    className="w-full flex items-center justify-between text-left py-1.5 hover:text-amber-600 dark:hover:text-[#febd69] transition-colors"
+                    className="w-full flex items-center justify-between text-left py-1.5 hover:text-plum dark:hover:text-yellow transition-colors"
                   >
                     <span>Today's Kikapu Chapchap Deals</span>
                     <ArrowRight className="w-3.5 h-3.5 text-gray-300" />
                   </button>
                   <button 
                     onClick={() => { selectCategory('fresh food'); setMegaMenuOpen(false); }}
-                    className="w-full flex items-center justify-between text-left py-1.5 hover:text-amber-600 dark:hover:text-[#febd69] transition-colors"
+                    className="w-full flex items-center justify-between text-left py-1.5 hover:text-plum dark:hover:text-yellow transition-colors"
                   >
                     <span>Fresh Local Farm Harvests</span>
                     <ArrowRight className="w-3.5 h-3.5 text-gray-300" />
                   </button>
                   <button 
                     onClick={() => { selectCategory('liquor'); setMegaMenuOpen(false); }}
-                    className="w-full flex items-center justify-between text-left py-1.5 hover:text-amber-600 dark:hover:text-[#febd69] transition-colors"
+                    className="w-full flex items-center justify-between text-left py-1.5 hover:text-plum dark:hover:text-yellow transition-colors"
                   >
                     <span>Premium Liquor & Spirits</span>
                     <ArrowRight className="w-3.5 h-3.5 text-gray-300" />
@@ -664,7 +664,7 @@ export default function Header({
                     <button
                       key={cat.key}
                       onClick={() => selectCategory(cat.key)}
-                      className="w-full flex items-center justify-between text-left py-2 hover:text-amber-600 dark:hover:text-[#febd69] group transition-colors"
+                      className="w-full flex items-center justify-between text-left py-2 hover:text-plum dark:hover:text-yellow group transition-colors"
                     >
                       <span>{cat.label}</span>
                       <ChevronRight className="w-4 h-4 text-gray-350 group-hover:translate-x-0.5 transition-all" />
@@ -685,7 +685,7 @@ export default function Header({
                     <button
                       key={cat.key}
                       onClick={() => selectCategory(cat.key)}
-                      className="w-full flex items-center justify-between text-left py-2 hover:text-amber-600 dark:hover:text-[#febd69] group transition-colors"
+                      className="w-full flex items-center justify-between text-left py-2 hover:text-plum dark:hover:text-yellow group transition-colors"
                     >
                       <span>{cat.label}</span>
                       <ChevronRight className="w-4 h-4 text-gray-350 group-hover:translate-x-0.5 transition-all" />
@@ -706,7 +706,7 @@ export default function Header({
                     <button
                       key={cat.key}
                       onClick={() => selectCategory(cat.key)}
-                      className="w-full flex items-center justify-between text-left py-2 hover:text-amber-600 dark:hover:text-[#febd69] group transition-colors"
+                      className="w-full flex items-center justify-between text-left py-2 hover:text-plum dark:hover:text-yellow group transition-colors"
                     >
                       <span>{cat.label}</span>
                       <ChevronRight className="w-4 h-4 text-gray-350 group-hover:translate-x-0.5 transition-all" />
@@ -725,33 +725,33 @@ export default function Header({
                 <div className="space-y-2 text-sm font-bold text-gray-750 dark:text-gray-250">
                   <button 
                     onClick={() => { onToggleUserProfile(); setMegaMenuOpen(false); }}
-                    className="w-full text-left py-1.5 hover:text-amber-600 dark:hover:text-[#febd69] transition-colors"
+                    className="w-full text-left py-1.5 hover:text-plum dark:hover:text-yellow transition-colors"
                   >
                     Your Profile & Settings
                   </button>
                   <button 
                     onClick={() => { onToggleUserProfile(); setMegaMenuOpen(false); }}
-                    className="w-full text-left py-1.5 hover:text-amber-600 dark:hover:text-[#febd69] transition-colors"
+                    className="w-full text-left py-1.5 hover:text-plum dark:hover:text-yellow transition-colors"
                   >
                     Order History & Invoices
                   </button>
                   <button 
                     onClick={() => { onToggleTheme(); setMegaMenuOpen(false); }}
-                    className="w-full text-left py-1.5 hover:text-amber-600 dark:hover:text-[#febd69] transition-colors"
+                    className="w-full text-left py-1.5 hover:text-plum dark:hover:text-yellow transition-colors"
                   >
                     {isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
                   </button>
                   {isLoggedIn ? (
                     <button 
                       onClick={() => { onLogout(); setMegaMenuOpen(false); }}
-                      className="w-full text-left py-1.5 text-red-500 hover:text-red-600 transition-colors"
+                      className="w-full text-left py-1.5 text-red hover:text-red-light transition-colors"
                     >
                       Sign Out
                     </button>
                   ) : (
                     <button 
                       onClick={() => { onToggleUserProfile(); setMegaMenuOpen(false); }}
-                      className="w-full text-left py-1.5 text-emerald-600 hover:text-emerald-700 transition-colors"
+                      className="w-full text-left py-1.5 text-green hover:text-green-light transition-colors"
                     >
                       Sign In to Account
                     </button>
@@ -779,13 +779,13 @@ export default function Header({
           />
           <nav className="fixed top-0 left-0 w-[300px] max-w-[85%] h-full bg-white dark:bg-gray-900 shadow-2xl z-55 flex flex-col font-sans">
             {/* Header */}
-            <div className="bg-[#782045] text-white p-5 flex flex-col gap-3 relative border-b border-[#5a1431]">
+            <div className="bg-plum text-white p-5 flex flex-col gap-3 relative border-b border-plum-dark">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-gray-250 border border-white/20 flex items-center justify-center p-1">
-                  <User className="w-6 h-6 text-[#782045]" />
+                  <User className="w-6 h-6 text-plum" />
                 </div>
                 <div className="flex flex-col">
-                  <h2 className="font-black text-sm tracking-tight leading-none text-[#febd69]">
+                  <h2 className="font-black text-sm tracking-tight leading-none text-yellow">
                     {isLoggedIn ? 'Hello, Customer' : 'Hello, Sign In'}
                   </h2>
                   <span className="text-[10px] text-gray-400 mt-1 font-bold">Manage Account & Tracking</span>
@@ -831,7 +831,7 @@ export default function Header({
                   <span>Wishlist</span>
                 </span>
                 {wishlistCount > 0 && (
-                  <span className="bg-[#f08804] text-white text-[10px] px-2 py-0.5 rounded-full font-black">
+                  <span className="bg-orange text-white text-[10px] px-2 py-0.5 rounded-full font-black">
                     {wishlistCount}
                   </span>
                 )}
@@ -846,7 +846,7 @@ export default function Header({
                   <span>Shopping Cart</span>
                 </span>
                 {cartCount > 0 && (
-                  <span className="bg-[#f08804] text-white text-[10px] px-2 py-0.5 rounded-full font-black animate-pulse">
+                  <span className="bg-orange text-white text-[10px] px-2 py-0.5 rounded-full font-black animate-pulse">
                     {cartCount}
                   </span>
                 )}

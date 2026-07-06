@@ -31,7 +31,7 @@ export default function AgeGateModal({ isOpen, onConfirm }: AgeGateModalProps) {
           
           <button 
             onClick={() => onConfirm(true)}
-            className="flex-1 bg-[#782045] hover:bg-[#4a1028] text-white font-bold text-xs py-3 rounded-lg cursor-pointer transition-colors shadow-sm"
+            className="flex-1 bg-plum hover:bg-plum-dark text-white font-bold text-xs py-3 rounded-lg cursor-pointer transition-colors shadow-sm"
           >
             I am 18 or Older
           </button>

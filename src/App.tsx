@@ -705,7 +705,7 @@ export default function App() {
       
       {/* Dynamic Connectivity Offline Alert Bar / State Recovery Banner */}
       {showOnlineStatusMsg && (
-        <div className={`text-white text-xs font-bold py-2.5 px-4 text-center z-[9999] flex items-center justify-center gap-2 shadow-inner transition-colors ${isOnline ? 'bg-emerald-600' : 'bg-amber-600 animate-pulse'}`}>
+        <div className={`text-white text-xs font-bold py-2.5 px-4 text-center z-[9999] flex items-center justify-center gap-2 shadow-inner transition-colors ${isOnline ? 'bg-green' : 'bg-orange animate-pulse'}`}>
           {isOnline ? (
             <>
               <Wifi className="w-4 h-4 text-white" />
@@ -802,7 +802,7 @@ export default function App() {
               <div className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
                 <div className="max-w-md">
                   <h4 className="font-extrabold text-white text-base md:text-lg mb-1.5 flex items-center gap-2">
-                    <Mail className="w-5 h-5 text-[#782045]" />
+                    <Mail className="w-5 h-5 text-plum-light" />
                     <span>Never Miss a Kikapu Deal</span>
                   </h4>
                   <p className="text-white/60 text-xs leading-relaxed">
@@ -816,11 +816,11 @@ export default function App() {
                     placeholder="Enter your email address"
                     value={newsletterEmail}
                     onChange={(e) => setNewsletterEmail(e.target.value)}
-                    className="flex-1 px-4 py-3 rounded-full border border-white/20 bg-white/5 text-white placeholder-white/40 text-xs focus:ring-2 focus:ring-[#782045]/40 outline-none"
+                    className="flex-1 px-4 py-3 rounded-full border border-white/20 bg-white/5 text-white placeholder-white/40 text-xs focus:ring-2 focus:ring-plum/40 outline-none"
                   />
                   <button 
                     type="submit"
-                    className="bg-[#782045] hover:bg-[#4a1028] text-white font-bold text-xs px-6 py-3 rounded-full flex items-center gap-1.5 cursor-pointer transition-colors shadow-sm whitespace-nowrap"
+                    className="bg-plum hover:bg-plum-dark text-white font-bold text-xs px-6 py-3 rounded-full flex items-center gap-1.5 cursor-pointer transition-colors shadow-sm whitespace-nowrap"
                   >
                     <span>Subscribe</span>
                     <Send className="w-3.5 h-3.5" />
@@ -840,9 +840,9 @@ export default function App() {
                     Your most trusted online grocery catalog and household essentials supermarket across Kenya. Delivering fresh food and appliances directly to your home in under 90 minutes.
                   </p>
                   <div className="space-y-2 text-xs font-semibold">
-                    <span className="flex items-center gap-2 text-white/70"><Phone className="w-4 h-4 text-[#782045]" /><span>{settings.storePhone}</span></span>
-                    <span className="flex items-center gap-2 text-white/70"><Mail className="w-4 h-4 text-[#782045]" /><span>{settings.storeEmail}</span></span>
-                    <span className="flex items-center gap-2 text-white/70"><MapPin className="w-4 h-4 text-[#782045]" /><span>Nairobi, Kenya</span></span>
+                    <span className="flex items-center gap-2 text-white/70"><Phone className="w-4 h-4 text-plum-light" /><span>{settings.storePhone}</span></span>
+                    <span className="flex items-center gap-2 text-white/70"><Mail className="w-4 h-4 text-plum-light" /><span>{settings.storeEmail}</span></span>
+                    <span className="flex items-center gap-2 text-white/70"><MapPin className="w-4 h-4 text-plum-light" /><span>Nairobi, Kenya</span></span>
                   </div>
                 </div>
 
@@ -902,7 +902,7 @@ export default function App() {
                 <div className="flex items-center gap-2.5 flex-wrap">
                   <span className="text-[10px] text-white/40 uppercase tracking-widest font-extrabold mr-2">We Accept</span>
                   <span className="bg-white/5 border border-white/10 px-3 py-1.5 rounded-lg font-bold text-white/85 flex items-center gap-1">
-                    <CreditCard className="w-3.5 h-3.5 text-emerald-400" />
+                    <CreditCard className="w-3.5 h-3.5 text-green" />
                     <span>M-PESA (POD)</span>
                   </span>
                   <span className="bg-white/10 text-white px-3 py-1 rounded-lg">Visa</span>
@@ -1015,7 +1015,7 @@ export default function App() {
         {toasts.map((toast) => (
           <div 
             key={toast.id}
-            className={`p-4 rounded-xl shadow-xl text-white font-bold text-xs flex items-center gap-2 max-w-sm pointer-events-auto animate-toast-in ${toast.type === 'success' ? 'bg-emerald-600' : toast.type === 'error' ? 'bg-red-600' : 'bg-gray-800'}`}
+            className={`p-4 rounded-xl shadow-xl text-white font-bold text-xs flex items-center gap-2 max-w-sm pointer-events-auto animate-toast-in ${toast.type === 'success' ? 'bg-green' : toast.type === 'error' ? 'bg-red' : 'bg-gray-800'}`}
           >
             <span>{toast.msg}</span>
           </div>
@@ -1026,7 +1026,7 @@ export default function App() {
       {comparedProducts.length > 0 && (
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-gray-900/95 dark:bg-black/95 text-white p-4 rounded-2xl shadow-2xl flex items-center gap-6 z-40 border border-white/10 max-w-[95vw] md:max-w-xl transition-all duration-300">
           <div className="flex-1">
-            <h4 className="text-xs font-black uppercase tracking-wider text-amber-400">Compare Tray</h4>
+            <h4 className="text-xs font-black uppercase tracking-wider text-yellow">Compare Tray</h4>
             <span className="text-[10px] text-gray-300 font-bold">{comparedProducts.length} of 3 items selected</span>
             <div className="flex gap-2 mt-1.5">
               {comparedProducts.map(p => (
@@ -1034,7 +1034,7 @@ export default function App() {
                   <img src={p.image} className="w-8 h-8 rounded-md object-cover border border-white/20" alt={p.name} />
                   <button 
                     onClick={() => handleToggleCompare(p)}
-                    className="absolute -top-1 -right-1 bg-red-600 text-white rounded-full w-4 h-4 text-[9px] flex items-center justify-center font-bold hover:bg-red-500 cursor-pointer"
+                    className="absolute -top-1 -right-1 bg-red text-white rounded-full w-4 h-4 text-[9px] flex items-center justify-center font-bold hover:bg-red-light cursor-pointer"
                   >
                     ×
                   </button>
@@ -1045,7 +1045,7 @@ export default function App() {
           <div className="flex items-center gap-2">
             <button 
               onClick={() => setCompareOpen(true)}
-              className="bg-amber-500 hover:bg-amber-400 text-gray-950 px-4 py-2 rounded-xl text-xs font-black tracking-wide uppercase shadow-lg cursor-pointer transition-colors"
+              className="bg-orange hover:bg-orange/80 text-white px-4 py-2 rounded-xl text-xs font-black tracking-wide uppercase shadow-lg cursor-pointer transition-colors"
             >
               Compare
             </button>
@@ -1087,7 +1087,7 @@ export default function App() {
         {scrollY > 300 && (
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="bg-[#782045] hover:bg-[#4a1028] text-white p-3.5 rounded-full shadow-2xl cursor-pointer hover:scale-110 transition-all border border-white/20 flex items-center justify-center"
+            className="bg-plum hover:bg-plum-dark text-white p-3.5 rounded-full shadow-2xl cursor-pointer hover:scale-110 transition-all border border-white/20 flex items-center justify-center"
             title="Go to Top"
           >
             <ArrowUp className="w-5 h-5" />
@@ -1097,17 +1097,17 @@ export default function App() {
         <div className="relative">
           <button
             onClick={() => setAccessibilityOpen(prev => !prev)}
-            className="bg-[#782045] hover:bg-[#4a1028] text-white p-3.5 rounded-full shadow-2xl cursor-pointer hover:scale-110 transition-all border border-white/20 flex items-center justify-center"
+            className="bg-plum hover:bg-plum-dark text-white p-3.5 rounded-full shadow-2xl cursor-pointer hover:scale-110 transition-all border border-white/20 flex items-center justify-center"
             title="Accessibility Options"
           >
             <Settings className={`w-5 h-5 ${accessibilityOpen ? 'animate-spin' : ''}`} />
           </button>
 
           {accessibilityOpen && (
-            <div className="absolute bottom-16 right-0 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-5 rounded-2xl shadow-2xl w-72 space-y-4 animate-scale-up text-gray-800 dark:text-gray-100 border-r-4 border-r-[#782045]">
+            <div className="absolute bottom-16 right-0 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-5 rounded-2xl shadow-2xl w-72 space-y-4 animate-scale-up text-gray-800 dark:text-gray-100 border-r-4 border-r-plum">
               <div className="flex justify-between items-center border-b border-gray-100 dark:border-gray-800 pb-2.5">
                 <h3 className="font-extrabold text-sm flex items-center gap-2 text-gray-800 dark:text-white">
-                  <Eye className="w-4.5 h-4.5 text-[#782045]" />
+                  <Eye className="w-4.5 h-4.5 text-plum" />
                   <span>Accessibility Hub</span>
                 </h3>
                 <button 
@@ -1122,7 +1122,7 @@ export default function App() {
               <div className="space-y-1.5">
                 <div className="flex justify-between text-xs font-bold text-gray-500">
                   <span>Font Scaling</span>
-                  <span className="text-[#782045] font-extrabold">{Math.round(fontSizeScale * 100)}%</span>
+                  <span className="text-plum font-extrabold">{Math.round(fontSizeScale * 100)}%</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <button 
@@ -1138,7 +1138,7 @@ export default function App() {
                     step="0.15"
                     value={fontSizeScale}
                     onChange={(e) => setFontSizeScale(parseFloat(e.target.value))}
-                    className="flex-1 accent-[#782045]"
+                    className="flex-1 accent-plum"
                   />
                   <button 
                     onClick={() => setFontSizeScale(Math.min(1.45, fontSizeScale + 0.15))}
@@ -1156,7 +1156,7 @@ export default function App() {
                   type="checkbox"
                   checked={highContrast}
                   onChange={() => setHighContrast(!highContrast)}
-                  className="rounded border-gray-350 dark:border-gray-750 text-[#782045] focus:ring-[#782045] w-4 h-4 cursor-pointer"
+                  className="rounded border-gray-350 dark:border-gray-750 text-plum focus:ring-plum w-4 h-4 cursor-pointer"
                 />
               </label>
 
@@ -1167,7 +1167,7 @@ export default function App() {
                   type="checkbox"
                   checked={monochrome}
                   onChange={() => setMonochrome(!monochrome)}
-                  className="rounded border-gray-350 dark:border-gray-750 text-[#782045] focus:ring-[#782045] w-4 h-4 cursor-pointer"
+                  className="rounded border-gray-350 dark:border-gray-750 text-plum focus:ring-plum w-4 h-4 cursor-pointer"
                 />
               </label>
 
@@ -1191,8 +1191,8 @@ export default function App() {
       {/* Low Stock Urgent Purchase Popup Notification Modal */}
       {urgentStockProduct && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-[99999] animate-fade-in">
-          <div className="bg-white dark:bg-gray-950 rounded-3xl border-2 border-[#782045]/40 p-6 sm:p-8 max-w-md w-full shadow-2xl text-center space-y-5 animate-scale-up relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-red-600 animate-pulse" />
+          <div className="bg-white dark:bg-gray-950 rounded-3xl border-2 border-plum/40 p-6 sm:p-8 max-w-md w-full shadow-2xl text-center space-y-5 animate-scale-up relative overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-red animate-pulse" />
             
             <button 
               onClick={() => setUrgentStockProduct(null)}
@@ -1201,17 +1201,17 @@ export default function App() {
               <X className="w-5 h-5" />
             </button>
 
-            <div className="w-16 h-16 rounded-full bg-red-50 dark:bg-red-950/40 text-red-600 flex items-center justify-center mx-auto animate-bounce">
+            <div className="w-16 h-16 rounded-full bg-red-50 dark:bg-red-950/40 text-red flex items-center justify-center mx-auto animate-bounce">
               <AlertTriangle className="w-8 h-8" />
             </div>
 
             <div className="space-y-2">
               <h3 className="text-lg sm:text-xl font-black text-gray-900 dark:text-white uppercase tracking-tight flex items-center justify-center gap-1.5">
-                <Sparkles className="w-5 h-5 text-amber-500 fill-amber-500 animate-pulse" />
+                <Sparkles className="w-5 h-5 text-yellow fill-yellow animate-pulse" />
                 <span>Demand is Extremely High!</span>
               </h3>
               <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">
-                You added <strong className="text-[#782045] font-bold">{urgentStockProduct.name}</strong> to your basket.
+                You added <strong className="text-plum font-bold">{urgentStockProduct.name}</strong> to your basket.
               </p>
             </div>
 
@@ -1219,18 +1219,18 @@ export default function App() {
             <div className="p-3.5 bg-gray-50 dark:bg-gray-900 border border-gray-150 dark:border-gray-800 rounded-2xl flex items-center gap-3">
               <img src={urgentStockProduct.image} alt={urgentStockProduct.name} className="w-14 h-14 object-cover rounded-xl border border-gray-200 dark:border-gray-850" />
               <div className="text-left flex-1 min-w-0">
-                <span className="text-[10px] text-red-600 font-extrabold uppercase tracking-widest block animate-pulse">
+                <span className="text-[10px] text-red font-extrabold uppercase tracking-widest block animate-pulse">
                   Only {urgentStockProduct.stock} Left In Stock!
                 </span>
                 <h4 className="font-extrabold text-xs text-gray-800 dark:text-gray-100 truncate">{urgentStockProduct.name}</h4>
-                <p className="text-sm font-black text-[#782045] mt-0.5">{formatMoney(urgentStockProduct.price)}</p>
+                <p className="text-sm font-black text-plum mt-0.5">{formatMoney(urgentStockProduct.price)}</p>
               </div>
             </div>
 
             {/* Order reservation countdown */}
             <div className="p-3 bg-red-50 dark:bg-red-950/25 border border-red-100 dark:border-red-900/20 rounded-xl">
               <span className="text-[10px] text-red-700 dark:text-red-300 font-extrabold uppercase tracking-widest block">Cart Reservation Clock</span>
-              <span className="font-mono text-xl font-extrabold text-red-600 dark:text-red-400 block mt-0.5">
+              <span className="font-mono text-xl font-extrabold text-red dark:text-red-400 block mt-0.5">
                 {formatUrgentTime(urgentTimer)}
               </span>
               <span className="text-[9px] text-gray-400 block mt-0.5">Secure your items before they sell out!</span>
@@ -1242,7 +1242,7 @@ export default function App() {
                   setUrgentStockProduct(null);
                   setCheckoutOpen(true);
                 }}
-                className="w-full bg-[#782045] hover:bg-[#4a1028] text-white font-black text-xs sm:text-sm py-3 px-6 rounded-2xl cursor-pointer transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 uppercase tracking-wider animate-pulse"
+                className="w-full bg-plum hover:bg-plum-dark text-white font-black text-xs sm:text-sm py-3 px-6 rounded-2xl cursor-pointer transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 uppercase tracking-wider animate-pulse"
               >
                 <CreditCard className="w-4 h-4" />
                 <span>Express Checkout Now</span>

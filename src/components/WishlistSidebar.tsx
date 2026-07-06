@@ -37,7 +37,7 @@ export default function WishlistSidebar({
         
         {/* Header */}
         <div className="p-5 border-b border-gray-150 flex justify-between items-center bg-white sticky top-0 z-10">
-          <h3 className="font-extrabold text-[#782045] text-base flex items-center gap-2">
+          <h3 className="font-extrabold text-plum text-base flex items-center gap-2">
             <Heart className="w-5 h-5 text-red-500 fill-current" />
             <span>Saved Wishlist ({wishlist.length})</span>
           </h3>
@@ -75,7 +75,7 @@ export default function WishlistSidebar({
                       {item.name}
                     </h4>
                     <span className="text-[10px] text-gray-400 font-bold block mt-0.5">{item.brand}</span>
-                    <div className="text-xs font-black text-[#782045] mt-1">
+                    <div className="text-xs font-black text-plum mt-1">
                       {formatMoney(item.price)}
                     </div>
                     
@@ -83,7 +83,7 @@ export default function WishlistSidebar({
                       <button 
                         onClick={() => onAddToCart(item)}
                         disabled={isOutOfStock}
-                        className={`py-1.5 px-3 rounded-lg font-bold text-[10px] flex items-center gap-1 cursor-pointer transition-colors ${isOutOfStock ? 'bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200/50' : 'bg-[#782045]/5 hover:bg-[#782045]/10 text-[#782045]'}`}
+                        className={`py-1.5 px-3 rounded-lg font-bold text-[10px] flex items-center gap-1 cursor-pointer transition-colors ${isOutOfStock ? 'bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200/50' : 'bg-plum/5 hover:bg-plum/10 text-plum'}`}
                       >
                         <ShoppingCart className="w-3.5 h-3.5" />
                         <span>{isOutOfStock ? 'Out of stock' : 'Add to cart'}</span>
@@ -104,7 +104,7 @@ export default function WishlistSidebar({
             })
           ) : (
             <div className="text-center py-24 text-gray-400 select-none">
-              <Heart className="w-16 h-16 mx-auto mb-4 opacity-20 text-[#782045]" />
+              <Heart className="w-16 h-16 mx-auto mb-4 opacity-20 text-plum" />
               <h4 className="font-extrabold text-gray-700 text-sm mb-1">Your saved list is empty</h4>
               <p className="text-xs text-gray-400 max-w-[220px] mx-auto leading-relaxed">Save your absolute favorite grocery items & Kikapu deals here by clicking the heart button.</p>
             </div>

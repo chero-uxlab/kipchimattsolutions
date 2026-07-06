@@ -183,13 +183,13 @@ export default function UserProfileModal({
       <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-scale-up border border-gray-150 dark:border-gray-800 flex flex-col">
         
         {/* Modal Header */}
-        <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-[#782045]/5 dark:bg-[#782045]/10">
+        <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-plum/5 dark:bg-plum/10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-[#782045]/10 text-[#782045] flex items-center justify-center">
+            <div className="w-10 h-10 rounded-full bg-plum/10 text-plum flex items-center justify-center">
               <User className="w-5.5 h-5.5" />
             </div>
             <div>
-              <h3 className="text-xl font-bold text-[#782045] dark:text-pink-300 font-nice tracking-tight">Kipchimatt Lounge</h3>
+              <h3 className="text-xl font-bold text-plum dark:text-pink-300 font-nice tracking-tight">Kipchimatt Lounge</h3>
               <p className="text-xs text-gray-500 dark:text-gray-400 font-semibold">Track orders, manage loyalty points, and check out faster</p>
             </div>
           </div>
@@ -208,7 +208,7 @@ export default function UserProfileModal({
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-gray-200/50 dark:border-gray-850 pb-4">
                 <div>
                   <h4 className="text-lg font-bold text-gray-800 dark:text-gray-100 font-nice">{customer.name}</h4>
-                  <p className="text-sm text-[#782045] dark:text-pink-400 font-handwriting font-bold -mt-1 mb-1 shadow-none">Welcome back, happy shopping! ✨</p>
+                  <p className="text-sm text-plum dark:text-pink-400 font-handwriting font-bold -mt-1 mb-1 shadow-none">Welcome back, happy shopping! ✨</p>
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500 dark:text-gray-400 font-semibold">
                     <span className="flex items-center gap-1"><Phone className="w-3.5 h-3.5 text-gray-400" /> {customer.phone}</span>
                     {customer.email && <span className="flex items-center gap-1"><Mail className="w-3.5 h-3.5 text-gray-400" /> {customer.email}</span>}
@@ -216,11 +216,11 @@ export default function UserProfileModal({
                   </div>
                 </div>
 
-                <div className="relative flex items-center gap-3 bg-gradient-to-br from-[#782045]/5 to-[#782045]/15 dark:from-[#782045]/10 dark:to-[#782045]/20 border border-[#782045]/25 rounded-xl px-4 py-3 shadow-sm select-none">
-                  <Award className="w-8 h-8 text-[#782045] dark:text-pink-400 fill-[#782045]/10" />
+                <div className="relative flex items-center gap-3 bg-gradient-to-br from-plum/5 to-plum/15 dark:from-plum/10 dark:to-plum/20 border border-plum/25 rounded-xl px-4 py-3 shadow-sm select-none">
+                  <Award className="w-8 h-8 text-plum dark:text-pink-400 fill-plum/10" />
                   <div className="text-left">
-                    <span className="text-[9px] text-[#782045]/85 dark:text-pink-300 font-black uppercase tracking-wider block">Kipchimatt Club</span>
-                    <span className="text-base font-black text-[#782045] dark:text-pink-400 font-nice">{customer.points || 0} pts</span>
+                    <span className="text-[9px] text-plum/85 dark:text-pink-300 font-black uppercase tracking-wider block">Kipchimatt Club</span>
+                    <span className="text-base font-black text-plum dark:text-pink-400 font-nice">{customer.points || 0} pts</span>
                     
                     {/* How to Redeem Interactive Trigger */}
                     <div className="mt-0.5">
@@ -229,7 +229,7 @@ export default function UserProfileModal({
                         onMouseEnter={() => setShowRedeemTooltip(true)}
                         onMouseLeave={() => setShowRedeemTooltip(false)}
                         onClick={() => setShowRedeemTooltip(!showRedeemTooltip)}
-                        className="flex items-center gap-1 text-[10px] text-[#782045] hover:text-[#4a1028] dark:text-pink-300 dark:hover:text-white font-extrabold underline decoration-dotted cursor-pointer focus:outline-none"
+                        className="flex items-center gap-1 text-[10px] text-plum hover:text-plum-dark dark:text-pink-300 dark:hover:text-white font-extrabold underline decoration-dotted cursor-pointer focus:outline-none"
                       >
                         <HelpCircle className="w-3 h-3" />
                         <span>How to Redeem</span>
@@ -239,21 +239,21 @@ export default function UserProfileModal({
 
                   {/* How to Redeem Tooltip Overlay */}
                   {showRedeemTooltip && (
-                    <div className="absolute right-0 top-full mt-2.5 w-76 bg-white dark:bg-gray-800 border-2 border-[#782045]/30 p-4 rounded-xl shadow-2xl z-50 text-left space-y-2.5 animate-scale-up">
-                      <div className="absolute -top-2 right-12 w-4 h-4 bg-white dark:bg-gray-800 border-t-2 border-l-2 border-[#782045]/30 rotate-45" />
-                      <h5 className="font-extrabold text-xs text-[#782045] dark:text-pink-300 flex items-center gap-1 border-b border-gray-100 dark:border-gray-700 pb-1 font-nice">
+                    <div className="absolute right-0 top-full mt-2.5 w-76 bg-white dark:bg-gray-800 border-2 border-plum/30 p-4 rounded-xl shadow-2xl z-50 text-left space-y-2.5 animate-scale-up">
+                      <div className="absolute -top-2 right-12 w-4 h-4 bg-white dark:bg-gray-800 border-t-2 border-l-2 border-plum/30 rotate-45" />
+                      <h5 className="font-extrabold text-xs text-plum dark:text-pink-300 flex items-center gap-1 border-b border-gray-100 dark:border-gray-700 pb-1 font-nice">
                         <Award className="w-4 h-4 text-amber-500 fill-amber-500" />
                         <span>Loyalty Rewards Guide</span>
                       </h5>
                       <div className="text-[11px] font-semibold text-gray-600 dark:text-gray-350 space-y-2 leading-relaxed">
                         <p>
-                          🛍️ <strong className="text-gray-800 dark:text-white">Earnings:</strong> Get <span className="text-[#782045] dark:text-pink-400 font-extrabold">1 Loyalty Point</span> for every <strong className="text-gray-800 dark:text-white">Ksh 100 spent</strong> automatically on each order.
+                          🛍️ <strong className="text-gray-800 dark:text-white">Earnings:</strong> Get <span className="text-plum dark:text-pink-400 font-extrabold">1 Loyalty Point</span> for every <strong className="text-gray-800 dark:text-white">Ksh 100 spent</strong> automatically on each order.
                         </p>
                         <p>
                           🎁 <strong className="text-gray-800 dark:text-white">Redemption:</strong> Every <span className="text-emerald-600 dark:text-emerald-400 font-extrabold">10 Points = Ksh 1 discount</span> off your Kikapu grocery purchase at checkout, or exchange points for premium gift baskets at the store counter!
                         </p>
                       </div>
-                      <p className="text-[14px] font-handwriting text-[#782045]/90 dark:text-pink-300 font-bold text-center border-t border-gray-100 dark:border-gray-700 pt-1.5">
+                      <p className="text-[14px] font-handwriting text-plum/90 dark:text-pink-300 font-bold text-center border-t border-gray-100 dark:border-gray-700 pt-1.5">
                         "Shukran for being our esteemed customer!"
                       </p>
                     </div>
@@ -286,7 +286,7 @@ export default function UserProfileModal({
                       </div>
                       
                       {nextTier && (
-                        <span className="text-[10px] text-[#782045] dark:text-pink-400 font-black bg-[#782045]/5 dark:bg-[#782045]/10 px-2 py-0.5 rounded-md">
+                        <span className="text-[10px] text-plum dark:text-pink-400 font-black bg-plum/5 dark:bg-plum/10 px-2 py-0.5 rounded-md">
                           {nextTier.req} pts to {nextTier.label}
                         </span>
                       )}
@@ -301,7 +301,7 @@ export default function UserProfileModal({
                       <div className="space-y-1">
                         <div className="w-full bg-gray-100 dark:bg-gray-800 h-1.5 rounded-full overflow-hidden">
                           <div 
-                            className="bg-[#782045] dark:bg-pink-500 h-full transition-all duration-500"
+                            className="bg-plum dark:bg-pink-500 h-full transition-all duration-500"
                             style={{ 
                               width: `${Math.min(100, (pts / (pts + nextTier.req)) * 100)}%` 
                             }}
@@ -342,12 +342,12 @@ export default function UserProfileModal({
                       placeholder="e.g. 0712345678"
                       value={phoneInput}
                       onChange={(e) => setPhoneInput(e.target.value)}
-                      className="w-full text-xs font-semibold px-4 py-2.5 rounded-xl border border-gray-300 dark:border-gray-750 dark:bg-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#782045]/40"
+                      className="w-full text-xs font-semibold px-4 py-2.5 rounded-xl border border-gray-300 dark:border-gray-750 dark:bg-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-plum/40"
                     />
                   </div>
                   <button 
                     type="submit"
-                    className="w-full bg-[#782045] hover:bg-[#4a1028] text-white text-xs font-bold py-2.5 rounded-xl cursor-pointer transition-colors"
+                    className="w-full bg-plum hover:bg-plum-dark text-white text-xs font-bold py-2.5 rounded-xl cursor-pointer transition-colors"
                   >
                     Retrieve Account
                   </button>
@@ -366,11 +366,11 @@ export default function UserProfileModal({
                       placeholder="Receipt / Order ID (e.g. #9A2F8B)"
                       value={orderSearchId}
                       onChange={(e) => setOrderSearchId(e.target.value)}
-                      className="w-full text-xs font-semibold pl-4 pr-10 py-2.5 rounded-xl border border-gray-300 dark:border-gray-750 dark:bg-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#782045]/40"
+                      className="w-full text-xs font-semibold pl-4 pr-10 py-2.5 rounded-xl border border-gray-300 dark:border-gray-750 dark:bg-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-plum/40"
                     />
                     <button 
                       type="submit"
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#782045]"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-plum"
                     >
                       <Search className="w-4 h-4" />
                     </button>
@@ -391,7 +391,7 @@ export default function UserProfileModal({
             <div className="border border-amber-200 dark:border-amber-900/60 bg-amber-500/5 dark:bg-amber-950/10 rounded-2xl p-5 space-y-4">
               <div className="flex justify-between items-center border-b border-amber-200/50 dark:border-amber-900/40 pb-3">
                 <div>
-                  <span className="text-[9px] bg-[#782045] text-white font-black uppercase px-2 py-0.5 rounded-full tracking-wider inline-block">Order Live Track</span>
+                  <span className="text-[9px] bg-plum text-white font-black uppercase px-2 py-0.5 rounded-full tracking-wider inline-block">Order Live Track</span>
                   <h4 className="font-extrabold text-sm text-gray-800 dark:text-gray-100 mt-1">Order #{selectedTrackOrder.id.slice(-6).toUpperCase()}</h4>
                 </div>
                 <button 
@@ -452,7 +452,7 @@ export default function UserProfileModal({
 
                   <div className="bg-white dark:bg-gray-850 rounded-xl p-3.5 border border-gray-150 dark:border-gray-800 flex justify-between items-center text-xs text-gray-600 dark:text-gray-400 font-semibold shadow-sm">
                     <span>Payment: <strong className="text-gray-800 dark:text-gray-200 uppercase">{selectedTrackOrder.payment}</strong></span>
-                    <span>Grand Total: <strong className="text-[#782045] dark:text-pink-400 font-bold">{formatMoney(selectedTrackOrder.total)}</strong></span>
+                    <span>Grand Total: <strong className="text-plum dark:text-pink-400 font-bold">{formatMoney(selectedTrackOrder.total)}</strong></span>
                   </div>
 
                   {/* PREMIUM VISUAL TRACKING MAP & DELIVERY COORDINATES MODULE */}
@@ -470,7 +470,7 @@ export default function UserProfileModal({
                       </div>
                       <div className="text-right">
                         <span className="text-[10px] text-gray-400 font-bold uppercase block">Rider Assigned</span>
-                        <span className="font-bold text-[#782045] dark:text-pink-400">
+                        <span className="font-bold text-plum dark:text-pink-400">
                           {selectedTrackOrder.status === 'pending' ? 'Scheduling Rider...' : 'Kikapu Express Rider #04'}
                         </span>
                       </div>
@@ -487,7 +487,7 @@ export default function UserProfileModal({
                         <path 
                           d="M 12,70 Q 45,20 88,25" 
                           fill="none" 
-                          stroke="#782045" 
+                          stroke="var(--plum)" 
                           strokeWidth="3.5" 
                           strokeDasharray="6 4" 
                           vectorEffect="non-scaling-stroke"
@@ -498,7 +498,7 @@ export default function UserProfileModal({
                           <path 
                             d="M 12,70 Q 45,20 88,25" 
                             fill="none" 
-                            stroke="#10b981" 
+                            stroke="var(--green)" 
                             strokeWidth="4" 
                             strokeDasharray={selectedTrackOrder.status === 'completed' ? "0" : "8"}
                             vectorEffect="non-scaling-stroke"
@@ -520,7 +520,7 @@ export default function UserProfileModal({
                         className="absolute flex flex-col items-center -translate-x-1/2 translate-y-1/2 z-10"
                         style={{ left: '12%', bottom: '30%' }}
                       >
-                        <div className="w-8 h-8 rounded-full bg-[#782045] text-white flex items-center justify-center shadow-md border-2 border-white">
+                        <div className="w-8 h-8 rounded-full bg-plum text-white flex items-center justify-center shadow-md border-2 border-white">
                           <Package className="w-4 h-4" />
                         </div>
                       </div>
@@ -530,7 +530,7 @@ export default function UserProfileModal({
                         className="absolute flex flex-col items-center -translate-x-1/2 translate-y-1/2 z-10"
                         style={{ left: '88%', bottom: '75%' }}
                       >
-                        <div className="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-md border-2 border-white animate-bounce">
+                        <div className="w-8 h-8 rounded-full bg-green text-white flex items-center justify-center shadow-md border-2 border-white animate-bounce">
                           <MapPin className="w-4 h-4" />
                         </div>
                       </div>
@@ -553,7 +553,7 @@ export default function UserProfileModal({
                         </div>
                       ) : (
                         <div className="absolute right-[14%] top-[12%] flex flex-col items-center z-10">
-                          <span className="text-[8px] bg-emerald-600 text-white px-1.5 py-0.5 rounded-full font-black tracking-wide uppercase shadow">
+                          <span className="text-[8px] bg-green text-white px-1.5 py-0.5 rounded-full font-black tracking-wide uppercase shadow">
                             Delivered
                           </span>
                         </div>
@@ -568,7 +568,7 @@ export default function UserProfileModal({
                       <div className="space-y-1">
                         <span className="text-[9px] text-gray-400 font-bold uppercase tracking-wider block">Supermarket Dispatch Coordinates</span>
                         <div className="font-extrabold text-gray-750 dark:text-gray-300 flex items-center gap-1.5">
-                          <span className="inline-block w-2 h-2 rounded-full bg-[#782045]" />
+                          <span className="inline-block w-2 h-2 rounded-full bg-plum" />
                           <span>1.2863° S, 36.8172° E</span>
                         </div>
                         <span className="text-[9px] text-gray-400 font-semibold block">Kikapu Central Cold-Chain Depot</span>
@@ -578,16 +578,16 @@ export default function UserProfileModal({
                         <span className="text-[9px] text-gray-400 font-bold uppercase tracking-wider block flex items-center gap-1">
                           <span>Delivery Destination Coordinates</span>
                           {selectedTrackOrder.status === 'processing' && (
-                            <span className="inline-block w-1.5 h-1.5 rounded-full bg-amber-500 animate-ping" />
+                            <span className="inline-block w-1.5 h-1.5 rounded-full bg-orange animate-ping" />
                           )}
                         </span>
                         <div className="font-extrabold text-gray-750 dark:text-gray-300 flex flex-col gap-1">
-                          <div className="flex items-center gap-1.5 text-[10px] text-[#782045] dark:text-pink-300 bg-[#782045]/5 dark:bg-[#782045]/10 px-2 py-1 rounded">
-                            <span className="font-black text-[8px] uppercase">Rider Live:</span>
-                            <span className="font-mono">{Math.abs(currentLat).toFixed(4)}° S, {Math.abs(currentLng).toFixed(4)}° E</span>
+                          <div className="flex items-center gap-1.5 text-[10px] text-plum dark:text-pink-300 bg-plum/5 dark:bg-plum/10 px-2 py-1 rounded">
+                             <span className="font-black text-[8px] uppercase">Rider Live:</span>
+                             <span className="font-mono">{Math.abs(currentLat).toFixed(4)}° S, {Math.abs(currentLng).toFixed(4)}° E</span>
                           </div>
                           <div className="flex items-center gap-1.5 mt-0.5 text-gray-500 dark:text-gray-450 text-[10px]">
-                            <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-600" />
+                            <span className="inline-block w-1.5 h-1.5 rounded-full bg-green" />
                             <span>Destination: {Math.abs(dest.lat).toFixed(4)}° S, {Math.abs(dest.lng).toFixed(4)}° E</span>
                           </div>
                         </div>
@@ -606,7 +606,7 @@ export default function UserProfileModal({
           {customer && (
             <div className="space-y-3">
               <h4 className="font-extrabold text-sm text-gray-800 dark:text-gray-100 flex items-center gap-2">
-                <ShoppingBag className="w-4.5 h-4.5 text-[#782045]" />
+                <ShoppingBag className="w-4.5 h-4.5 text-plum" />
                 <span>Your Order History ({customerOrders.length})</span>
               </h4>
 
@@ -650,7 +650,7 @@ export default function UserProfileModal({
                         }`}>
                           {order.status === 'processing' ? 'Dispatched' : order.status === 'completed' ? 'Delivered' : order.status}
                         </span>
-                        <p className="font-extrabold text-xs text-[#782045] dark:text-pink-400">{formatMoney(order.total)}</p>
+                        <p className="font-extrabold text-xs text-plum dark:text-pink-400">{formatMoney(order.total)}</p>
                       </div>
                     </div>
                   ))}

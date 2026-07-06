@@ -577,13 +577,13 @@ export default function AdminPortal({
   // --- Render Login Panel ---
   if (!isLoggedIn) {
     return (
-      <div className="min-h-[85vh] flex items-center justify-center py-12 px-4 bg-gradient-to-br from-[#782045] to-[#4a1028] rounded-2xl my-4 max-w-7xl mx-auto shadow-2xl">
+      <div className="min-h-[85vh] flex items-center justify-center py-12 px-4 bg-gradient-to-br from-plum to-plum-dark rounded-2xl my-4 max-w-7xl mx-auto shadow-2xl">
         <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-8 border border-white/10 select-none">
           <div className="text-center mb-8">
-            <div className="w-16 h-16 rounded-full bg-[#782045]/10 text-[#782045] flex items-center justify-center mx-auto mb-3">
+            <div className="w-16 h-16 rounded-full bg-plum/10 text-plum flex items-center justify-center mx-auto mb-3">
               <ShieldCheck className="w-9 h-9" />
             </div>
-            <h2 className="text-2xl font-black text-[#782045]">Kipchimatt Admin</h2>
+            <h2 className="text-2xl font-black text-plum">Kipchimatt Admin</h2>
             <p className="text-gray-400 text-xs font-semibold mt-1 uppercase tracking-wider">Supermarket Management Portal</p>
           </div>
 
@@ -596,7 +596,7 @@ export default function AdminPortal({
                 placeholder="Enter admin username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#782045]/20 focus:border-[#782045] outline-none font-medium text-sm transition-all"
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-plum/20 focus:border-plum outline-none font-medium text-sm transition-all"
               />
             </div>
 
@@ -608,13 +608,13 @@ export default function AdminPortal({
                 placeholder="Enter admin password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#782045]/20 focus:border-[#782045] outline-none font-medium text-sm transition-all"
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-plum/20 focus:border-plum outline-none font-medium text-sm transition-all"
               />
             </div>
 
             <button 
               type="submit"
-              className="w-full bg-[#782045] hover:bg-[#4a1028] text-white font-bold text-sm py-3 rounded-lg flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-sm"
+              className="w-full bg-plum hover:bg-plum-dark text-white font-bold text-sm py-3 rounded-lg flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-sm"
             >
               <Key className="w-4 h-4" />
               <span>Sign In Securely</span>
@@ -623,8 +623,8 @@ export default function AdminPortal({
 
           <div className="mt-8 text-center bg-gray-50 border border-gray-100 rounded-lg p-3.5">
             <p className="text-[11px] text-gray-400 font-semibold uppercase tracking-wider">Portal Access Credentials</p>
-            <p className="text-xs text-gray-600 font-bold mt-1">Username: <span className="text-[#782045] font-black underline">admin</span></p>
-            <p className="text-xs text-gray-600 font-bold">Password: <span className="text-[#782045] font-black underline">admin123</span></p>
+            <p className="text-xs text-gray-600 font-bold mt-1">Username: <span className="text-plum font-black underline">admin</span></p>
+            <p className="text-xs text-gray-600 font-bold">Password: <span className="text-plum font-black underline">admin123</span></p>
           </div>
         </div>
       </div>
@@ -638,7 +638,7 @@ export default function AdminPortal({
       {/* Sidebar Navigation */}
       <aside className="w-full lg:w-64 bg-white border border-gray-150 rounded-2xl p-5 shadow-sm h-fit">
         <div className="flex items-center gap-3 border-b border-gray-100 pb-4 mb-4 select-none">
-          <div className="w-9 h-9 rounded-full bg-[#782045] text-white flex items-center justify-center font-black text-sm shadow-sm">
+          <div className="w-9 h-9 rounded-full bg-plum text-white flex items-center justify-center font-black text-sm shadow-sm">
             KP
           </div>
           <div>
@@ -650,7 +650,7 @@ export default function AdminPortal({
         <nav className="flex flex-col gap-1">
           <button 
             onClick={() => setActivePage('dashboard')}
-            className={`flex items-center gap-3 w-full text-left px-4 py-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${activePage === 'dashboard' ? 'bg-[#782045] text-white shadow-sm' : 'text-gray-600 hover:bg-gray-50'}`}
+            className={`flex items-center gap-3 w-full text-left px-4 py-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${activePage === 'dashboard' ? 'bg-plum text-white shadow-sm' : 'text-gray-600 hover:bg-gray-50'}`}
           >
             <LayoutDashboard className="w-4 h-4" />
             <span>Overview Dashboard</span>
@@ -658,7 +658,7 @@ export default function AdminPortal({
 
           <button 
             onClick={() => setActivePage('products')}
-            className={`flex items-center gap-3 w-full text-left px-4 py-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${activePage === 'products' ? 'bg-[#782045] text-white shadow-sm' : 'text-gray-600 hover:bg-gray-50'}`}
+            className={`flex items-center gap-3 w-full text-left px-4 py-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${activePage === 'products' ? 'bg-plum text-white shadow-sm' : 'text-gray-600 hover:bg-gray-50'}`}
           >
             <Boxes className="w-4 h-4" />
             <span>Product Inventory</span>
@@ -669,7 +669,7 @@ export default function AdminPortal({
 
           <button 
             onClick={() => setActivePage('orders')}
-            className={`flex items-center gap-3 w-full text-left px-4 py-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${activePage === 'orders' ? 'bg-[#782045] text-white shadow-sm' : 'text-gray-600 hover:bg-gray-50'}`}
+            className={`flex items-center gap-3 w-full text-left px-4 py-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${activePage === 'orders' ? 'bg-plum text-white shadow-sm' : 'text-gray-600 hover:bg-gray-50'}`}
           >
             <Receipt className="w-4 h-4" />
             <span>Order Records</span>
@@ -682,7 +682,7 @@ export default function AdminPortal({
 
           <button 
             onClick={() => setActivePage('customers')}
-            className={`flex items-center gap-3 w-full text-left px-4 py-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${activePage === 'customers' ? 'bg-[#782045] text-white shadow-sm' : 'text-gray-600 hover:bg-gray-50'}`}
+            className={`flex items-center gap-3 w-full text-left px-4 py-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${activePage === 'customers' ? 'bg-plum text-white shadow-sm' : 'text-gray-600 hover:bg-gray-50'}`}
           >
             <Users className="w-4 h-4" />
             <span>Customer Registry</span>
@@ -690,7 +690,7 @@ export default function AdminPortal({
 
           <button 
             onClick={() => setActivePage('reports')}
-            className={`flex items-center gap-3 w-full text-left px-4 py-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${activePage === 'reports' ? 'bg-[#782045] text-white shadow-sm' : 'text-gray-600 hover:bg-gray-50'}`}
+            className={`flex items-center gap-3 w-full text-left px-4 py-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${activePage === 'reports' ? 'bg-plum text-white shadow-sm' : 'text-gray-600 hover:bg-gray-50'}`}
           >
             <PieChart className="w-4 h-4" />
             <span>Reports & Summary</span>
@@ -698,7 +698,7 @@ export default function AdminPortal({
 
           <button 
             onClick={() => setActivePage('analytics')}
-            className={`flex items-center gap-3 w-full text-left px-4 py-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${activePage === 'analytics' ? 'bg-[#782045] text-white shadow-sm' : 'text-gray-600 hover:bg-gray-50'}`}
+            className={`flex items-center gap-3 w-full text-left px-4 py-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${activePage === 'analytics' ? 'bg-plum text-white shadow-sm' : 'text-gray-600 hover:bg-gray-50'}`}
           >
             <TrendingUp className="w-4 h-4 text-amber-500 animate-pulse" />
             <span className="text-gray-800 dark:text-gray-200">30-Day Analytics</span>
@@ -706,7 +706,7 @@ export default function AdminPortal({
 
           <button 
             onClick={() => setActivePage('settings')}
-            className={`flex items-center gap-3 w-full text-left px-4 py-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${activePage === 'settings' ? 'bg-[#782045] text-white shadow-sm' : 'text-gray-600 hover:bg-gray-50'}`}
+            className={`flex items-center gap-3 w-full text-left px-4 py-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${activePage === 'settings' ? 'bg-plum text-white shadow-sm' : 'text-gray-600 hover:bg-gray-50'}`}
           >
             <Settings className="w-4 h-4" />
             <span>Store Configuration</span>
@@ -747,7 +747,7 @@ export default function AdminPortal({
 
               <div className="bg-white border border-gray-150 rounded-xl p-5 shadow-sm">
                 <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1">Gross Revenue</span>
-                <h3 className="text-2xl font-black text-[#782045]">{formatMoney(totalRevenue)}</h3>
+                <h3 className="text-2xl font-black text-plum">{formatMoney(totalRevenue)}</h3>
                 <p className="text-[10px] text-emerald-600 font-bold mt-1">Excludes cancelled</p>
               </div>
 
@@ -768,7 +768,7 @@ export default function AdminPortal({
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <div className="bg-white border border-gray-150 rounded-xl p-5 shadow-sm lg:col-span-2">
                 <h3 className="font-extrabold text-gray-800 text-sm mb-4 flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4 text-[#782045]" />
+                  <TrendingUp className="w-4 h-4 text-plum" />
                   <span>Gross Revenue Curve (Last 7 Days)</span>
                 </h3>
                 <div className="h-[200px] w-full text-xs">
@@ -778,7 +778,7 @@ export default function AdminPortal({
                       <XAxis dataKey="name" stroke="#9CA3AF" />
                       <YAxis stroke="#9CA3AF" tickFormatter={(v) => `KES ${v.toLocaleString()}`} />
                       <Tooltip formatter={(value) => [`KES ${Number(value).toLocaleString()}`, 'Sales']} />
-                      <Bar dataKey="Sales" fill="#782045" radius={[4, 4, 0, 0]} maxBarSize={42} />
+                      <Bar dataKey="Sales" fill="var(--plum)" radius={[4, 4, 0, 0]} maxBarSize={42} />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
@@ -811,7 +811,7 @@ export default function AdminPortal({
             {/* Top 5 Selling vs Lowest Stock Products Chart Widget */}
             <div className="bg-white border border-gray-150 rounded-xl p-5 shadow-sm">
               <h3 className="font-extrabold text-gray-800 text-sm mb-4 flex items-center gap-2">
-                <Boxes className="w-4 h-4 text-[#782045]" />
+                <Boxes className="w-4 h-4 text-plum" />
                 <span>Inventory Performance Monitor: Sales Velocity vs. Stock Warning Levels</span>
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -819,7 +819,7 @@ export default function AdminPortal({
                 <div className="space-y-3 bg-gray-50/40 p-4 rounded-xl border border-gray-100">
                   <div className="flex justify-between items-center">
                     <h4 className="text-xs font-black text-gray-600 uppercase tracking-wider">Top 5 Selling Products (Qty Sold)</h4>
-                    <span className="text-[10px] bg-[#782045]/5 text-[#782045] font-extrabold px-2 py-0.5 rounded uppercase">Sales Leaderboard</span>
+                    <span className="text-[10px] bg-plum/5 text-plum font-extrabold px-2 py-0.5 rounded uppercase">Sales Leaderboard</span>
                   </div>
                   <div className="h-[220px] w-full text-[10px] font-bold">
                     <ResponsiveContainer width="100%" height="100%">
@@ -828,7 +828,7 @@ export default function AdminPortal({
                         <XAxis dataKey="name" stroke="#6B7280" tick={{ fontSize: 9 }} tickFormatter={(val) => val.length > 15 ? val.slice(0, 15) + '...' : val} />
                         <YAxis stroke="#6B7280" />
                         <Tooltip contentStyle={{ borderRadius: '10px', fontSize: '11px', fontWeight: 'bold' }} />
-                        <Bar dataKey="qty" fill="#782045" name="Qty Sold" radius={[4, 4, 0, 0]} maxBarSize={28} />
+                        <Bar dataKey="qty" fill="var(--plum)" name="Qty Sold" radius={[4, 4, 0, 0]} maxBarSize={28} />
                       </BarChart>
                     </ResponsiveContainer>
                   </div>
@@ -859,7 +859,7 @@ export default function AdminPortal({
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <div className="bg-white border border-gray-150 rounded-xl p-5 shadow-sm lg:col-span-2 overflow-hidden">
                 <h3 className="font-extrabold text-gray-800 text-sm mb-4 flex items-center gap-2">
-                  <FileText className="w-4 h-4 text-[#782045]" />
+                  <FileText className="w-4 h-4 text-plum" />
                   <span>Recent Store Purchases</span>
                 </h3>
                 <div className="overflow-x-auto">
@@ -878,7 +878,7 @@ export default function AdminPortal({
                         <tr key={o.id} className="border-b border-gray-50 hover:bg-gray-50/50">
                           <td className="py-3 font-bold text-gray-800">#{o.id.slice(-6)}</td>
                           <td className="py-3 font-semibold text-gray-600">{o.customer.name}</td>
-                          <td className="py-3 font-extrabold text-[#782045]">{formatMoney(o.total)}</td>
+                          <td className="py-3 font-extrabold text-plum">{formatMoney(o.total)}</td>
                           <td className="py-3">
                             <span className={`px-2.5 py-0.5 rounded text-[10px] font-bold uppercase ${o.status === 'pending' ? 'bg-amber-50 text-amber-600 border border-amber-100' : o.status === 'processing' ? 'bg-blue-50 text-blue-600 border border-blue-100' : o.status === 'completed' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-red-50 text-red-600 border border-red-100'}`}>
                               {o.status}
@@ -908,7 +908,7 @@ export default function AdminPortal({
                   {getTopSellingProducts().map(([name, count]) => (
                     <div key={name} className="flex justify-between items-center p-2 border-b border-gray-50">
                       <span className="font-bold text-gray-700 line-clamp-1 flex-1 pr-3">{name}</span>
-                      <span className="font-extrabold text-[#782045] bg-[#782045]/5 px-2.5 py-1 rounded-full text-[10px]">
+                      <span className="font-extrabold text-plum bg-plum/5 px-2.5 py-1 rounded-full text-[10px]">
                         {count} Sold
                       </span>
                     </div>
@@ -933,7 +933,7 @@ export default function AdminPortal({
             <div className="flex flex-col sm:flex-row gap-3 items-center justify-between">
               <button 
                 onClick={() => handleOpenProductModal()}
-                className="w-full sm:w-auto bg-[#782045] hover:bg-[#4a1028] text-white font-bold text-xs py-2.5 px-5 rounded-lg flex items-center gap-2 cursor-pointer shadow-sm transition-colors"
+                className="w-full sm:w-auto bg-plum hover:bg-plum-dark text-white font-bold text-xs py-2.5 px-5 rounded-lg flex items-center gap-2 cursor-pointer shadow-sm transition-colors"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add Product</span>
@@ -945,7 +945,7 @@ export default function AdminPortal({
                   placeholder="Search products..."
                   value={productSearch}
                   onChange={(e) => setProductSearch(e.target.value)}
-                  className="w-full py-2 pl-4 pr-10 border border-gray-300 rounded-lg text-xs outline-none focus:border-[#782045]"
+                  className="w-full py-2 pl-4 pr-10 border border-gray-300 rounded-lg text-xs outline-none focus:border-plum"
                 />
                 <Search className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2" />
               </div>
@@ -986,11 +986,11 @@ export default function AdminPortal({
                             <span className="block text-[10px] text-gray-400 font-medium mt-0.5">{p.brand}</span>
                           </td>
                           <td className="p-4">
-                            <span className="bg-[#782045]/5 text-[#782045] font-bold px-2.5 py-1 rounded text-[10px] capitalize">
+                            <span className="bg-plum/5 text-plum font-bold px-2.5 py-1 rounded text-[10px] capitalize">
                               {p.category}
                             </span>
                           </td>
-                          <td className="p-4 font-extrabold text-[#782045]">
+                          <td className="p-4 font-extrabold text-plum">
                             {formatMoney(p.price)}
                             {p.originalPrice > p.price && (
                               <span className="block text-[10px] text-gray-400 line-through font-medium mt-0.5">{formatMoney(p.originalPrice)}</span>
@@ -1051,7 +1051,7 @@ export default function AdminPortal({
                   <button
                     key={st}
                     onClick={() => setOrderFilter(st)}
-                    className={`px-4 py-1.5 rounded-full border text-xs font-bold capitalize cursor-pointer transition-colors ${orderFilter === st ? 'bg-[#782045] border-[#782045] text-white' : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'}`}
+                    className={`px-4 py-1.5 rounded-full border text-xs font-bold capitalize cursor-pointer transition-colors ${orderFilter === st ? 'bg-plum border-plum text-white' : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'}`}
                   >
                     {st}
                   </button>
@@ -1093,7 +1093,7 @@ export default function AdminPortal({
                           <span className="block text-[10px] text-gray-400 font-semibold mt-0.5">{o.customer.phone}</span>
                         </td>
                         <td className="p-4 font-bold text-gray-700">{o.items.length} items</td>
-                        <td className="p-4 font-extrabold text-[#782045]">{formatMoney(o.total)}</td>
+                        <td className="p-4 font-extrabold text-plum">{formatMoney(o.total)}</td>
                         <td className="p-4 font-bold text-gray-600 uppercase">{o.payment}</td>
                         <td className="p-4">
                           <span className={`px-2.5 py-0.5 rounded text-[10px] font-bold uppercase ${o.status === 'pending' ? 'bg-amber-50 text-amber-600 border border-amber-100' : o.status === 'processing' ? 'bg-blue-50 text-blue-600 border border-blue-100' : o.status === 'completed' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-red-50 text-red-600 border border-red-100'}`}>
@@ -1205,7 +1205,7 @@ export default function AdminPortal({
                         <td className="p-4 text-gray-500 font-medium">{c.email}</td>
                         <td className="p-4 font-semibold text-gray-500">{c.city}, {c.county}</td>
                         <td className="p-4 font-bold text-gray-700">{c.orders} orders</td>
-                        <td className="p-4 font-extrabold text-[#782045] text-right">{formatMoney(c.spent)}</td>
+                        <td className="p-4 font-extrabold text-plum text-right">{formatMoney(c.spent)}</td>
                       </tr>
                     ));
                   })()}
@@ -1236,7 +1236,7 @@ export default function AdminPortal({
               </div>
               <div className="bg-white border border-gray-150 rounded-xl p-5 shadow-sm">
                 <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1">Today's Sales</span>
-                <h3 className="text-xl font-black text-[#782045]">
+                <h3 className="text-xl font-black text-plum">
                   {formatMoney(
                     orders
                       .filter(o => new Date(o.date).toDateString() === new Date().toDateString() && o.status !== 'cancelled')
@@ -1275,7 +1275,7 @@ export default function AdminPortal({
                       </div>
                       <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
                         <div 
-                          className="h-full bg-[#782045] rounded-full transition-all duration-500"
+                          className="h-full bg-plum rounded-full transition-all duration-500"
                           style={{ width: `${stat.pct}%` }}
                         />
                       </div>
@@ -1299,7 +1299,7 @@ export default function AdminPortal({
                         <div key={cat} className="space-y-1.5 text-xs">
                           <div className="flex justify-between items-center font-bold text-gray-700 capitalize">
                             <span className="truncate max-w-[150px]">{cat}</span>
-                            <span className="text-[#782045] font-extrabold">{formatMoney(total)}</span>
+                            <span className="text-plum font-extrabold">{formatMoney(total)}</span>
                           </div>
                           <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
                             <div 
@@ -1330,7 +1330,7 @@ export default function AdminPortal({
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="bg-white border border-gray-150 rounded-xl p-5 shadow-sm">
                 <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1">30-Day Revenue</span>
-                <h3 className="text-xl font-black text-[#782045]">
+                <h3 className="text-xl font-black text-plum">
                   {formatMoney(
                     orders
                       .filter(o => {
@@ -1399,15 +1399,15 @@ export default function AdminPortal({
                     <AreaChart data={get30DaysRevenueData()}>
                       <defs>
                         <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#782045" stopOpacity={0.2}/>
-                          <stop offset="95%" stopColor="#782045" stopOpacity={0}/>
+                          <stop offset="5%" stopColor="var(--plum)" stopOpacity={0.2}/>
+                          <stop offset="95%" stopColor="var(--plum)" stopOpacity={0}/>
                         </linearGradient>
                       </defs>
                       <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F3F4F6" />
                       <XAxis dataKey="name" stroke="#9CA3AF" />
                       <YAxis stroke="#9CA3AF" tickFormatter={(v) => `Ksh ${v}`} />
                       <Tooltip formatter={(value) => [`Ksh ${Number(value).toLocaleString()}`, 'Daily Revenue']} />
-                      <Area type="monotone" dataKey="Revenue" stroke="#782045" fillOpacity={1} fill="url(#colorRevenue)" strokeWidth={2.5} />
+                      <Area type="monotone" dataKey="Revenue" stroke="var(--plum)" fillOpacity={1} fill="url(#colorRevenue)" strokeWidth={2.5} />
                     </AreaChart>
                   </ResponsiveContainer>
                 </div>
@@ -1457,7 +1457,7 @@ export default function AdminPortal({
                     required 
                     value={setStoreName}
                     onChange={(e) => setSetStoreName(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-[#782045]"
+                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-plum"
                   />
                 </div>
                 <div>
@@ -1467,7 +1467,7 @@ export default function AdminPortal({
                     required 
                     value={setStorePhone}
                     onChange={(e) => setSetStorePhone(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-[#782045]"
+                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-plum"
                   />
                 </div>
               </div>
@@ -1479,7 +1479,7 @@ export default function AdminPortal({
                   required 
                   value={setStoreEmail}
                   onChange={(e) => setSetStoreEmail(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-[#782045]"
+                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-plum"
                 />
               </div>
 
@@ -1492,7 +1492,7 @@ export default function AdminPortal({
                     min={0}
                     value={setFreeThreshold}
                     onChange={(e) => setSetFreeThreshold(Number(e.target.value))}
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-[#782045]"
+                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-plum"
                   />
                 </div>
                 <div>
@@ -1503,7 +1503,7 @@ export default function AdminPortal({
                     min={0}
                     value={setFee}
                     onChange={(e) => setSetFee(Number(e.target.value))}
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-[#782045]"
+                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-plum"
                   />
                 </div>
                 <div>
@@ -1514,18 +1514,18 @@ export default function AdminPortal({
                     min={1}
                     value={setLowStock}
                     onChange={(e) => setSetLowStock(Number(e.target.value))}
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-[#782045]"
+                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-plum"
                   />
                 </div>
               </div>
 
-              <div className="bg-[#782045]/5 p-4 rounded-xl border border-[#782045]/15 space-y-2 mt-2">
+              <div className="bg-plum/5 p-4 rounded-xl border border-plum/15 space-y-2 mt-2">
                 <label className="flex items-center gap-3 cursor-pointer select-none">
                   <input 
                     type="checkbox"
                     checked={setSeasonalTheme}
                     onChange={(e) => setSetSeasonalTheme(e.target.checked)}
-                    className="rounded border-gray-300 text-[#782045] focus:ring-[#782045] w-4.5 h-4.5 cursor-pointer"
+                    className="rounded border-gray-300 text-plum focus:ring-plum w-4.5 h-4.5 cursor-pointer"
                   />
                   <div>
                     <span className="block font-bold text-gray-800 text-xs">Enable Festive Seasonal Themes</span>
@@ -1536,13 +1536,13 @@ export default function AdminPortal({
                 </label>
               </div>
 
-              <div className="bg-[#782045]/5 p-4 rounded-xl border border-[#782045]/15 space-y-4 mt-2">
+              <div className="bg-plum/5 p-4 rounded-xl border border-plum/15 space-y-4 mt-2">
                 <label className="flex items-center gap-3 cursor-pointer select-none">
                   <input 
                     type="checkbox"
                     checked={setLowStockEmailEnabled}
                     onChange={(e) => setSetLowStockEmailEnabled(e.target.checked)}
-                    className="rounded border-gray-300 text-[#782045] focus:ring-[#782045] w-4.5 h-4.5 cursor-pointer"
+                    className="rounded border-gray-350 text-plum focus:ring-plum w-4.5 h-4.5 cursor-pointer"
                   />
                   <div>
                     <span className="block font-bold text-gray-800 text-xs">Enable Low-Stock Email Alerts (Threshold: &lt; 3 Units)</span>
@@ -1553,7 +1553,7 @@ export default function AdminPortal({
                 </label>
 
                 {setLowStockEmailEnabled && (
-                  <div className="pt-3 border-t border-[#782045]/10">
+                  <div className="pt-3 border-t border-plum/10">
                     <label className="block font-bold text-gray-700 uppercase tracking-wide mb-1.5">Admin Notification Email</label>
                     <input 
                       type="email" 
@@ -1561,7 +1561,7 @@ export default function AdminPortal({
                       value={setAdminEmailForNotifications}
                       onChange={(e) => setSetAdminEmailForNotifications(e.target.value)}
                       placeholder="e.g. admin@kipchimatt.co.ke"
-                      className="w-full max-w-md px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-[#782045] bg-white font-semibold text-gray-750"
+                      className="w-full max-w-md px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-plum bg-white font-semibold text-gray-750"
                     />
                     <p className="text-[10px] text-gray-400 mt-1">This is where automated low-stock notices will be dispatched.</p>
                   </div>
@@ -1570,7 +1570,7 @@ export default function AdminPortal({
 
               <button 
                 type="submit"
-                className="bg-[#782045] hover:bg-[#4a1028] text-white font-bold py-2.5 px-6 rounded-lg flex items-center gap-2 cursor-pointer shadow-sm transition-colors mt-6 text-xs"
+                className="bg-plum hover:bg-plum-dark text-white font-bold py-2.5 px-6 rounded-lg flex items-center gap-2 cursor-pointer shadow-sm transition-colors mt-6 text-xs"
               >
                 <Save className="w-4 h-4" />
                 <span>Save Store Configurations</span>
@@ -1598,7 +1598,7 @@ export default function AdminPortal({
                   <div key={alert.id} className="p-3 bg-gray-50 rounded-lg border border-gray-150 flex items-start justify-between gap-4 text-xs font-semibold">
                     <div>
                       <div className="text-gray-800 font-bold">
-                        Low Stock Alert: <span className="text-[#782045] font-black">"{alert.productName}"</span>
+                        Low Stock Alert: <span className="text-plum font-black">"{alert.productName}"</span>
                       </div>
                       <div className="text-gray-500 text-[10px] mt-0.5">
                         Recipient Email: <span className="text-gray-700 font-extrabold">{alert.sentTo}</span>
@@ -1630,7 +1630,7 @@ export default function AdminPortal({
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-xl max-h-[90vh] overflow-y-auto animate-slide-up">
             <div className="p-5 border-b border-gray-150 flex items-center justify-between sticky top-0 bg-white z-10">
-              <h3 className="font-extrabold text-base text-[#782045] flex items-center gap-2">
+              <h3 className="font-extrabold text-base text-plum flex items-center gap-2">
                 <Boxes className="w-5 h-5" />
                 <span>{editingProduct ? 'Modify Product Listing' : 'Publish New Product'}</span>
               </h3>
@@ -1652,7 +1652,7 @@ export default function AdminPortal({
                     placeholder="e.g., Pembe Maize Meal 2kg"
                     value={prodName}
                     onChange={(e) => setProdName(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-[#782045]"
+                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-plum"
                   />
                 </div>
                 <div>
@@ -1662,7 +1662,7 @@ export default function AdminPortal({
                     placeholder="e.g., Pembe"
                     value={prodBrand}
                     onChange={(e) => setProdBrand(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-[#782045]"
+                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-plum"
                   />
                 </div>
               </div>
@@ -1674,7 +1674,7 @@ export default function AdminPortal({
                     required
                     value={prodCategory}
                     onChange={(e) => setProdCategory(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-[#782045] bg-white"
+                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-plum bg-white"
                   >
                     <option value="">Select category</option>
                     {categoryMeta.filter(c => c.key !== 'all').map(c => (
@@ -1690,7 +1690,7 @@ export default function AdminPortal({
                     min={0}
                     value={prodStock}
                     onChange={(e) => setProdStock(Number(e.target.value))}
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-[#782045]"
+                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-plum"
                   />
                 </div>
               </div>
@@ -1704,7 +1704,7 @@ export default function AdminPortal({
                     min={1}
                     value={prodPrice}
                     onChange={(e) => setProdPrice(Number(e.target.value))}
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-[#782045]"
+                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-plum"
                   />
                 </div>
                 <div>
@@ -1715,7 +1715,7 @@ export default function AdminPortal({
                     placeholder="Leave empty or zero for no discount"
                     value={prodOriginalPrice}
                     onChange={(e) => setProdOriginalPrice(Number(e.target.value))}
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-[#782045]"
+                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-plum"
                   />
                 </div>
               </div>
@@ -1727,7 +1727,7 @@ export default function AdminPortal({
                   placeholder="Provide a detailed overview of the product, benefits, and usage directions..."
                   value={prodDescription}
                   onChange={(e) => setProdDescription(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-[#782045] font-medium"
+                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-plum font-medium"
                 />
               </div>
 
@@ -1738,7 +1738,7 @@ export default function AdminPortal({
                   placeholder="Weight: 2 kg&#10;Brand Origin: Kenya&#10;Shelf Life: 12 Months&#10;Packaging: Sealed Plastic"
                   value={prodSpecifications}
                   onChange={(e) => setProdSpecifications(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-[#782045] font-mono font-medium"
+                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-plum font-mono font-medium"
                 />
               </div>
 
@@ -1760,7 +1760,7 @@ export default function AdminPortal({
                       placeholder="Paste Image web address (URL)"
                       value={prodImage}
                       onChange={(e) => setProdImage(e.target.value)}
-                      className="w-full px-4 py-2 rounded-lg border border-gray-300 outline-none focus:border-[#782045]"
+                      className="w-full px-4 py-2 rounded-lg border border-gray-300 outline-none focus:border-plum"
                     />
                     <div className="flex items-center gap-2">
                       <label 
@@ -1793,7 +1793,7 @@ export default function AdminPortal({
                 </button>
                 <button 
                   type="submit" 
-                  className="bg-[#782045] hover:bg-[#4a1028] text-white font-bold px-5 py-2 rounded-lg cursor-pointer flex items-center gap-1.5"
+                  className="bg-plum hover:bg-plum-dark text-white font-bold px-5 py-2 rounded-lg cursor-pointer flex items-center gap-1.5"
                 >
                   <Save className="w-4 h-4" />
                   <span>{editingProduct ? 'Save Modifications' : 'Publish Product'}</span>
@@ -1809,7 +1809,7 @@ export default function AdminPortal({
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-slide-up">
             <div className="p-5 border-b border-gray-150 flex items-center justify-between sticky top-0 bg-white z-10">
-              <h3 className="font-extrabold text-base text-[#782045] flex items-center gap-2">
+              <h3 className="font-extrabold text-base text-plum flex items-center gap-2">
                 <FileText className="w-5 h-5" />
                 <span>Supermarket Order Sheet #{viewingOrder.id.slice(-6)}</span>
               </h3>
@@ -1825,7 +1825,7 @@ export default function AdminPortal({
               
               {/* Customer and Shipping cards */}
               <div className="bg-gray-50 border border-gray-150 p-4 rounded-xl space-y-2">
-                <h4 className="font-extrabold text-[#782045] text-xs">Buyer Information</h4>
+                <h4 className="font-extrabold text-plum text-xs">Buyer Information</h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-gray-700">
                   <div>
                     <span className="text-gray-400 font-bold uppercase tracking-wider block text-[10px]">Full Name</span>
@@ -1852,7 +1852,7 @@ export default function AdminPortal({
               <div className="border border-gray-150 rounded-xl overflow-hidden">
                 <div className="bg-gray-50 px-4 py-2.5 font-bold text-gray-600 border-b border-gray-150 flex justify-between items-center">
                   <span>Ordered Items</span>
-                  <span className="text-[#782045] font-black">{viewingOrder.items.length} unique</span>
+                  <span className="text-plum font-black">{viewingOrder.items.length} unique</span>
                 </div>
                 <div className="divide-y divide-gray-100 px-4">
                   {viewingOrder.items.map(item => (
@@ -1873,7 +1873,7 @@ export default function AdminPortal({
                       </div>
                       <div className="text-right">
                         <span className="font-extrabold text-gray-800 block text-xs">x{item.qty}</span>
-                        <span className="font-extrabold text-[#782045] text-xs mt-0.5 block">{formatMoney(item.price * item.qty)}</span>
+                        <span className="font-extrabold text-plum text-xs mt-0.5 block">{formatMoney(item.price * item.qty)}</span>
                       </div>
                     </div>
                   ))}
@@ -1887,7 +1887,7 @@ export default function AdminPortal({
                     <span>Delivery Fee</span>
                     <span>{viewingOrder.deliveryFee > 0 ? formatMoney(viewingOrder.deliveryFee) : 'FREE'}</span>
                   </div>
-                  <div className="flex justify-between text-[#782045] font-black text-sm pt-2 border-t border-gray-100">
+                  <div className="flex justify-between text-plum font-black text-sm pt-2 border-t border-gray-100">
                     <span>Total Paid</span>
                     <span>{formatMoney(viewingOrder.total)}</span>
                   </div>
@@ -1902,7 +1902,7 @@ export default function AdminPortal({
                   placeholder="e.g., Rider Kamau dispatched at 2 PM, M-Pesa transaction confirmed..."
                   value={internalOrderNotes}
                   onChange={(e) => setInternalOrderNotes(e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg outline-none focus:border-[#782045] font-semibold text-gray-700"
+                  className="w-full p-3 border border-gray-300 rounded-lg outline-none focus:border-plum font-semibold text-gray-700"
                 />
               </div>
 
@@ -1927,7 +1927,7 @@ export default function AdminPortal({
                   <button 
                     type="button" 
                     onClick={handleSaveOrderNotes}
-                    className="bg-[#782045] hover:bg-[#4a1028] text-white font-bold px-5 py-2.5 rounded-lg cursor-pointer flex items-center gap-1.5"
+                    className="bg-plum hover:bg-plum-dark text-white font-bold px-5 py-2.5 rounded-lg cursor-pointer flex items-center gap-1.5"
                   >
                     <Save className="w-4 h-4" />
                     <span>Save Internal Note</span>

@@ -216,22 +216,22 @@ export default function ProductDetailModal({
             {/* Micro-Features Row */}
             <div className="grid grid-cols-3 gap-2 text-center">
               <div className="p-2.5 bg-gray-50 border border-gray-100 rounded-xl">
-                <ShieldCheck className="w-5 h-5 mx-auto text-[#782045] mb-1" />
+                <ShieldCheck className="w-5 h-5 mx-auto text-plum mb-1" />
                 <span className="text-[9px] font-black uppercase text-gray-500 block">100% Genuine</span>
               </div>
               <div className="p-2.5 bg-gray-50 border border-gray-100 rounded-xl">
-                <Truck className="w-5 h-5 mx-auto text-emerald-600 mb-1" />
+                <Truck className="w-5 h-5 mx-auto text-green mb-1" />
                 <span className="text-[9px] font-black uppercase text-gray-500 block">Fast Rider</span>
               </div>
               <div className="p-2.5 bg-gray-50 border border-gray-100 rounded-xl">
-                <RotateCcw className="w-5 h-5 mx-auto text-[#782045] mb-1" />
+                <RotateCcw className="w-5 h-5 mx-auto text-plum mb-1" />
                 <span className="text-[9px] font-black uppercase text-gray-500 block">7-Day Refund</span>
               </div>
             </div>
 
             {/* Kenya-Centric Delivery Estimator Box */}
-            <div className="bg-[#782045]/5 border border-[#782045]/15 rounded-xl p-4 space-y-2">
-              <div className="flex items-center gap-2 text-xs font-bold text-[#782045]">
+            <div className="bg-plum/5 border border-plum/15 rounded-xl p-4 space-y-2">
+              <div className="flex items-center gap-2 text-xs font-bold text-plum">
                 <Truck className="w-4.5 h-4.5" />
                 <span>Supermarket Fulfillment Promise</span>
               </div>
@@ -246,7 +246,7 @@ export default function ProductDetailModal({
             
             {/* Top Product Header */}
             <div>
-              <span className="text-xs text-[#782045] font-black uppercase tracking-widest block mb-1">
+              <span className="text-xs text-plum-light font-black uppercase tracking-widest block mb-1">
                 {product.brand || 'KIPCHIMATT EXCLUSIVE'}
               </span>
               <h2 className="text-lg sm:text-2xl font-black text-gray-800 leading-tight">
@@ -265,7 +265,7 @@ export default function ProductDetailModal({
                 </div>
                 <span className="text-xs font-extrabold text-gray-700">{averageRating} out of 5</span>
                 <span className="text-gray-300 font-normal text-sm">|</span>
-                <span className="text-xs font-bold text-[#782045] hover:underline cursor-pointer" onClick={() => setActiveTab('reviews')}>
+                <span className="text-xs font-bold text-plum-light hover:underline cursor-pointer" onClick={() => setActiveTab('reviews')}>
                   {totalReviews} Customer Reviews
                 </span>
               </div>
@@ -276,7 +276,7 @@ export default function ProductDetailModal({
               <div>
                 <span className="text-[10px] text-gray-400 font-bold block uppercase tracking-wider mb-0.5">Kipchimatt Online Price</span>
                 <div className="flex items-baseline gap-2.5">
-                  <span className="text-xl sm:text-3xl font-black text-[#782045]">
+                  <span className="text-xl sm:text-3xl font-black text-plum">
                     {formatMoney(product.price)}
                   </span>
                   {product.originalPrice > product.price && (
@@ -289,10 +289,10 @@ export default function ProductDetailModal({
 
               {discount > 0 && (
                 <div className="text-right">
-                  <span className="bg-emerald-50 border border-emerald-100 text-emerald-700 text-[10px] font-black uppercase px-2.5 py-1 rounded block mb-1">
+                  <span className="bg-green/5 border border-green/15 text-green text-[10px] font-black uppercase px-2.5 py-1 rounded block mb-1">
                     Save {discount}%
                   </span>
-                  <span className="text-[11px] text-emerald-600 font-bold block">
+                  <span className="text-[11px] text-green font-bold block">
                     Pocket Ksh {product.originalPrice - product.price}
                   </span>
                 </div>
@@ -313,7 +313,7 @@ export default function ProductDetailModal({
                 </p>
                 {customer ? (
                   <p className="text-gray-500 text-[11px] mt-0.5 font-semibold">
-                    Welcome back, <strong className="text-gray-800 font-extrabold">{customer.name}</strong> • Your current balance is <strong className="text-[#782045] font-black">{customer.points || 0} pts</strong>.
+                    Welcome back, <strong className="text-gray-800 font-extrabold">{customer.name}</strong> • Your current balance is <strong className="text-plum font-black">{customer.points || 0} pts</strong>.
                   </p>
                 ) : (
                   <p className="text-gray-500 text-[11px] mt-0.5 font-semibold">
@@ -354,7 +354,7 @@ export default function ProductDetailModal({
                 <button 
                   onClick={handleAddToCartClick}
                   disabled={isOutOfStock}
-                  className={`flex-1 min-w-[150px] py-3.5 px-6 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer shadow-md transition-all ${isOutOfStock ? 'bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed' : 'bg-[#782045] text-white hover:bg-[#4a1028] hover:shadow-lg'}`}
+                  className={`flex-1 min-w-[150px] py-3.5 px-6 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer shadow-md transition-all ${isOutOfStock ? 'bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed' : 'bg-plum text-white hover:bg-plum-dark hover:shadow-lg'}`}
                 >
                   <ShoppingCart className="w-4 h-4" />
                   <span>{isOutOfStock ? 'Currently Sold Out' : `Add ${qty} to Basket • ${formatMoney(product.price * qty)}`}</span>
@@ -378,9 +378,9 @@ export default function ProductDetailModal({
                   </p>
                   
                   {/* Notify me when in stock form */}
-                  <div className="bg-[#782045]/5 dark:bg-[#782045]/10 border border-[#782045]/15 dark:border-pink-500/20 rounded-xl p-4 space-y-2">
-                    <div className="text-xs font-black text-[#782045] dark:text-pink-400 flex items-center gap-1.5 uppercase tracking-wider">
-                      <Sparkles className="w-3.5 h-3.5 text-[#782045] dark:text-pink-400" />
+                  <div className="bg-plum/5 dark:bg-plum/10 border border-plum/15 dark:border-pink-500/20 rounded-xl p-4 space-y-2">
+                    <div className="text-xs font-black text-plum dark:text-pink-400 flex items-center gap-1.5 uppercase tracking-wider">
+                      <Sparkles className="w-3.5 h-3.5 text-plum dark:text-pink-400" />
                       <span>Notify me when in stock</span>
                     </div>
                     <p className="text-[11px] text-gray-500 dark:text-gray-400 font-semibold leading-relaxed">
@@ -421,11 +421,11 @@ export default function ProductDetailModal({
                         required
                         placeholder="your.email@example.com"
                         defaultValue={customer?.email || ''}
-                        className="flex-1 bg-white dark:bg-gray-900 border border-gray-250 dark:border-gray-800 rounded-lg px-3 py-1.5 text-xs outline-none focus:border-[#782045] focus:ring-1 focus:ring-[#782045] text-gray-800 dark:text-gray-100"
+                        className="flex-1 bg-white dark:bg-gray-900 border border-gray-250 dark:border-gray-800 rounded-lg px-3 py-1.5 text-xs outline-none focus:border-plum focus:ring-1 focus:ring-plum text-gray-800 dark:text-gray-100"
                       />
                       <button 
                         type="submit"
-                        className="bg-[#782045] hover:bg-[#4a1028] text-white text-xs font-bold px-4 py-1.5 rounded-lg transition-colors cursor-pointer"
+                        className="bg-plum hover:bg-plum-dark text-white text-xs font-bold px-4 py-1.5 rounded-lg transition-colors cursor-pointer"
                       >
                         Notify Me
                       </button>
@@ -455,19 +455,19 @@ export default function ProductDetailModal({
               <div className="grid grid-cols-3 bg-gray-50 border-b border-gray-150 text-xs font-extrabold text-gray-500 select-none">
                 <button 
                   onClick={() => setActiveTab('overview')}
-                  className={`py-3 text-center border-r border-gray-150 cursor-pointer transition-colors ${activeTab === 'overview' ? 'bg-white text-[#782045] font-black border-b border-b-transparent' : 'hover:bg-gray-100'}`}
+                  className={`py-3 text-center border-r border-gray-150 cursor-pointer transition-colors ${activeTab === 'overview' ? 'bg-white text-plum font-black border-b border-b-transparent' : 'hover:bg-gray-100'}`}
                 >
                   <span>Overview</span>
                 </button>
                 <button 
                   onClick={() => setActiveTab('specs')}
-                  className={`py-3 text-center border-r border-gray-150 cursor-pointer transition-colors ${activeTab === 'specs' ? 'bg-white text-[#782045] font-black border-b border-b-transparent' : 'hover:bg-gray-100'}`}
+                  className={`py-3 text-center border-r border-gray-150 cursor-pointer transition-colors ${activeTab === 'specs' ? 'bg-white text-plum font-black border-b border-b-transparent' : 'hover:bg-gray-100'}`}
                 >
                   <span>Specifications</span>
                 </button>
                 <button 
                   onClick={() => setActiveTab('reviews')}
-                  className={`py-3 text-center cursor-pointer transition-colors ${activeTab === 'reviews' ? 'bg-white text-[#782045] font-black border-b border-b-transparent' : 'hover:bg-gray-100'}`}
+                  className={`py-3 text-center cursor-pointer transition-colors ${activeTab === 'reviews' ? 'bg-white text-plum font-black border-b border-b-transparent' : 'hover:bg-gray-100'}`}
                 >
                   <span>Reviews ({totalReviews})</span>
                 </button>
@@ -481,7 +481,7 @@ export default function ProductDetailModal({
                   <div className="space-y-3">
                     <p className="whitespace-pre-line text-gray-700">{defaultDesc}</p>
                     <div className="flex gap-2 items-center text-[10px] text-gray-400 font-extrabold uppercase pt-2">
-                      <Award className="w-4 h-4 text-[#782045]" />
+                      <Award className="w-4 h-4 text-plum" />
                       <span>Certified Quality Supermarket Goods</span>
                     </div>
                   </div>
@@ -497,7 +497,7 @@ export default function ProductDetailModal({
                             key={key} 
                             className={`border-b border-gray-100 ${idx % 2 === 0 ? 'bg-gray-50/50' : 'bg-white'}`}
                           >
-                            <td className="px-4 py-2 font-extrabold text-[#782045] w-1/3 border-r border-gray-100">{key}</td>
+                            <td className="px-4 py-2 font-extrabold text-plum w-1/3 border-r border-gray-100">{key}</td>
                             <td className="px-4 py-2 text-gray-700 font-semibold">{value}</td>
                           </tr>
                         ))}
@@ -533,7 +533,7 @@ export default function ProductDetailModal({
                     {/* Write a review form */}
                     <form onSubmit={handleReviewSubmit} className="border-t border-gray-100 pt-4 mt-2 space-y-3">
                       <div className="flex items-center gap-1 text-xs font-black text-gray-700 uppercase">
-                        <MessageSquare className="w-4 h-4 text-[#782045]" />
+                        <MessageSquare className="w-4 h-4 text-plum" />
                         <span>Write a Customer Review</span>
                       </div>
                       
@@ -552,7 +552,7 @@ export default function ProductDetailModal({
                             placeholder="e.g., Jane Kemunto"
                             value={reviewName}
                             onChange={(e) => setReviewName(e.target.value)}
-                            className="w-full px-3 py-2 rounded-lg border border-gray-300 outline-none focus:border-[#782045] font-semibold text-xs"
+                            className="w-full px-3 py-2 rounded-lg border border-gray-300 outline-none focus:border-plum font-semibold text-xs"
                           />
                         </div>
                         <div>
@@ -560,7 +560,7 @@ export default function ProductDetailModal({
                           <select 
                             value={reviewRating}
                             onChange={(e) => setReviewRating(Number(e.target.value))}
-                            className="w-full px-3 py-2 rounded-lg border border-gray-300 outline-none focus:border-[#782045] font-bold text-xs bg-white"
+                            className="w-full px-3 py-2 rounded-lg border border-gray-300 outline-none focus:border-plum font-bold text-xs bg-white"
                           >
                             <option value={5}>5 Stars - Safi / Excellent</option>
                             <option value={4}>4 Stars - Great / Very Good</option>
@@ -579,13 +579,13 @@ export default function ProductDetailModal({
                           placeholder="Tell Kenyan shoppers what you think about this grocery standard..."
                           value={reviewComment}
                           onChange={(e) => setReviewComment(e.target.value)}
-                          className="w-full px-3 py-2 rounded-lg border border-gray-300 outline-none focus:border-[#782045] font-medium text-xs"
+                          className="w-full px-3 py-2 rounded-lg border border-gray-300 outline-none focus:border-plum font-medium text-xs"
                         />
                       </div>
 
                       <button 
                         type="submit"
-                        className="bg-[#782045] hover:bg-[#4a1028] text-white text-[10px] font-bold py-2 px-4 rounded-lg flex items-center justify-center gap-1 transition-colors cursor-pointer shadow-sm"
+                        className="bg-plum hover:bg-plum-dark text-white text-[10px] font-bold py-2 px-4 rounded-lg flex items-center justify-center gap-1 transition-colors cursor-pointer shadow-sm"
                       >
                         <span>Publish Review</span>
                         <Send className="w-3 h-3" />
@@ -619,11 +619,11 @@ export default function ProductDetailModal({
                   <div className="flex items-center gap-3 bg-gray-50 dark:bg-gray-850 p-3 rounded-xl border border-gray-150 dark:border-gray-800/85 max-w-[240px]">
                     <div className="relative w-12 h-12 rounded-lg overflow-hidden border border-gray-200 bg-white flex-shrink-0">
                       <img src={product.image} className="w-full h-full object-cover" alt={product.name} />
-                      <span className="absolute bottom-0 right-0 bg-[#782045] text-white text-[8px] px-1 font-bold rounded-tl">This Item</span>
+                      <span className="absolute bottom-0 right-0 bg-plum text-white text-[8px] px-1 font-bold rounded-tl">This Item</span>
                     </div>
                     <div className="flex-1 min-w-0">
                       <h4 className="font-black text-gray-800 dark:text-gray-200 text-xs truncate">{product.name}</h4>
-                      <p className="text-[#782045] dark:text-pink-400 font-extrabold text-[11px] mt-0.5">{formatMoney(product.price)}</p>
+                      <p className="text-plum dark:text-pink-400 font-extrabold text-[11px] mt-0.5">{formatMoney(product.price)}</p>
                     </div>
                   </div>
 
@@ -673,7 +673,7 @@ export default function ProductDetailModal({
                   <div className="space-y-1">
                     <span className="text-[10px] text-gray-400 dark:text-gray-500 font-extrabold uppercase tracking-wider block">Bundle pricing</span>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-lg sm:text-xl font-black text-amber-600 dark:text-amber-400">
+                      <span className="text-lg sm:text-xl font-black text-orange dark:text-orange-light">
                         {formatMoney(
                           product.price + 
                           suggestedItems
@@ -701,7 +701,7 @@ export default function ProductDetailModal({
                       });
                       onClose();
                     }}
-                    className="w-full bg-amber-500 hover:bg-amber-600 dark:bg-amber-600 dark:hover:bg-amber-700 text-gray-950 dark:text-white font-black text-xs uppercase tracking-wider py-3 px-4 rounded-xl shadow-md transition-colors cursor-pointer flex items-center justify-center gap-2"
+                    className="w-full bg-orange hover:bg-orange/85 text-white font-black text-xs uppercase tracking-wider py-3 px-4 rounded-xl shadow-md transition-colors cursor-pointer flex items-center justify-center gap-2"
                   >
                     <ListPlus className="w-4 h-4" />
                     <span>Add Bundle to Basket</span>
@@ -717,7 +717,7 @@ export default function ProductDetailModal({
         {relatedProducts.length > 0 && (
           <div className="border-t border-gray-150 p-5 sm:p-8 bg-gray-50/50">
             <h3 className="font-black text-gray-800 text-sm mb-4 flex items-center gap-1.5 uppercase tracking-wide">
-              <Sparkles className="w-4 h-4 text-[#782045]" />
+              <Sparkles className="w-4 h-4 text-plum" />
               <span>Related Customer Favorites</span>
             </h3>
             
@@ -731,7 +731,7 @@ export default function ProductDetailModal({
                       onNavigateToProduct(p);
                       setQty(1);
                     }}
-                    className="bg-white rounded-xl border border-gray-150 p-3 hover:border-[#782045] hover:shadow-lg cursor-pointer transition-all flex flex-col justify-between group"
+                    className="bg-white rounded-xl border border-gray-150 p-3 hover:border-plum hover:shadow-lg cursor-pointer transition-all flex flex-col justify-between group"
                   >
                     <div className="aspect-square bg-gray-50 rounded-lg overflow-hidden relative mb-2">
                       <img 
@@ -743,22 +743,22 @@ export default function ProductDetailModal({
                         }}
                       />
                       {discountVal > 0 && (
-                        <span className="absolute top-1 left-1 bg-red-600 text-white font-extrabold text-[8px] px-1.5 py-0.5 rounded shadow-sm">
+                        <span className="absolute top-1 left-1 bg-red text-white font-extrabold text-[8px] px-1.5 py-0.5 rounded shadow-sm">
                           -{discountVal}%
                         </span>
                       )}
                     </div>
                     
                     <div>
-                      <span className="text-[9px] text-[#782045] font-bold block">{p.brand || 'Kipchimatt'}</span>
-                      <h4 className="font-bold text-gray-800 text-[11px] line-clamp-2 leading-tight h-7 mt-0.5 group-hover:text-[#782045] transition-colors">
+                      <span className="text-[9px] text-plum-light font-bold block">{p.brand || 'Kipchimatt'}</span>
+                      <h4 className="font-bold text-gray-800 text-[11px] line-clamp-2 leading-tight h-7 mt-0.5 group-hover:text-plum transition-colors">
                         {p.name}
                       </h4>
                     </div>
 
                     <div className="flex items-baseline justify-between mt-2 pt-1 border-t border-gray-50">
-                      <span className="text-xs font-black text-[#782045]">{formatMoney(p.price)}</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-gray-300 group-hover:text-[#782045] transition-colors group-hover:translate-x-1 duration-200" />
+                      <span className="text-xs font-black text-plum">{formatMoney(p.price)}</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-gray-300 group-hover:text-plum transition-colors group-hover:translate-x-1 duration-200" />
                     </div>
                   </div>
                 );

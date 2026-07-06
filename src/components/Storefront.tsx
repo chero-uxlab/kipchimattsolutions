@@ -253,7 +253,7 @@ export default function Storefront({
     return (
       <div 
         key={p.id} 
-        className="bg-white rounded-xl overflow-hidden border border-gray-150 hover:border-[#782045]/20 hover:shadow-xl transition-all duration-300 flex flex-col group relative"
+        className="bg-white rounded-xl overflow-hidden border border-gray-150 hover:border-plum/20 hover:shadow-xl transition-all duration-300 flex flex-col group relative"
       >
         <div 
           onClick={() => onProductClick(p)}
@@ -293,7 +293,7 @@ export default function Storefront({
 
         <div className="p-4 flex-1 flex flex-col">
           <div className="flex items-center justify-between gap-2 mb-1">
-            <span className="text-[10px] text-[#782045] font-black uppercase tracking-widest truncate">
+            <span className="text-[10px] text-plum font-black uppercase tracking-widest truncate">
               {p.brand || 'Kipchimatt'}
             </span>
             {p.rating && (
@@ -315,14 +315,14 @@ export default function Storefront({
           </div>
           <h4 
             onClick={() => onProductClick(p)}
-            className="font-bold text-gray-800 text-xs sm:text-sm line-clamp-2 h-9 sm:h-10 leading-tight mb-2 group-hover:text-[#782045] transition-colors cursor-pointer"
+            className="font-bold text-gray-800 text-xs sm:text-sm line-clamp-2 h-9 sm:h-10 leading-tight mb-2 group-hover:text-plum transition-colors cursor-pointer"
           >
             {p.name}
           </h4>
 
           <div className="mb-3">
             <div className="flex items-baseline gap-1.5 flex-wrap">
-              <span className="text-base font-extrabold text-[#782045]">
+              <span className="text-base font-extrabold text-plum">
                 {formatMoney(p.price)}
               </span>
               {p.originalPrice > p.price && (
@@ -337,12 +337,12 @@ export default function Storefront({
               </span>
             )}
             
-            <label className="flex items-center gap-1.5 mt-2.5 cursor-pointer select-none text-[11px] font-bold text-gray-500 hover:text-[#782045] dark:text-gray-450">
+            <label className="flex items-center gap-1.5 mt-2.5 cursor-pointer select-none text-[11px] font-bold text-gray-500 hover:text-plum dark:text-gray-450">
               <input 
                 type="checkbox"
                 checked={comparedProductIds.includes(p.id)}
                 onChange={(e) => { e.stopPropagation(); onToggleCompare(p); }}
-                className="rounded border-gray-350 dark:border-gray-755 text-[#782045] focus:ring-[#782045] w-3.5 h-3.5 cursor-pointer"
+                className="rounded border-gray-350 dark:border-gray-755 text-plum focus:ring-plum w-3.5 h-3.5 cursor-pointer"
               />
               <span>Compare specs</span>
             </label>
@@ -363,7 +363,7 @@ export default function Storefront({
             <button 
               onClick={() => handleAddToCartClick(p)}
               disabled={isOutOfStock}
-              className={`w-full py-2 rounded-lg font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer transition-colors ${isOutOfStock ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : addedProductId === p.id ? 'bg-emerald-600 text-white' : 'bg-[#782045] text-white hover:bg-[#4a1028]'}`}
+              className={`w-full py-2 rounded-lg font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer transition-colors ${isOutOfStock ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : addedProductId === p.id ? 'bg-emerald-600 text-white' : 'bg-plum text-white hover:bg-plum-dark'}`}
             >
               {addedProductId === p.id ? (
                 <>
@@ -552,8 +552,8 @@ export default function Storefront({
 
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-200 pb-4 mb-6">
               <div className="flex items-center gap-2">
-                <div className="p-2 bg-purple-50 rounded-xl text-[#782045]">
-                  <LayoutGrid className="w-5 h-5 text-[#782045]" />
+                <div className="p-2 bg-plum/5 rounded-xl text-plum">
+                  <LayoutGrid className="w-5 h-5 text-plum" />
                 </div>
                 <div>
                   <h2 className="text-base sm:text-lg font-black text-gray-800 flex items-center gap-2">
@@ -564,7 +564,7 @@ export default function Storefront({
                         ? 'All Kikapu Products'
                         : categoryMeta.find(c => c.key === activeCategory)?.label || 'Products'}
                     </span>
-                    <span className="text-xs bg-[#782045]/10 text-[#782045] font-black px-2.5 py-1 rounded-full uppercase tracking-wider">
+                    <span className="text-xs bg-plum/10 text-plum font-black px-2.5 py-1 rounded-full uppercase tracking-wider">
                       {getFilteredProducts().length} Items
                     </span>
                   </h2>
@@ -579,7 +579,7 @@ export default function Storefront({
                     id="store-sort-select"
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="bg-white border border-gray-250 text-gray-700 text-xs font-extrabold px-3 py-1.5 rounded-xl outline-none focus:border-[#782045] focus:ring-1 focus:ring-[#782045] cursor-pointer"
+                    className="bg-white border border-gray-250 text-gray-700 text-xs font-extrabold px-3 py-1.5 rounded-xl outline-none focus:border-plum focus:ring-1 focus:ring-plum cursor-pointer"
                   >
                     <option value="default">Default / Featured</option>
                     <option value="price-asc">Price: Low to High</option>
@@ -591,7 +591,7 @@ export default function Storefront({
                 {(activeSearch || activeCategory !== 'all' || sortBy !== 'default') && (
                   <button 
                     onClick={() => { onCategorySelect('all'); onBrandSelect(''); setSortBy('default'); }}
-                    className="text-xs font-black text-[#782045] bg-purple-50 hover:bg-purple-100 px-3.5 py-1.5 rounded-xl transition-colors cursor-pointer"
+                    className="text-xs font-black text-plum bg-plum/5 hover:bg-plum/10 px-3.5 py-1.5 rounded-xl transition-colors cursor-pointer"
                   >
                     Reset Filters
                   </button>
@@ -625,7 +625,7 @@ export default function Storefront({
                 <p className="text-gray-500 text-xs mb-6">We couldn't find matches for your search. Try adjusting terms or selecting a category.</p>
                 <button 
                   onClick={() => { onCategorySelect('all'); onBrandSelect(''); }}
-                  className="bg-[#782045] hover:bg-[#4a1028] text-white text-xs font-bold px-6 py-2.5 rounded-full cursor-pointer transition-colors shadow-sm"
+                  className="bg-plum hover:bg-plum-dark text-white text-xs font-bold px-6 py-2.5 rounded-full cursor-pointer transition-colors shadow-sm"
                 >
                   Show All Products
                 </button>
@@ -639,7 +639,7 @@ export default function Storefront({
             <section className="py-6">
               <div className="mb-4">
                 <h2 className="text-base font-extrabold text-gray-800 flex items-center gap-2">
-                  <LayoutGrid className="w-5 h-5 text-[#782045]" />
+                  <LayoutGrid className="w-5 h-5 text-plum" />
                   <span>Shop by Category</span>
                 </h2>
               </div>
@@ -648,9 +648,9 @@ export default function Storefront({
                   <div 
                     key={c.key}
                     onClick={() => onCategorySelect(c.key)}
-                    className="bg-white border border-gray-150 rounded-xl p-4 text-center cursor-pointer transition-all duration-200 hover:border-[#782045] hover:shadow-md hover:-translate-y-0.5 select-none"
+                    className="bg-white border border-gray-150 rounded-xl p-4 text-center cursor-pointer transition-all duration-200 hover:border-plum hover:shadow-md hover:-translate-y-0.5 select-none"
                   >
-                    <div className="w-10 h-10 rounded-full bg-[#782045]/5 text-[#782045] flex items-center justify-center mx-auto mb-2">
+                    <div className="w-10 h-10 rounded-full bg-plum/5 text-plum flex items-center justify-center mx-auto mb-2">
                       {getCategoryIcon(c.icon)}
                     </div>
                     <span className="text-[11px] font-bold text-gray-700 block line-clamp-1">{c.label}</span>
@@ -661,10 +661,10 @@ export default function Storefront({
 
             {/* Frequently Bought Together Add-ons */}
             {cart.length > 0 && getFrequentlyBoughtTogether().length > 0 && (
-              <section className="py-6 bg-[#782045]/5 dark:bg-pink-950/10 rounded-3xl p-5 border border-[#782045]/15 dark:border-pink-800/20 mb-6">
+              <section className="py-6 bg-plum/5 dark:bg-pink-950/10 rounded-3xl p-5 border border-plum/15 dark:border-pink-800/20 mb-6">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
                   <div>
-                    <h2 className="text-sm font-black text-[#782045] dark:text-pink-300 flex items-center gap-2">
+                    <h2 className="text-sm font-black text-plum dark:text-pink-300 flex items-center gap-2">
                       <Sparkles className="w-5 h-5 text-amber-500 fill-amber-500 animate-pulse" />
                       <span>Frequently Bought Together Add-ons</span>
                     </h2>
@@ -672,7 +672,7 @@ export default function Storefront({
                       Based on items currently in your cart, customers also buy these items together:
                     </p>
                   </div>
-                  <span className="text-[9px] bg-[#782045] text-white font-black uppercase px-2.5 py-1 rounded-full tracking-wider self-start sm:self-auto shadow-sm">
+                  <span className="text-[9px] bg-plum text-white font-black uppercase px-2.5 py-1 rounded-full tracking-wider self-start sm:self-auto shadow-sm">
                     Kikapu Smart Suggest
                   </span>
                 </div>
@@ -702,12 +702,12 @@ export default function Storefront({
                         <div className="flex-1 min-w-0">
                           <h4 
                             onClick={() => onProductClick(p)}
-                            className="font-bold text-gray-800 dark:text-white text-xs line-clamp-1 hover:text-[#782045] dark:hover:text-pink-300 cursor-pointer"
+                            className="font-bold text-gray-800 dark:text-white text-xs line-clamp-1 hover:text-plum dark:hover:text-pink-300 cursor-pointer"
                           >
                             {p.name}
                           </h4>
                           <span className="text-[10px] text-gray-400 font-bold block">{p.brand}</span>
-                          <span className="text-xs font-black text-[#782045] dark:text-pink-400 mt-0.5 block">
+                          <span className="text-xs font-black text-plum dark:text-pink-400 mt-0.5 block">
                             {formatMoney(p.price)}
                           </span>
                         </div>
@@ -752,14 +752,14 @@ export default function Storefront({
                   <div className="flex items-center gap-1.5">
                     <button 
                       onClick={() => scrollCarousel(dealsRef, -1)}
-                      className="w-8 h-8 rounded-full border border-gray-200 bg-white text-gray-600 hover:bg-[#782045] hover:text-white flex items-center justify-center cursor-pointer transition-colors shadow-sm"
+                      className="w-8 h-8 rounded-full border border-gray-200 bg-white text-gray-600 hover:bg-plum hover:text-white flex items-center justify-center cursor-pointer transition-colors shadow-sm"
                       aria-label="Scroll left"
                     >
                       <ChevronLeft className="w-4 h-4" />
                     </button>
                     <button 
                       onClick={() => scrollCarousel(dealsRef, 1)}
-                      className="w-8 h-8 rounded-full border border-gray-200 bg-white text-gray-600 hover:bg-[#782045] hover:text-white flex items-center justify-center cursor-pointer transition-colors shadow-sm"
+                      className="w-8 h-8 rounded-full border border-gray-200 bg-white text-gray-600 hover:bg-plum hover:text-white flex items-center justify-center cursor-pointer transition-colors shadow-sm"
                       aria-label="Scroll right"
                     >
                       <ChevronRight className="w-4 h-4" />
@@ -783,7 +783,7 @@ export default function Storefront({
             <section className="py-6">
               <div className="mb-4">
                 <h2 className="text-base font-extrabold text-gray-800 flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-[#782045]" />
+                  <Sparkles className="w-5 h-5 text-plum" />
                   <span>Popular Products</span>
                 </h2>
               </div>
@@ -803,13 +803,13 @@ export default function Storefront({
                   <div className="flex items-center gap-1.5">
                     <button 
                       onClick={() => scrollCarousel(freshRef, -1)}
-                      className="w-8 h-8 rounded-full border border-gray-200 bg-white text-gray-600 hover:bg-[#782045] hover:text-white flex items-center justify-center cursor-pointer transition-colors shadow-sm"
+                      className="w-8 h-8 rounded-full border border-gray-200 bg-white text-gray-600 hover:bg-plum hover:text-white flex items-center justify-center cursor-pointer transition-colors shadow-sm"
                     >
                       <ChevronLeft className="w-4 h-4" />
                     </button>
                     <button 
                       onClick={() => scrollCarousel(freshRef, 1)}
-                      className="w-8 h-8 rounded-full border border-gray-200 bg-white text-gray-600 hover:bg-[#782045] hover:text-white flex items-center justify-center cursor-pointer transition-colors shadow-sm"
+                      className="w-8 h-8 rounded-full border border-gray-200 bg-white text-gray-600 hover:bg-plum hover:text-white flex items-center justify-center cursor-pointer transition-colors shadow-sm"
                     >
                       <ChevronRight className="w-4 h-4" />
                     </button>
@@ -839,13 +839,13 @@ export default function Storefront({
                   <div className="flex items-center gap-1.5">
                     <button 
                       onClick={() => scrollCarousel(beverageRef, -1)}
-                      className="w-8 h-8 rounded-full border border-gray-200 bg-white text-gray-600 hover:bg-[#782045] hover:text-white flex items-center justify-center cursor-pointer transition-colors shadow-sm"
+                      className="w-8 h-8 rounded-full border border-gray-200 bg-white text-gray-600 hover:bg-plum hover:text-white flex items-center justify-center cursor-pointer transition-colors shadow-sm"
                     >
                       <ChevronLeft className="w-4 h-4" />
                     </button>
                     <button 
                       onClick={() => scrollCarousel(beverageRef, 1)}
-                      className="w-8 h-8 rounded-full border border-gray-200 bg-white text-gray-600 hover:bg-[#782045] hover:text-white flex items-center justify-center cursor-pointer transition-colors shadow-sm"
+                      className="w-8 h-8 rounded-full border border-gray-200 bg-white text-gray-600 hover:bg-plum hover:text-white flex items-center justify-center cursor-pointer transition-colors shadow-sm"
                     >
                       <ChevronRight className="w-4 h-4" />
                     </button>
@@ -878,13 +878,13 @@ export default function Storefront({
                   <div className="flex items-center gap-1.5">
                     <button 
                       onClick={() => scrollCarousel(liquorRef, -1)}
-                      className="w-8 h-8 rounded-full border border-gray-200 bg-white text-gray-600 hover:bg-[#782045] hover:text-white flex items-center justify-center cursor-pointer transition-colors shadow-sm"
+                      className="w-8 h-8 rounded-full border border-gray-200 bg-white text-gray-600 hover:bg-plum hover:text-white flex items-center justify-center cursor-pointer transition-colors shadow-sm"
                     >
                       <ChevronLeft className="w-4 h-4" />
                     </button>
                     <button 
                       onClick={() => scrollCarousel(liquorRef, 1)}
-                      className="w-8 h-8 rounded-full border border-gray-200 bg-white text-gray-600 hover:bg-[#782045] hover:text-white flex items-center justify-center cursor-pointer transition-colors shadow-sm"
+                      className="w-8 h-8 rounded-full border border-gray-200 bg-white text-gray-600 hover:bg-plum hover:text-white flex items-center justify-center cursor-pointer transition-colors shadow-sm"
                     >
                       <ChevronRight className="w-4 h-4" />
                     </button>
@@ -912,7 +912,7 @@ export default function Storefront({
                       <Sparkles className="w-5 h-5 text-amber-500 fill-amber-500 animate-pulse" />
                       <span>Recommended For You</span>
                       {!recommendationData.isFallback && (
-                        <span className="text-[9px] bg-[#782045] text-white font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                        <span className="text-[9px] bg-plum text-white font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">
                           {recommendationData.reason === 'purchased' ? 'Based on Purchases' : 'Based on Wishlist'}
                         </span>
                       )}
@@ -929,8 +929,8 @@ export default function Storefront({
               </div>
 
               {recommendationData.isFallback && (
-                <div className="mb-5 p-4 bg-[#782045]/5 border border-[#782045]/15 rounded-2xl text-xs text-gray-600 font-semibold flex items-center gap-2.5">
-                  <Heart className="w-5 h-5 text-[#782045] fill-[#782045]" />
+                <div className="mb-5 p-4 bg-plum/5 border border-plum/15 rounded-2xl text-xs text-gray-600 font-semibold flex items-center gap-2.5">
+                  <Heart className="w-5 h-5 text-plum fill-plum" />
                   <span>
                     <strong>Personalize:</strong> Tap the heart icon on your favorite items or complete your first order to unlock smart, tailored recommendations matching your taste!
                   </span>
@@ -968,7 +968,7 @@ export default function Storefront({
                     <button
                       key={brand}
                       onClick={() => onBrandSelect(brand)}
-                      className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:border-[#782045] dark:hover:border-amber-400 hover:text-[#782045] dark:hover:text-amber-400 font-extrabold text-xs px-5 py-2.5 rounded-full cursor-pointer transition-all shadow-sm hover:shadow-md active:scale-95 text-gray-750 dark:text-gray-250"
+                      className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:border-plum dark:hover:border-orange hover:text-plum dark:hover:text-orange font-extrabold text-xs px-5 py-2.5 rounded-full cursor-pointer transition-all shadow-sm hover:shadow-md active:scale-95 text-gray-750 dark:text-gray-250"
                     >
                       {brand}
                     </button>

@@ -494,13 +494,13 @@ export default function CheckoutModal({
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 overflow-y-auto">
         {showFeedbackModal && (
           <div className="fixed inset-0 bg-black/65 flex items-center justify-center p-4 z-[100] animate-fade-in">
-            <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl w-full max-w-md border border-gray-250 dark:border-gray-800 p-6 flex flex-col items-center text-center space-y-5 animate-scale-up border-r-4 border-r-[#782045]">
+            <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl w-full max-w-md border border-gray-250 dark:border-gray-800 p-6 flex flex-col items-center text-center space-y-5 animate-scale-up border-r-4 border-r-plum">
               <div className="w-12 h-12 rounded-full bg-amber-50 dark:bg-amber-950/40 text-amber-500 flex items-center justify-center shadow-inner">
                 <Star className="w-6 h-6 fill-amber-400 text-amber-500 animate-pulse" />
               </div>
 
               <div className="space-y-1.5">
-                <h3 className="text-lg font-black text-[#782045] dark:text-pink-300">Rate Your Experience</h3>
+                <h3 className="text-lg font-black text-plum dark:text-pink-300">Rate Your Experience</h3>
                 <p className="text-xs text-gray-500 dark:text-gray-400 font-bold px-2">
                   Asante for choosing Kipchimatt! How was your overall shopping experience today?
                 </p>
@@ -545,7 +545,7 @@ export default function CheckoutModal({
 
                   {/* Optional rating descriptions */}
                   {rating > 0 && (
-                    <span className="text-xs font-black text-[#782045] bg-[#782045]/5 dark:text-pink-300 dark:bg-[#782045]/15 px-3 py-1 rounded-full uppercase tracking-wider">
+                    <span className="text-xs font-black text-plum bg-plum/5 dark:text-pink-300 dark:bg-plum/15 px-3 py-1 rounded-full uppercase tracking-wider">
                       {rating === 1 && '😢 Poor'}
                       {rating === 2 && '😕 Below Average'}
                       {rating === 3 && '😐 Average / Okay'}
@@ -562,7 +562,7 @@ export default function CheckoutModal({
                       onChange={(e) => setFeedbackComment(e.target.value)}
                       placeholder="Tell us what we did great, or how we can improve..."
                       rows={3}
-                      className="w-full p-3 text-xs bg-gray-50 dark:bg-gray-850 dark:text-white border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-1 focus:ring-[#782045] focus:outline-none font-semibold resize-none"
+                      className="w-full p-3 text-xs bg-gray-50 dark:bg-gray-850 dark:text-white border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-1 focus:ring-plum focus:outline-none font-semibold resize-none"
                     />
                   </div>
 
@@ -585,7 +585,7 @@ export default function CheckoutModal({
                           setShowFeedbackModal(false);
                         }, 1800);
                       }}
-                      className="flex-1 bg-[#782045] hover:bg-[#4a1028] text-white font-extrabold text-xs py-2.5 rounded-full shadow-lg cursor-pointer transition-colors"
+                      className="flex-1 bg-plum hover:bg-plum-dark text-white font-extrabold text-xs py-2.5 rounded-full shadow-lg cursor-pointer transition-colors"
                     >
                       Submit Feedback
                     </button>
@@ -613,7 +613,7 @@ export default function CheckoutModal({
           </div>
           
           <div className="space-y-1">
-            <h3 className="text-xl font-black text-[#782045]">Asante Sana!</h3>
+            <h3 className="text-xl font-black text-plum">Asante Sana!</h3>
             <p className="text-sm font-bold text-gray-800">Your order has been placed successfully!</p>
             <p className="text-xs text-gray-500 font-semibold">Order Reference: #{placedOrder.id.slice(-6).toUpperCase()}</p>
           </div>
@@ -633,7 +633,7 @@ export default function CheckoutModal({
             </div>
             <div className="text-right text-xs">
               <span className="text-[9px] text-gray-400 font-bold block uppercase tracking-wider">New Balance</span>
-              <span className="text-sm font-black text-[#782045]">{placedOrder.customer.points || 0} pts</span>
+              <span className="text-sm font-black text-plum">{placedOrder.customer.points || 0} pts</span>
             </div>
           </div>
 
@@ -653,7 +653,7 @@ export default function CheckoutModal({
             </div>
             <div className="flex justify-between pt-1 font-bold">
               <span>Grand Total Paid</span>
-              <span className="text-sm font-black text-[#782045]">{formatMoney(placedOrder.total)}</span>
+              <span className="text-sm font-black text-plum">{formatMoney(placedOrder.total)}</span>
             </div>
           </div>
 
@@ -662,12 +662,12 @@ export default function CheckoutModal({
               onClick={handlePrint}
               className="flex-1 bg-white hover:bg-gray-50 border border-gray-300 text-gray-800 font-bold text-xs py-3.5 rounded-full flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-sm"
             >
-              <Printer className="w-4 h-4 text-[#782045]" />
+              <Printer className="w-4 h-4 text-plum" />
               <span>Print Receipt</span>
             </button>
             <button
               onClick={onClose}
-              className="flex-1 bg-[#782045] hover:bg-[#4a1028] text-white font-bold text-xs py-3.5 rounded-full flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-sm"
+              className="flex-1 bg-plum hover:bg-plum-dark text-white font-bold text-xs py-3.5 rounded-full flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-sm"
             >
               <ShoppingBag className="w-4 h-4" />
               <span>Continue Shopping</span>
@@ -684,8 +684,8 @@ export default function CheckoutModal({
         
         {/* Header */}
         <div className="p-5 border-b border-gray-150 flex justify-between items-center bg-white sticky top-0 z-10">
-          <h3 className="font-extrabold text-[#782045] text-base flex items-center gap-2">
-            <CreditCard className="w-5 h-5 text-[#782045]" />
+          <h3 className="font-extrabold text-plum text-base flex items-center gap-2">
+            <CreditCard className="w-5 h-5 text-plum" />
             <span>Secure Checkout</span>
           </h3>
           <button 
@@ -700,7 +700,7 @@ export default function CheckoutModal({
           
           {/* Order Summary box */}
           <div className="bg-gray-50 border border-gray-150 rounded-xl p-4.5 space-y-3 text-xs">
-            <h4 className="font-extrabold text-[#782045] flex items-center gap-1.5 text-xs">
+            <h4 className="font-extrabold text-plum flex items-center gap-1.5 text-xs">
               <Receipt className="w-4 h-4" />
               <span>Order Summary</span>
             </h4>
@@ -723,18 +723,18 @@ export default function CheckoutModal({
                 <span>Delivery Fee</span>
                 <span>{deliveryFee === 0 ? 'FREE' : formatMoney(deliveryFee)}</span>
               </div>
-              <div className="flex justify-between items-center text-[#782045] font-black text-sm pt-2.5 border-t border-gray-250">
+              <div className="flex justify-between items-center text-plum font-black text-sm pt-2.5 border-t border-gray-250">
                 <span>Total Amount Due</span>
                 <span>{formatMoney(total)}</span>
               </div>
             </div>
 
             {county && (
-              <div className="mt-4 bg-[#782045]/5 dark:bg-[#782045]/10 border border-[#782045]/15 p-3 rounded-xl space-y-1 text-left">
-                <div className="flex items-center gap-1.5 text-[#782045] font-extrabold text-[10px] uppercase tracking-wider">
+              <div className="mt-4 bg-plum/5 dark:bg-plum/10 border border-plum/15 p-3 rounded-xl space-y-1 text-left">
+                <div className="flex items-center gap-1.5 text-plum font-extrabold text-[10px] uppercase tracking-wider">
                   <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#782045] opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#782045]"></span>
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-plum opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-plum"></span>
                   </span>
                   <span>Estimated Arrival Time</span>
                 </div>
@@ -756,7 +756,7 @@ export default function CheckoutModal({
           {/* Delivery & Billing form */}
           <form id="checkout-billing-form" onSubmit={(e) => handleSubmit(e)} className="space-y-5 text-xs font-semibold text-gray-700">
             <h4 className="font-extrabold text-gray-800 text-xs border-b border-gray-100 pb-1.5 mb-2 flex items-center gap-1.5 uppercase tracking-wide">
-              <FileText className="w-4 h-4 text-[#782045]" />
+              <FileText className="w-4 h-4 text-plum" />
               <span>Recipient & Delivery Address</span>
             </h4>
 
@@ -764,7 +764,7 @@ export default function CheckoutModal({
             <div className="bg-gray-50 border border-gray-150 rounded-2xl p-4 space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="p-2 bg-pink-100 text-[#782045] rounded-xl">
+                  <div className="p-2 bg-plum-fade text-plum rounded-xl">
                     <Mic className={`w-4 h-4 ${voiceStatus === 'listening' ? 'animate-pulse text-red-500' : ''}`} />
                   </div>
                   <div>
@@ -786,8 +786,8 @@ export default function CheckoutModal({
                   }}
                   className={`px-3 py-1.5 rounded-xl font-extrabold text-[10px] uppercase transition-all tracking-wide cursor-pointer border ${
                     voiceActive 
-                      ? 'bg-[#782045] text-white border-transparent' 
-                      : 'bg-white hover:bg-gray-50 text-[#782045] border-gray-200'
+                      ? 'bg-plum text-white border-transparent' 
+                      : 'bg-white hover:bg-gray-50 text-plum border-gray-200'
                   }`}
                 >
                   {voiceActive ? 'Disable Assistant' : 'Enable Assistant'}
@@ -815,11 +815,11 @@ export default function CheckoutModal({
                   {/* Audio Visualizer Waves */}
                   {voiceStatus === 'listening' && (
                     <div className="flex items-center gap-1 justify-center py-2 bg-slate-50 rounded-lg">
-                      <div className="w-1 h-3 bg-[#782045] rounded animate-bounce [animation-delay:0.1s]" />
-                      <div className="w-1 h-5 bg-[#782045] rounded animate-bounce [animation-delay:0.3s]" />
-                      <div className="w-1 h-7 bg-[#782045] rounded animate-bounce [animation-delay:0.5s]" />
-                      <div className="w-1 h-4 bg-[#782045] rounded animate-bounce [animation-delay:0.2s]" />
-                      <div className="w-1 h-2 bg-[#782045] rounded animate-bounce [animation-delay:0.4s]" />
+                      <div className="w-1 h-3 bg-plum rounded animate-bounce [animation-delay:0.1s]" />
+                      <div className="w-1 h-5 bg-plum rounded animate-bounce [animation-delay:0.3s]" />
+                      <div className="w-1 h-7 bg-plum rounded animate-bounce [animation-delay:0.5s]" />
+                      <div className="w-1 h-4 bg-plum rounded animate-bounce [animation-delay:0.2s]" />
+                      <div className="w-1 h-2 bg-plum rounded animate-bounce [animation-delay:0.4s]" />
                     </div>
                   )}
 
@@ -868,7 +868,7 @@ export default function CheckoutModal({
                 placeholder="e.g., John Kamau"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-[#782045] font-medium transition-colors"
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-plum font-medium transition-colors"
               />
             </div>
 
@@ -881,7 +881,7 @@ export default function CheckoutModal({
                   placeholder="07XX XXX XXX"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-[#782045] font-medium transition-colors"
+                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-plum font-medium transition-colors"
                 />
               </div>
               <div>
@@ -891,7 +891,7 @@ export default function CheckoutModal({
                   placeholder="john.kamau@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-[#782045] font-medium transition-colors"
+                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-plum font-medium transition-colors"
                 />
               </div>
             </div>
@@ -904,7 +904,7 @@ export default function CheckoutModal({
                 placeholder="Street name, Estate name, Apartment / Building & House No."
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-[#782045] font-medium transition-colors"
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-plum font-medium transition-colors"
               />
             </div>
 
@@ -917,7 +917,7 @@ export default function CheckoutModal({
                   placeholder="e.g., Nairobi"
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-[#782045] font-medium transition-colors"
+                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-plum font-medium transition-colors"
                 />
               </div>
               <div>
@@ -926,7 +926,7 @@ export default function CheckoutModal({
                   required
                   value={county}
                   onChange={(e) => setCounty(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-[#782045] bg-white transition-colors"
+                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-plum bg-white transition-colors"
                 >
                   <option value="">Select County</option>
                   <option value="Nairobi">Nairobi</option>
@@ -948,14 +948,14 @@ export default function CheckoutModal({
                 placeholder="Provide gate codes, landmark cues, instructions for the rider, or special grocery packaging instructions..."
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-[#782045] font-medium transition-colors"
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-plum font-medium transition-colors"
               />
             </div>
 
             {/* Interactive GPS Coordinate Grid Location Selector */}
             <div className="space-y-2 border border-slate-100 p-4 rounded-2xl bg-slate-50/50">
               <label className="block text-[11px] font-extrabold uppercase tracking-wider text-gray-800 flex items-center gap-1.5">
-                <Compass className="w-4 h-4 text-[#782045]" />
+                <Compass className="w-4 h-4 text-plum" />
                 <span>Precision GPS Pin Drop-Off Map</span>
               </label>
               <p className="text-[10px] text-gray-500 font-semibold leading-relaxed">
@@ -1017,7 +1017,7 @@ export default function CheckoutModal({
                 required
                 value={payment}
                 onChange={(e) => setPayment(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-[#782045] bg-white transition-colors animate-none"
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 outline-none focus:border-plum bg-white transition-colors animate-none"
               >
                 <option value="mpesa">M-Pesa (Pay-on-Delivery / On-site prompt)</option>
                 <option value="card">Credit or Debit Card</option>
@@ -1027,7 +1027,7 @@ export default function CheckoutModal({
 
             <button 
               type="submit"
-              className="w-full bg-[#782045] hover:bg-[#4a1028] text-white font-bold text-sm py-4 rounded-full flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-md mt-6"
+              className="w-full bg-plum hover:bg-plum-dark text-white font-bold text-sm py-4 rounded-full flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-md mt-6"
             >
               <CheckCircle className="w-5 h-5" />
               <span>Confirm & Place Order ({formatMoney(total)})</span>

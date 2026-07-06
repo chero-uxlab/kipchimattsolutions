@@ -34,11 +34,11 @@ export default function CompareModal({
       <div className="bg-white dark:bg-gray-950 rounded-3xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto border border-gray-150 dark:border-gray-850 flex flex-col">
         
         {/* Modal Header */}
-        <div className="p-6 border-b border-gray-100 dark:border-gray-850 flex justify-between items-center bg-[#782045]/5 dark:bg-[#782045]/10">
+        <div className="p-6 border-b border-gray-100 dark:border-gray-850 flex justify-between items-center bg-plum/5 dark:bg-plum/10">
           <div>
             <h3 className="text-lg font-black text-gray-800 dark:text-gray-100 uppercase tracking-tight flex items-center gap-2">
               <span>Product Spec Comparison</span>
-              <span className="text-xs bg-[#782045] text-white font-extrabold px-2 py-0.5 rounded-full">
+              <span className="text-xs bg-plum text-white font-extrabold px-2 py-0.5 rounded-full">
                 {products.length} / 3 Items
               </span>
             </h3>
@@ -85,7 +85,7 @@ export default function CompareModal({
                           className="w-20 h-20 object-cover rounded-lg border border-gray-100 dark:border-gray-800"
                         />
                         <div className="text-center space-y-1">
-                          <span className="text-[9px] text-[#782045] dark:text-pink-400 font-black uppercase tracking-wider block">
+                          <span className="text-[9px] text-plum dark:text-pink-400 font-black uppercase tracking-wider block">
                             {p.brand}
                           </span>
                           <span className="text-xs font-bold text-gray-800 dark:text-gray-100 block line-clamp-2 h-8 leading-tight">
@@ -103,7 +103,7 @@ export default function CompareModal({
                   <td className="p-3 bg-gray-50/50 dark:bg-gray-900/40 font-bold text-gray-600 dark:text-gray-400">Retail Price</td>
                   {products.map(p => (
                     <td key={p.id} className="p-3 text-center">
-                      <span className="text-sm font-black text-[#782045] dark:text-pink-400">{formatMoney(p.price)}</span>
+                      <span className="text-sm font-black text-plum dark:text-pink-400">{formatMoney(p.price)}</span>
                       {p.originalPrice > p.price && (
                         <span className="text-[10px] text-gray-400 dark:text-gray-500 line-through block mt-0.5">
                           {formatMoney(p.originalPrice)}
@@ -182,7 +182,7 @@ export default function CompareModal({
                         <button 
                           onClick={() => onAddToCart(p)}
                           disabled={isOutOfStock}
-                          className={`w-full max-w-[150px] mx-auto py-1.5 rounded-lg font-bold text-xs flex items-center justify-center gap-1 cursor-pointer transition-colors ${isOutOfStock ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : addedProductId === p.id ? 'bg-emerald-600 text-white' : 'bg-[#782045] text-white hover:bg-[#4a1028]'}`}
+                          className={`w-full max-w-[150px] mx-auto py-1.5 rounded-lg font-bold text-xs flex items-center justify-center gap-1 cursor-pointer transition-colors ${isOutOfStock ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : addedProductId === p.id ? 'bg-green text-white' : 'bg-plum text-white hover:bg-plum-dark'}`}
                         >
                           {addedProductId === p.id ? (
                             <>

@@ -120,7 +120,7 @@ export default function Hero({ onExploreCategory, onScrollToDeals, onScrollToBra
                 style={{ backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.85) 40%, rgba(0,0,0,0.4) 100%), url(${slide.image})` }}
               >
                 <div className="z-10 max-w-xl">
-                  <span className="bg-[#febd69] text-gray-950 px-3 py-1 rounded-full text-[10px] font-extrabold tracking-wider uppercase mb-3 inline-block">
+                  <span className="bg-yellow text-gray-950 px-3 py-1 rounded-full text-[10px] font-extrabold tracking-wider uppercase mb-3 inline-block">
                     Featured Department
                   </span>
                   <h1 className="text-2xl sm:text-3xl md:text-4.5xl font-black tracking-tight mb-3 text-white drop-shadow-sm">
@@ -131,7 +131,7 @@ export default function Hero({ onExploreCategory, onScrollToDeals, onScrollToBra
                   </p>
                   <button 
                     onClick={slide.action}
-                    className="flex items-center gap-2 bg-[#febd69] text-gray-950 hover:bg-[#f3a847] font-black text-xs sm:text-sm py-3 px-7 rounded-full hover:shadow-xl hover:-translate-y-0.5 transition-all cursor-pointer"
+                    className="flex items-center gap-2 bg-yellow text-gray-950 hover:bg-yellow/80 font-black text-xs sm:text-sm py-3 px-7 rounded-full hover:shadow-xl hover:-translate-y-0.5 transition-all cursor-pointer"
                   >
                     <ShoppingBag className="w-4 h-4" />
                     <span>{slide.btnText}</span>
@@ -163,7 +163,7 @@ export default function Hero({ onExploreCategory, onScrollToDeals, onScrollToBra
               <button
                 key={idx}
                 onClick={() => setCurrentSlide(idx)}
-                className={`h-2 rounded-full transition-all cursor-pointer ${currentSlide === idx ? 'bg-[#febd69] w-6' : 'bg-white/45 w-2'}`}
+                className={`h-2 rounded-full transition-all cursor-pointer ${currentSlide === idx ? 'bg-yellow w-6' : 'bg-white/45 w-2'}`}
                 aria-label={`Go to slide ${idx + 1}`}
               />
             ))}
@@ -172,56 +172,56 @@ export default function Hero({ onExploreCategory, onScrollToDeals, onScrollToBra
 
         {/* Promo Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-          <div className="bg-gradient-to-br from-amber-50 to-orange-100 border border-amber-200/50 rounded-xl p-6 relative overflow-hidden flex flex-col justify-between shadow-sm group">
+          <div className="bg-gradient-to-br from-orange-light/20 to-orange-light/5 border border-orange/25 rounded-xl p-6 relative overflow-hidden flex flex-col justify-between shadow-sm group">
             <div className="z-10">
-              <span className="text-[10px] font-extrabold text-amber-700 tracking-wider uppercase mb-1 block">Mega Savings</span>
+              <span className="text-[10px] font-extrabold text-orange tracking-wider uppercase mb-1 block">Mega Savings</span>
               <h3 className="font-extrabold text-gray-800 text-base mb-1">Today's Hot Deals</h3>
               <p className="text-gray-500 text-xs mb-4">Save up to 40% off on premium food pantry and home items.</p>
             </div>
             <button 
               onClick={onScrollToDeals}
-              className="w-fit bg-amber-600 hover:bg-amber-700 text-white text-[11px] font-extrabold px-4 py-2 rounded-lg cursor-pointer transition-colors shadow-sm"
+              className="w-fit bg-orange hover:bg-orange/80 text-white text-[11px] font-extrabold px-4 py-2 rounded-lg cursor-pointer transition-colors shadow-sm"
             >
               Shop Now
             </button>
-            <Tags className="w-20 h-20 text-amber-600/10 absolute -right-4 -bottom-4 -rotate-12 group-hover:scale-110 transition-transform" />
+            <Tags className="w-20 h-20 text-orange/10 absolute -right-4 -bottom-4 -rotate-12 group-hover:scale-110 transition-transform" />
           </div>
 
-          <div className="bg-gradient-to-br from-emerald-50 to-teal-100 border border-emerald-200/50 rounded-xl p-6 relative overflow-hidden flex flex-col justify-between shadow-sm group">
+          <div className="bg-gradient-to-br from-green-light/20 to-green-light/5 border border-green/25 rounded-xl p-6 relative overflow-hidden flex flex-col justify-between shadow-sm group">
             <div className="z-10">
-              <span className="text-[10px] font-extrabold text-emerald-700 tracking-wider uppercase mb-1 block">100% Organic</span>
+              <span className="text-[10px] font-extrabold text-green tracking-wider uppercase mb-1 block">100% Organic</span>
               <h3 className="font-extrabold text-gray-800 text-base mb-1">Fresh from the Farm</h3>
               <p className="text-gray-500 text-xs mb-4">Fresh handpicked vegetables, fruits, butchery cuts & dairy delivered daily.</p>
             </div>
             <button 
               onClick={() => onExploreCategory('fresh food')}
-              className="w-fit bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-extrabold px-4 py-2 rounded-lg cursor-pointer transition-colors shadow-sm"
+              className="w-fit bg-green hover:bg-green/80 text-white text-[11px] font-extrabold px-4 py-2 rounded-lg cursor-pointer transition-colors shadow-sm"
             >
               Explore Fresh Food
             </button>
-            <Leaf className="w-20 h-20 text-emerald-600/10 absolute -right-4 -bottom-4 -rotate-12 group-hover:scale-110 transition-transform" />
+            <Leaf className="w-20 h-20 text-green/10 absolute -right-4 -bottom-4 -rotate-12 group-hover:scale-110 transition-transform" />
           </div>
 
-          <div className="bg-gradient-to-br from-fuchsia-50 to-purple-100 border border-fuchsia-200/50 rounded-xl p-6 relative overflow-hidden flex flex-col justify-between shadow-sm group">
+          <div className="bg-gradient-to-br from-plum-fade to-plum-fade/30 border border-plum/25 rounded-xl p-6 relative overflow-hidden flex flex-col justify-between shadow-sm group">
             <div className="z-10">
-              <span className="text-[10px] font-extrabold text-fuchsia-700 tracking-wider uppercase mb-1 block">Best Brands</span>
+              <span className="text-[10px] font-extrabold text-plum tracking-wider uppercase mb-1 block">Best Brands</span>
               <h3 className="font-extrabold text-gray-800 text-base mb-1">Explore by Brand</h3>
               <p className="text-gray-500 text-xs mb-4">Choose from your absolute favorite domestic and global brands.</p>
             </div>
             <button 
-              onClick={onScrollToBrands}
-              className="w-fit bg-fuchsia-600 hover:bg-fuchsia-700 text-white text-[11px] font-extrabold px-4 py-2 rounded-lg cursor-pointer transition-colors shadow-sm"
+              onClick={onScrollToDeals}
+              className="w-fit bg-plum hover:bg-plum/80 text-white text-[11px] font-extrabold px-4 py-2 rounded-lg cursor-pointer transition-colors shadow-sm"
             >
               Discover Brands
             </button>
-            <Star className="w-20 h-20 text-fuchsia-600/10 absolute -right-4 -bottom-4 -rotate-12 group-hover:scale-110 transition-transform" />
+            <Star className="w-20 h-20 text-plum/10 absolute -right-4 -bottom-4 -rotate-12 group-hover:scale-110 transition-transform" />
           </div>
         </div>
 
         {/* Features Bar */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
-          <div className="bg-white border border-gray-150 rounded-xl p-4 flex items-center gap-3.5 shadow-sm hover:border-[#782045]/20 hover:shadow transition-all">
-            <div className="w-12 h-12 rounded-lg bg-[#782045]/5 text-[#782045] flex items-center justify-center flex-shrink-0">
+          <div className="bg-white border border-gray-150 rounded-xl p-4 flex items-center gap-3.5 shadow-sm hover:border-plum/20 hover:shadow transition-all">
+            <div className="w-12 h-12 rounded-lg bg-plum/5 text-plum flex items-center justify-center flex-shrink-0">
               <Truck className="w-6 h-6" />
             </div>
             <div>
@@ -230,8 +230,8 @@ export default function Hero({ onExploreCategory, onScrollToDeals, onScrollToBra
             </div>
           </div>
 
-          <div className="bg-white border border-gray-150 rounded-xl p-4 flex items-center gap-3.5 shadow-sm hover:border-[#782045]/20 hover:shadow transition-all">
-            <div className="w-12 h-12 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0">
+          <div className="bg-white border border-gray-150 rounded-xl p-4 flex items-center gap-3.5 shadow-sm hover:border-green/20 hover:shadow transition-all">
+            <div className="w-12 h-12 rounded-lg bg-green-light/20 text-green flex items-center justify-center flex-shrink-0">
               <ShieldCheck className="w-6 h-6" />
             </div>
             <div>
@@ -240,8 +240,8 @@ export default function Hero({ onExploreCategory, onScrollToDeals, onScrollToBra
             </div>
           </div>
 
-          <div className="bg-white border border-gray-150 rounded-xl p-4 flex items-center gap-3.5 shadow-sm hover:border-[#782045]/20 hover:shadow transition-all">
-            <div className="w-12 h-12 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
+          <div className="bg-white border border-gray-150 rounded-xl p-4 flex items-center gap-3.5 shadow-sm hover:border-yellow/20 hover:shadow transition-all">
+            <div className="w-12 h-12 rounded-lg bg-marigold-light text-marigold flex items-center justify-center flex-shrink-0">
               <RefreshCw className="w-6 h-6" />
             </div>
             <div>
@@ -250,8 +250,8 @@ export default function Hero({ onExploreCategory, onScrollToDeals, onScrollToBra
             </div>
           </div>
 
-          <div className="bg-white border border-gray-150 rounded-xl p-4 flex items-center gap-3.5 shadow-sm hover:border-[#782045]/20 hover:shadow transition-all">
-            <div className="w-12 h-12 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center flex-shrink-0">
+          <div className="bg-white border border-gray-150 rounded-xl p-4 flex items-center gap-3.5 shadow-sm hover:border-orange/20 hover:shadow transition-all">
+            <div className="w-12 h-12 rounded-lg bg-orange-light text-orange flex items-center justify-center flex-shrink-0">
               <Headset className="w-6 h-6" />
             </div>
             <div>

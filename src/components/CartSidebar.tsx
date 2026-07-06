@@ -41,7 +41,7 @@ export default function CartSidebar({
         
         {/* Header */}
         <div className="p-5 border-b border-gray-150 flex justify-between items-center bg-white sticky top-0 z-10">
-          <h3 className="font-extrabold text-[#782045] text-base flex items-center gap-2">
+          <h3 className="font-extrabold text-plum text-base flex items-center gap-2">
             <ShoppingBag className="w-5 h-5" />
             <span>Your Shopping Basket ({cart.reduce((s, i) => s + i.qty, 0)})</span>
           </h3>
@@ -76,7 +76,7 @@ export default function CartSidebar({
                   <h4 className="font-bold text-gray-800 text-xs sm:text-sm truncate">
                     {item.name}
                   </h4>
-                  <div className="text-xs font-black text-[#782045] mt-1">
+                  <div className="text-xs font-black text-plum mt-1">
                     {formatMoney(item.price * item.qty)}
                   </div>
                   
@@ -85,7 +85,7 @@ export default function CartSidebar({
                     <div className="flex items-center gap-2.5 bg-gray-50 border border-gray-150 rounded-lg p-1">
                       <button 
                         onClick={() => onQtyChange(item.id, -1)}
-                        className="w-6 h-6 rounded bg-white border border-gray-200 hover:bg-[#782045] hover:text-white text-gray-600 flex items-center justify-center cursor-pointer transition-colors text-xs"
+                        className="w-6 h-6 rounded bg-white border border-gray-200 hover:bg-plum hover:text-white text-gray-600 flex items-center justify-center cursor-pointer transition-colors text-xs"
                       >
                         <Minus className="w-3 h-3" />
                       </button>
@@ -94,7 +94,7 @@ export default function CartSidebar({
                       </span>
                       <button 
                         onClick={() => onQtyChange(item.id, 1)}
-                        className="w-6 h-6 rounded bg-white border border-gray-200 hover:bg-[#782045] hover:text-white text-gray-600 flex items-center justify-center cursor-pointer transition-colors text-xs"
+                        className="w-6 h-6 rounded bg-white border border-gray-200 hover:bg-plum hover:text-white text-gray-600 flex items-center justify-center cursor-pointer transition-colors text-xs"
                       >
                         <Plus className="w-3 h-3" />
                       </button>
@@ -113,7 +113,7 @@ export default function CartSidebar({
             ))
           ) : (
             <div className="text-center py-24 text-gray-400 select-none">
-              <ShoppingBag className="w-16 h-16 mx-auto mb-4 opacity-30 text-[#782045]" />
+              <ShoppingBag className="w-16 h-16 mx-auto mb-4 opacity-30 text-plum" />
               <h4 className="font-extrabold text-gray-700 text-sm mb-1">Your cart is empty</h4>
               <p className="text-xs text-gray-400 max-w-[220px] mx-auto leading-relaxed">Fill up your basket with premium groceries & household deals today.</p>
             </div>
@@ -141,7 +141,7 @@ export default function CartSidebar({
                 </span>
               </div>
               {deliveryFee > 0 && (
-                <div className="text-[10px] text-[#782045] font-semibold">
+                <div className="text-[10px] text-plum font-semibold">
                   Add {formatMoney(settings.freeDeliveryThreshold - subtotal)} more to qualify for FREE delivery!
                 </div>
               )}
@@ -149,12 +149,12 @@ export default function CartSidebar({
 
             <div className="flex justify-between items-center mb-5">
               <span className="text-sm font-extrabold text-gray-800">Total Due:</span>
-              <span className="text-lg font-black text-[#782045]">{formatMoney(total)}</span>
+              <span className="text-lg font-black text-plum">{formatMoney(total)}</span>
             </div>
 
             <button 
               onClick={onCheckout}
-              className="w-full bg-[#782045] hover:bg-[#4a1028] text-white font-bold py-3.5 px-6 rounded-full flex items-center justify-center gap-2 cursor-pointer shadow-md hover:shadow-lg transition-all"
+              className="w-full bg-plum hover:bg-plum-dark text-white font-bold py-3.5 px-6 rounded-full flex items-center justify-center gap-2 cursor-pointer shadow-md hover:shadow-lg transition-all"
             >
               <Lock className="w-4 h-4" />
               <span>Proceed to Checkout</span>
